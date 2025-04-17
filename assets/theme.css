@@ -86,6 +86,57 @@ button {
   cursor: pointer;
 }
 
+/* Custom CSS */
+@media screen and (max-width: 768px) {
+  .product-item.card figure, .card.js-collection-item figure {
+
+    animation: rotate 0.5s linear infinite;
+    animation-play-state: paused;
+    animation-delay: calc(var(--scroll) * -1s);
+
+    animation-iteration-count: 3;
+    animation-fill-mode: both;
+  }
+}
+
+@media screen and (min-width: 769px) {
+
+  .product-item.card figure, .card.js-collection-item figure, .text-animation--underline {
+    transition: transform 0.5s ease-in-out !important;
+  }
+
+  .product-item.card figure:hover, .card.js-collection-item figure:hover {
+
+    -webkit-transform: rotate(90deg); /* For Safari and Chrome */
+    transform: rotate(90deg); /* Standard syntax */
+  }
+
+  /* Changes product title when card is hovered */
+  .product-item.card:hover .text-animation--underline {
+  /* background-color: black !important; */
+  border: 1px solid black !important;
+  padding: 10px 20px !important;
+  color: black !important;
+  border-radius: 50px !important;
+}
+
+  /* Rotates image when title card is hovered */
+  .product-item.card:hover figure {
+  -webkit-transform: rotate(90deg); /* For Safari and Chrome */
+  transform: rotate(90deg); /* Standard syntax */
+  scale: 1 !important;
+}
+}
+
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* End of Custom CSS */
 .clearfix:after {
   content: "";
   display: table;
@@ -255,9 +306,9 @@ summary::-webkit-details-marker {
 .card a {
   color: var(--color-text-cards);
 }
-.card .text-animation--underline {
+/* .card .text-animation--underline {
   background-image: linear-gradient(to right, var(--color-text-cards), var(--color-text-cards));
-}
+} */
 
 @media screen and (max-width: 1023px) {
   .text-with-icon--tooltip .text-with-icon__label, .text-size--xsmall {
@@ -335,12 +386,14 @@ select, .text-size--regular {
 }
 @media screen and (max-width: 1023px) {
   .text-size--heading {
-    font-size: calc( 					38px / 60 * var(--base-headings-size) + 0px 				);
+    font-size: calc( 					28px / 60 * var(--base-headings-size) + 0px 				);
+    /* was 38 */
   }
 }
 @media screen and (min-width: 1024px) {
   .text-size--heading {
-    font-size: calc( 				42px / 60 * var(--base-headings-size) + 0px 			);
+    font-size: calc( 				32px / 60 * var(--base-headings-size) + 0px 			);
+     /* was 42 */   
   }
 }
 
@@ -578,72 +631,72 @@ select {
 .text-align--right {
   text-align: end;
 }
-.text-animation--underline {
+/* .text-animation--underline {
   background-image: linear-gradient(to right, var(--color-text-main), var(--color-text-main));
   background-size: 0% 2px;
   background-repeat: no-repeat;
   display: inline;
   padding-bottom: 3px;
   transition: all 100ms linear;
-}
-html[dir=rtl] .text-animation--underline {
+} */
+/* html[dir=rtl] .text-animation--underline {
   background-position: right calc(1em + 3px);
-}
-html[dir=ltr] .text-animation--underline {
+} */
+/* html[dir=ltr] .text-animation--underline {
   background-position: left calc(1em + 3px);
-}
-.no-touchevents a:hover .text-animation--underline, .no-touchevents button:hover .text-animation--underline {
+} */
+/* .no-touchevents a:hover .text-animation--underline, .no-touchevents button:hover .text-animation--underline {
   background-size: 100% 2px;
-}
-@media screen and (max-width: 1023px) {
+} */
+/* @media screen and (max-width: 1023px) {
   a .text-animation--underline.underline-mobile {
     background-size: 100% 2px;
   }
-}
-.text-animation--underline-thin {
+} */
+/* .text-animation--underline-thin {
   background-image: linear-gradient(to right, var(--color-text-main), var(--color-text-main));
   background-size: 0% 1px;
   background-repeat: no-repeat;
   display: inline;
   padding-bottom: 3px;
   transition: all 100ms linear;
-}
-html[dir=rtl] .text-animation--underline-thin {
+} */
+/* html[dir=rtl] .text-animation--underline-thin {
   background-position: right calc(1em + 2px);
-}
-html[dir=ltr] .text-animation--underline-thin {
+} */
+/* html[dir=ltr] .text-animation--underline-thin {
   background-position: left calc(1em + 2px);
-}
-.no-touchevents a:hover .text-animation--underline-thin, .no-touchevents button:hover .text-animation--underline-thin {
+} */
+/* .no-touchevents a:hover .text-animation--underline-thin, .no-touchevents button:hover .text-animation--underline-thin {
   background-size: 100% 1px;
-}
-@media screen and (max-width: 1023px) {
+} */
+/* @media screen and (max-width: 1023px) {
   a .text-animation--underline-thin.underline-mobile {
     background-size: 100% 1px;
   }
-}
-.text-animation--underline-in-header {
+} */
+/* .text-animation--underline-in-header {
   background-image: linear-gradient(to right, var(--color-accent-header), var(--color-accent-header));
   background-size: 0% 1px;
   background-repeat: no-repeat;
   display: inline;
   padding-bottom: 3px;
   transition: all 100ms linear;
-}
-html[dir=rtl] .text-animation--underline-in-header {
+} */
+/* html[dir=rtl] .text-animation--underline-in-header {
   background-position: right calc(1em + 2px);
-}
-html[dir=ltr] .text-animation--underline-in-header {
+} */
+/* html[dir=ltr] .text-animation--underline-in-header {
   background-position: left calc(1em + 2px);
-}
-.no-touchevents a:hover .text-animation--underline-in-header, .no-touchevents button:hover .text-animation--underline-in-header {
+} */
+/* .no-touchevents a:hover .text-animation--underline-in-header, .no-touchevents button:hover .text-animation--underline-in-header {
   background-size: 100% 1px;
-}
-@media screen and (max-width: 1023px) {
+} */
+/* @media screen and (max-width: 1023px) {
   a .text-animation--underline-in-header.underline-mobile {
     background-size: 100% 1px;
   }
-}
+} */
 .text-with-icon {
   position: relative;
   color: var(--color-text-main);
@@ -654,10 +707,10 @@ html[dir=ltr] .text-animation--underline-in-header {
 .text-with-icon svg * {
   fill: var(--color-text-main);
 }
-.text-with-icon .text-animation--underline-thin {
+/* .text-with-icon .text-animation--underline-thin {
   background-position: 100% calc(1em + 4px);
   padding-bottom: 0;
-}
+} */
 .text-with-icon--compact {
   margin-inline-end: 1.875rem;
 }
@@ -1230,9 +1283,11 @@ html[dir=ltr] .rte table th, html[dir=ltr] .rte table td {
 }
 .grid-2 {
   --visible-cols: 2;
+  /* was 2 */
 }
 .grid-3 {
   --visible-cols: 3;
+  /* was 3 */
 }
 .grid-4 {
   --visible-cols: 4;

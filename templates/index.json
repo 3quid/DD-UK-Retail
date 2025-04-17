@@ -1,1 +1,518 @@
-{"sections":{"1653646142d6a7c886":{"type":"slideshow","blocks":{"1653646142fd3f3126-0":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/dd-sock-test-3-square.jpg","caption":"we are going to","title":"BLOW YOUR SOCKS OFF","link":"","open_in_new_window":false,"button_label":"Learn more","color_background_main":"#D14545","color_text_main":"#1d1d1d","seo_h_tag":"h3"}},"1653646142fd3f3126-1":{"type":"image","disabled":true,"settings":{"caption":"Include some awesome images","title":"Write about yourself","link":"","open_in_new_window":false,"button_label":"Learn more","color_background_main":"rgba(0,0,0,0)","color_text_main":"rgba(0,0,0,0)","seo_h_tag":"h3"}}},"block_order":["1653646142fd3f3126-0","1653646142fd3f3126-1"],"settings":{"desktop_height":"80vh","mobile_height":"60vh","is_auto_height":false,"autorotate_enable":false,"autorotate_interval":5,"alignment":"horizontal-center align-content--vertical-bottom","width":"100","spacing":"xlarge","text_size":"regular","title_size":"h1","button_size":"regular","button_style":"outline","is_fullwidth":true,"section_background_color":"rgba(0,0,0,0)","section_background_gradient":"","section_heading_color":"rgba(0,0,0,0)","remove_margin":false,"color_hide_borders":false,"color_hide_shadow":true,"disable_parallax":false}},"featured-collection":{"type":"featured-collection","blocks":{"price":{"type":"price","disabled":true,"settings":{}},"title":{"type":"title","settings":{}},"2fe5312e-e69f-45d1-bac2-bcdf636d2cf0":{"type":"rating","disabled":true,"settings":{}},"quick_buy":{"type":"quick_buy","disabled":true,"settings":{}},"0732fb3a-f464-4724-9427-62214bde5409":{"type":"local_availability","disabled":true,"settings":{}}},"block_order":["price","title","2fe5312e-e69f-45d1-bac2-bcdf636d2cf0","quick_buy","0732fb3a-f464-4724-9427-62214bde5409"],"settings":{"heading":"{{ section.settings.collection.title }}","subheading":"","show_view_all":true,"section_heading_layout":"section-heading--left","style":"grid","layout_desktop":"three-columns","layout_mobile":"grid-palm-1","products_number":6,"collection":"all-products","collection_1":"","collection_2":"","collection_3":"","color_background_main":"rgba(0,0,0,0)","color_text_main":"rgba(0,0,0,0)","color_button_main":"rgba(0,0,0,0)","color_borders_main":"rgba(0,0,0,0)","color_shadow_main":"rgba(0,0,0,0)","color_hide_borders":false,"color_hide_shadow":false,"section_background_color":"rgba(0,0,0,0)","section_background_gradient":"","section_heading_color":"rgba(0,0,0,0)","remove_margin":false,"seo_h_tag":"h2"}},"16541619272fee0e4e":{"type":"collection-list","blocks":{"ee5b7fe5-b950-43ab-bcf9-9f2a564e8c74":{"type":"collection","settings":{"collection":"animals","image":"{{ block.settings.collection.image }}"}},"4fd20197-57e5-4687-8996-e9875ddf993f":{"type":"collection","settings":{"collection":"spots","image":"{{ block.settings.collection.image }}"}},"74d1d8df-2b25-4fd0-aafa-d887747b7fc1":{"type":"collection","settings":{"collection":"stripes"}},"ed3e6d73-9210-4605-8cd0-18ae029e2fff":{"type":"collection","settings":{"collection":""}},"16541619273bcea29e-1":{"type":"collection","settings":{"collection":""}},"0326ab2b-e4f9-4301-922a-e2e8241f8662":{"type":"collection","settings":{"collection":""}},"b61dc1b1-e696-4dca-a9cb-861c88e95be5":{"type":"collection","settings":{"collection":""}},"c84d42d5-b256-44a8-9c2f-9d37ae4012d1":{"type":"collection","settings":{"collection":""}}},"block_order":["ee5b7fe5-b950-43ab-bcf9-9f2a564e8c74","4fd20197-57e5-4687-8996-e9875ddf993f","74d1d8df-2b25-4fd0-aafa-d887747b7fc1","ed3e6d73-9210-4605-8cd0-18ae029e2fff","16541619273bcea29e-1","0326ab2b-e4f9-4301-922a-e2e8241f8662","b61dc1b1-e696-4dca-a9cb-861c88e95be5","c84d42d5-b256-44a8-9c2f-9d37ae4012d1"],"settings":{"heading":"Collection list","subheading":"","show_view_all":true,"section_heading_layout":"section-heading--left","style":"slider","layout":"grid-3 grid-palm-2","image_aspect_ratio":"1","color_background_main":"rgba(0,0,0,0)","color_text_main":"rgba(0,0,0,0)","color_borders_main":"rgba(0,0,0,0)","color_shadow_main":"rgba(0,0,0,0)","color_hide_borders":false,"color_hide_shadow":false,"section_background_color":"rgba(0,0,0,0)","section_background_gradient":"","section_heading_color":"rgba(0,0,0,0)","remove_margin":false,"seo_h_tag":"h2"}},"1654161920efe5f084":{"type":"text-columns-icons","blocks":{"1654161920f21316cf-0":{"type":"image","settings":{"icon":"delivery","title":"Shipping","caption":"Useful information about your shipping details","link":"","open_in_new_window":false,"color_background_main":"rgba(0,0,0,0)","color_icons_main":"rgba(0,0,0,0)","seo_h_tag":"h3"}},"1654161920f21316cf-1":{"type":"image","settings":{"icon":"time-limit","title":"Returns","caption":"Show how much time customers have for testing your products","link":"","open_in_new_window":false,"color_background_main":"rgba(0,0,0,0)","color_icons_main":"rgba(0,0,0,0)","seo_h_tag":"h3"}},"1654161920f21316cf-2":{"type":"image","settings":{"icon":"store","title":"Pickup","caption":"Let your customers know about local pickup","link":"","open_in_new_window":false,"color_background_main":"rgba(0,0,0,0)","color_icons_main":"rgba(0,0,0,0)","seo_h_tag":"h3"}},"1654161920f21316cf-3":{"type":"image","settings":{"icon":"tree","title":"Brand","caption":"Write your brand story and journey","link":"","open_in_new_window":false,"color_background_main":"rgba(0,0,0,0)","color_icons_main":"rgba(0,0,0,0)","seo_h_tag":"h3"}}},"block_order":["1654161920f21316cf-0","1654161920f21316cf-1","1654161920f21316cf-2","1654161920f21316cf-3"],"settings":{"heading":"","subheading":"","section_heading_layout":"section-heading--left","style":"slider","layout":"grid-4 grid-portable-3 grid-lap-2","border_radius":200,"section_background_color":"rgba(0,0,0,0)","section_background_gradient":"","section_heading_color":"rgba(0,0,0,0)","remove_margin":false,"seo_h_tag":"h2"}},"165407625224b5d2af":{"type":"rich-text","blocks":{"1654076252f525bcb1-1":{"type":"text","settings":{"text":"<p><strong>Materials<\/strong><\/p>","text_size":"regular"}},"1654076252f525bcb1-0":{"type":"title","settings":{"title":"What are we made of?","title_size":"h1","seo_h_tag":"h2"}},"4055a9b7-fa9d-4a7a-b5e0-d052561d6f9c":{"type":"text","settings":{"text":"<p>We’re rather fond of our planet. So, not only do we use sustainable, organic cotton and recycled fibres in our socks, we also package them with recyclability in mind.<\/p>","text_size":"regular"}},"1654076252f525bcb1-2":{"type":"button","settings":{"button_label":"Learn more","link":"","open_in_new_window":false,"button_size":"large","button_style":"solid"}}},"block_order":["1654076252f525bcb1-1","1654076252f525bcb1-0","4055a9b7-fa9d-4a7a-b5e0-d052561d6f9c","1654076252f525bcb1-2"],"settings":{"height":"large","image":"shopify:\/\/shop_images\/DDS2083_f9d7dbc7-19fb-416a-946b-b59cc5930c45.jpg","image_position":"right","image_crop":true,"width":"100","text_alignment":"horizontal-left","text_alignment_vertical":"middle","spacing":"large","is_fullwidth":true,"section_background_color":"rgba(0,0,0,0)","section_background_gradient":"","remove_margin":false,"color_background_main":"#e7e7e7","color_text_main":"#1d1d1d","color_accent_main":"rgba(0,0,0,0)","color_borders_main":"#e1e1e1","color_shadow_main":"rgba(0,0,0,0)","color_hide_borders":true,"color_hide_shadow":false}},"165597098555c514a4":{"type":"text-columns-images","blocks":{"1655970985e1e8c596-0":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/signing-shipping-forms-for-large-box.jpg","title":"Shipping","caption":"Useful information about your shipping details","link":"","open_in_new_window":false,"seo_h_tag":"h3"}},"1655970985e1e8c596-1":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/person-holding-box.jpg","title":"Returns","caption":"Show how much time customers have for testing your products","link":"","open_in_new_window":false,"seo_h_tag":"h3"}},"1655970985e1e8c596-2":{"type":"image","settings":{"title":"Pickup","caption":"Let your customers know about local pickup","link":"","open_in_new_window":false,"seo_h_tag":"h3"}}},"block_order":["1655970985e1e8c596-0","1655970985e1e8c596-1","1655970985e1e8c596-2"],"settings":{"heading":"","subheading":"","section_heading_layout":"section-heading--left","style":"slider","layout":"grid-3 grid-lap-2","border_radius":200,"section_background_color":"rgba(0,0,0,0)","section_background_gradient":"","section_heading_color":"rgba(0,0,0,0)","remove_margin":false,"seo_h_tag":"h2"}},"165650871288cb3c80":{"type":"media-with-text-overlay","settings":{"heading":"","subheading":"","section_heading_layout":"section-heading--left","layout":"grid-1","height":"large","alignment":"horizontal-center align-content--vertical-middle","width":"60%","caption_size":"regular","title_size":"h1","subtitle_size":"regular","button_size":"large","button_style":"outline","section_background_color":"rgba(0,0,0,0)","section_background_gradient":"","section_heading_color":"rgba(0,0,0,0)","remove_margin":false,"seo_h_tag":"h2"}},"1657094048f07fb2a2":{"type":"marquee","blocks":{"16570940482780d791-0":{"type":"text","settings":{"marquee_text":"Welcome to our new website!"}},"17541091-3633-48b6-97e0-ca55f3bf4a9f":{"type":"text","settings":{"marquee_text":"Our spring\/summer collection has just been launched"}}},"block_order":["16570940482780d791-0","17541091-3633-48b6-97e0-ca55f3bf4a9f"],"settings":{"scroll_direction":"left","speed":90,"pause_on_hover":true,"horizontal_space":"1.1","text_size":"100","remove_top_margin":false,"remove_bottom_margin":false,"color_background_main":"#f4ecf4","section_background_gradient":"","color_text_main":"#000000"}},"1655112847aaa4cc50":{"type":"newsletter","settings":{"show_icon":false,"title":"Sign up for our newsletter","text":"<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.<\/p>","color_background_main":"#000000","color_text_main":"#ffffff","color_borders_main":"rgba(0,0,0,0)","color_shadow_main":"rgba(0,0,0,0)","color_hide_borders":true,"color_hide_shadow":true,"section_background_color":"rgba(0,0,0,0)","section_background_gradient":"","remove_margin":false,"seo_h_tag":"h2"}}},"order":["1653646142d6a7c886","featured-collection","16541619272fee0e4e","1654161920efe5f084","165407625224b5d2af","165597098555c514a4","165650871288cb3c80","1657094048f07fb2a2","1655112847aaa4cc50"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "1653646142d6a7c886": {
+      "type": "slideshow",
+      "blocks": {
+        "1653646142fd3f3126-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/sock7.jpg",
+            "caption": "",
+            "title": "BLOW YOUR SOCKS OFF",
+            "link": "",
+            "open_in_new_window": false,
+            "button_label": "Learn more",
+            "color_background_main": "rgba(0,0,0,0)",
+            "color_text_main": "#1d1d1d",
+            "seo_h_tag": "h3"
+          }
+        },
+        "1653646142fd3f3126-1": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "caption": "Include some awesome images",
+            "title": "Write about yourself",
+            "link": "",
+            "open_in_new_window": false,
+            "button_label": "Learn more",
+            "color_background_main": "rgba(0,0,0,0)",
+            "color_text_main": "rgba(0,0,0,0)",
+            "seo_h_tag": "h3"
+          }
+        }
+      },
+      "block_order": [
+        "1653646142fd3f3126-0",
+        "1653646142fd3f3126-1"
+      ],
+      "settings": {
+        "desktop_height": "80vh",
+        "mobile_height": "60vh",
+        "is_auto_height": false,
+        "autorotate_enable": false,
+        "autorotate_interval": 5,
+        "alignment": "horizontal-right align-content--vertical-bottom",
+        "width": "50",
+        "spacing": "xlarge",
+        "text_size": "regular",
+        "title_size": "h1",
+        "button_size": "regular",
+        "button_style": "outline",
+        "is_fullwidth": true,
+        "section_background_color": "rgba(0,0,0,0)",
+        "section_background_gradient": "",
+        "section_heading_color": "rgba(0,0,0,0)",
+        "remove_margin": false,
+        "color_hide_borders": false,
+        "color_hide_shadow": true,
+        "disable_parallax": false
+      }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "blocks": {
+        "price": {
+          "type": "price",
+          "disabled": true,
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "2fe5312e-e69f-45d1-bac2-bcdf636d2cf0": {
+          "type": "rating",
+          "disabled": true,
+          "settings": {}
+        },
+        "quick_buy": {
+          "type": "quick_buy",
+          "disabled": true,
+          "settings": {}
+        },
+        "0732fb3a-f464-4724-9427-62214bde5409": {
+          "type": "local_availability",
+          "disabled": true,
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "price",
+        "title",
+        "2fe5312e-e69f-45d1-bac2-bcdf636d2cf0",
+        "quick_buy",
+        "0732fb3a-f464-4724-9427-62214bde5409"
+      ],
+      "custom_css": [],
+      "settings": {
+        "heading": "",
+        "subheading": "Favourites",
+        "show_view_all": true,
+        "section_heading_layout": "section-heading--left",
+        "style": "grid",
+        "layout_desktop": "three-columns",
+        "layout_mobile": "grid-palm-1",
+        "products_number": 6,
+        "collection": "all-products-in-stock",
+        "collection_1": "animals",
+        "collection_2": "spots-stripes",
+        "collection_3": "transport",
+        "color_background_main": "rgba(0,0,0,0)",
+        "color_text_main": "#999999",
+        "color_button_main": "rgba(0,0,0,0)",
+        "color_borders_main": "rgba(0,0,0,0)",
+        "color_shadow_main": "rgba(0,0,0,0)",
+        "color_hide_borders": false,
+        "color_hide_shadow": false,
+        "section_background_color": "rgba(0,0,0,0)",
+        "section_background_gradient": "",
+        "section_heading_color": "rgba(0,0,0,0)",
+        "remove_margin": false,
+        "seo_h_tag": "h2"
+      }
+    },
+    "16541619272fee0e4e": {
+      "type": "collection-list",
+      "blocks": {
+        "ee5b7fe5-b950-43ab-bcf9-9f2a564e8c74": {
+          "type": "collection",
+          "settings": {
+            "collection": "animals",
+            "image": "shopify://shop_images/sock6.jpg"
+          }
+        },
+        "4fd20197-57e5-4687-8996-e9875ddf993f": {
+          "type": "collection",
+          "settings": {
+            "collection": "spots-stripes",
+            "image": "{{ block.settings.collection.image }}"
+          }
+        },
+        "74d1d8df-2b25-4fd0-aafa-d887747b7fc1": {
+          "type": "collection",
+          "settings": {
+            "collection": "go-green",
+            "image": "{{ block.settings.collection.image }}"
+          }
+        },
+        "ed3e6d73-9210-4605-8cd0-18ae029e2fff": {
+          "type": "collection",
+          "settings": {
+            "collection": "knee-high",
+            "image": "{{ block.settings.collection.image }}"
+          }
+        },
+        "16541619273bcea29e-1": {
+          "type": "collection",
+          "settings": {
+            "collection": "spots"
+          }
+        },
+        "0326ab2b-e4f9-4301-922a-e2e8241f8662": {
+          "type": "collection",
+          "settings": {
+            "collection": "go-green",
+            "image": "shopify://shop_images/sock3.jpg"
+          }
+        },
+        "b61dc1b1-e696-4dca-a9cb-861c88e95be5": {
+          "type": "collection",
+          "settings": {
+            "collection": "nature",
+            "image": "shopify://shop_images/sock4_8f8ec323-9c5e-4ddf-ae3d-cd84f95e00c0.jpg"
+          }
+        },
+        "c84d42d5-b256-44a8-9c2f-9d37ae4012d1": {
+          "type": "collection",
+          "settings": {
+            "collection": "spots",
+            "image": "shopify://shop_images/sock1.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "ee5b7fe5-b950-43ab-bcf9-9f2a564e8c74",
+        "4fd20197-57e5-4687-8996-e9875ddf993f",
+        "74d1d8df-2b25-4fd0-aafa-d887747b7fc1",
+        "ed3e6d73-9210-4605-8cd0-18ae029e2fff",
+        "16541619273bcea29e-1",
+        "0326ab2b-e4f9-4301-922a-e2e8241f8662",
+        "b61dc1b1-e696-4dca-a9cb-861c88e95be5",
+        "c84d42d5-b256-44a8-9c2f-9d37ae4012d1"
+      ],
+      "custom_css": [],
+      "settings": {
+        "heading": "",
+        "subheading": "Collections",
+        "show_view_all": true,
+        "section_heading_layout": "section-heading--left",
+        "style": "grid",
+        "layout": "grid-4 grid-lap-3 grid-palm-2",
+        "image_aspect_ratio": "1",
+        "color_background_main": "rgba(0,0,0,0)",
+        "color_text_main": "rgba(0,0,0,0)",
+        "color_borders_main": "rgba(0,0,0,0)",
+        "color_shadow_main": "rgba(0,0,0,0)",
+        "color_hide_borders": true,
+        "color_hide_shadow": false,
+        "section_background_color": "rgba(0,0,0,0)",
+        "section_background_gradient": "",
+        "section_heading_color": "rgba(0,0,0,0)",
+        "remove_margin": false,
+        "seo_h_tag": "h2"
+      }
+    },
+    "165407625224b5d2af": {
+      "type": "rich-text",
+      "blocks": {
+        "1654076252f525bcb1-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Materials</strong></p>",
+            "text_size": "regular"
+          }
+        },
+        "1654076252f525bcb1-0": {
+          "type": "title",
+          "settings": {
+            "title": "What are we made of?",
+            "title_size": "h1",
+            "seo_h_tag": "h2"
+          }
+        },
+        "4055a9b7-fa9d-4a7a-b5e0-d052561d6f9c": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We’re rather fond of our planet. So, not only do we use sustainable, organic cotton and recycled fibres in our socks, we also package them with recyclability in mind.</p>",
+            "text_size": "regular"
+          }
+        },
+        "1654076252f525bcb1-2": {
+          "type": "button",
+          "settings": {
+            "button_label": "Learn more",
+            "link": "",
+            "open_in_new_window": false,
+            "button_size": "large",
+            "button_style": "solid"
+          }
+        }
+      },
+      "block_order": [
+        "1654076252f525bcb1-1",
+        "1654076252f525bcb1-0",
+        "4055a9b7-fa9d-4a7a-b5e0-d052561d6f9c",
+        "1654076252f525bcb1-2"
+      ],
+      "settings": {
+        "height": "large",
+        "image": "shopify://shop_images/DDS2083_f9d7dbc7-19fb-416a-946b-b59cc5930c45.jpg",
+        "image_position": "right",
+        "image_crop": true,
+        "width": "100",
+        "text_alignment": "horizontal-left",
+        "text_alignment_vertical": "middle",
+        "spacing": "large",
+        "is_fullwidth": true,
+        "section_background_color": "rgba(0,0,0,0)",
+        "section_background_gradient": "",
+        "remove_margin": false,
+        "color_background_main": "#e7e7e7",
+        "color_text_main": "#1d1d1d",
+        "color_accent_main": "rgba(0,0,0,0)",
+        "color_borders_main": "#e1e1e1",
+        "color_shadow_main": "rgba(0,0,0,0)",
+        "color_hide_borders": true,
+        "color_hide_shadow": false
+      }
+    },
+    "165597098555c514a4": {
+      "type": "text-columns-images",
+      "blocks": {
+        "1655970985e1e8c596-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/signing-shipping-forms-for-large-box.jpg",
+            "title": "Shipping",
+            "caption": "Useful information about your shipping details",
+            "link": "",
+            "open_in_new_window": false,
+            "seo_h_tag": "h3"
+          }
+        },
+        "1655970985e1e8c596-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/person-holding-box.jpg",
+            "title": "Returns",
+            "caption": "Show how much time customers have for testing your products",
+            "link": "",
+            "open_in_new_window": false,
+            "seo_h_tag": "h3"
+          }
+        },
+        "1655970985e1e8c596-2": {
+          "type": "image",
+          "settings": {
+            "title": "Pickup",
+            "caption": "Let your customers know about local pickup",
+            "link": "",
+            "open_in_new_window": false,
+            "seo_h_tag": "h3"
+          }
+        },
+        "image_bFKhQa": {
+          "type": "image",
+          "settings": {
+            "title": "Pickup",
+            "caption": "Let your customers know about local pickup",
+            "link": "",
+            "open_in_new_window": false,
+            "seo_h_tag": "h3"
+          }
+        }
+      },
+      "block_order": [
+        "1655970985e1e8c596-0",
+        "1655970985e1e8c596-1",
+        "1655970985e1e8c596-2",
+        "image_bFKhQa"
+      ],
+      "disabled": true,
+      "settings": {
+        "heading": "",
+        "subheading": "",
+        "section_heading_layout": "section-heading--left",
+        "style": "grid",
+        "layout": "grid-4 grid-portable-3 grid-lap-2",
+        "border_radius": 200,
+        "section_background_color": "rgba(0,0,0,0)",
+        "section_background_gradient": "",
+        "section_heading_color": "rgba(0,0,0,0)",
+        "remove_margin": false,
+        "seo_h_tag": "h2"
+      }
+    },
+    "165650871288cb3c80": {
+      "type": "media-with-text-overlay",
+      "settings": {
+        "heading": "",
+        "subheading": "",
+        "section_heading_layout": "section-heading--left",
+        "layout": "grid-1",
+        "height": "large",
+        "alignment": "horizontal-center align-content--vertical-middle",
+        "width": "60%",
+        "caption_size": "regular",
+        "title_size": "h1",
+        "subtitle_size": "regular",
+        "button_size": "large",
+        "button_style": "outline",
+        "section_background_color": "rgba(0,0,0,0)",
+        "section_background_gradient": "",
+        "section_heading_color": "rgba(0,0,0,0)",
+        "remove_margin": false,
+        "seo_h_tag": "h2"
+      }
+    },
+    "1657094048f07fb2a2": {
+      "type": "marquee",
+      "blocks": {
+        "16570940482780d791-0": {
+          "type": "text",
+          "settings": {
+            "marquee_text": "Welcome to our new website!"
+          }
+        },
+        "17541091-3633-48b6-97e0-ca55f3bf4a9f": {
+          "type": "text",
+          "settings": {
+            "marquee_text": "Our spring/summer collection has just been launched"
+          }
+        }
+      },
+      "block_order": [
+        "16570940482780d791-0",
+        "17541091-3633-48b6-97e0-ca55f3bf4a9f"
+      ],
+      "disabled": true,
+      "settings": {
+        "scroll_direction": "left",
+        "speed": 90,
+        "pause_on_hover": true,
+        "horizontal_space": "1.1",
+        "text_size": "100",
+        "remove_top_margin": false,
+        "remove_bottom_margin": false,
+        "color_background_main": "#f4ecf4",
+        "section_background_gradient": "",
+        "color_text_main": "#000000"
+      }
+    },
+    "1654161920efe5f084": {
+      "type": "text-columns-icons",
+      "blocks": {
+        "1654161920f21316cf-0": {
+          "type": "image",
+          "settings": {
+            "icon": "delivery",
+            "title": "Shipping",
+            "caption": "Useful information about your shipping details",
+            "link": "",
+            "open_in_new_window": false,
+            "color_background_main": "rgba(0,0,0,0)",
+            "color_icons_main": "rgba(0,0,0,0)",
+            "seo_h_tag": "h3"
+          }
+        },
+        "1654161920f21316cf-1": {
+          "type": "image",
+          "settings": {
+            "icon": "time-limit",
+            "title": "Returns",
+            "caption": "Show how much time customers have for testing your products",
+            "link": "",
+            "open_in_new_window": false,
+            "color_background_main": "rgba(0,0,0,0)",
+            "color_icons_main": "rgba(0,0,0,0)",
+            "seo_h_tag": "h3"
+          }
+        },
+        "1654161920f21316cf-2": {
+          "type": "image",
+          "settings": {
+            "icon": "store",
+            "title": "Pickup",
+            "caption": "Let your customers know about local pickup",
+            "link": "",
+            "open_in_new_window": false,
+            "color_background_main": "rgba(0,0,0,0)",
+            "color_icons_main": "rgba(0,0,0,0)",
+            "seo_h_tag": "h3"
+          }
+        },
+        "1654161920f21316cf-3": {
+          "type": "image",
+          "settings": {
+            "icon": "tree",
+            "title": "Brand",
+            "caption": "Write your brand story and journey",
+            "link": "",
+            "open_in_new_window": false,
+            "color_background_main": "rgba(0,0,0,0)",
+            "color_icons_main": "rgba(0,0,0,0)",
+            "seo_h_tag": "h3"
+          }
+        }
+      },
+      "block_order": [
+        "1654161920f21316cf-0",
+        "1654161920f21316cf-1",
+        "1654161920f21316cf-2",
+        "1654161920f21316cf-3"
+      ],
+      "settings": {
+        "heading": "",
+        "subheading": "",
+        "section_heading_layout": "section-heading--left",
+        "style": "slider",
+        "layout": "grid-4 grid-portable-3 grid-lap-2",
+        "border_radius": 200,
+        "section_background_color": "rgba(0,0,0,0)",
+        "section_background_gradient": "",
+        "section_heading_color": "rgba(0,0,0,0)",
+        "remove_margin": false,
+        "seo_h_tag": "h2"
+      }
+    },
+    "1655112847aaa4cc50": {
+      "type": "newsletter",
+      "settings": {
+        "show_icon": true,
+        "title": "Sign up for our newsletter",
+        "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+        "color_background_main": "#000000",
+        "color_text_main": "#ffffff",
+        "color_borders_main": "rgba(0,0,0,0)",
+        "color_shadow_main": "rgba(0,0,0,0)",
+        "color_hide_borders": true,
+        "color_hide_shadow": true,
+        "section_background_color": "#000000",
+        "section_background_gradient": "",
+        "remove_margin": false,
+        "seo_h_tag": "h2"
+      }
+    }
+  },
+  "order": [
+    "1653646142d6a7c886",
+    "featured-collection",
+    "16541619272fee0e4e",
+    "165407625224b5d2af",
+    "165597098555c514a4",
+    "165650871288cb3c80",
+    "1657094048f07fb2a2",
+    "1654161920efe5f084",
+    "1655112847aaa4cc50"
+  ]
+}

@@ -51,23 +51,73 @@
       }
     },
     {
-      "key": "color-pattern",
+      "key": "target-gender",
       "namespace": "shopify",
-      "name": "Color",
-      "description": "Defines the primary color or pattern, such as blue or striped",
+      "name": "Target gender",
+      "description": "Identifies the intended gender for a product, such as female, male or unisex",
       "type": {
         "name": "list.metaobject_reference",
         "category": "REFERENCE"
       }
     },
     {
+      "key": "size",
+      "namespace": "custom",
+      "name": "Size",
+      "description": "Size of sock",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "pattern",
+      "namespace": "custom",
+      "name": "Pattern",
+      "description": "Pattern of the sock",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "length",
+      "namespace": "custom",
+      "name": "Length",
+      "description": "Length of the socks",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
       "key": "fabric",
-      "namespace": "shopify",
+      "namespace": "custom",
       "name": "Fabric",
-      "description": "Identifies the type of fabric used in a product, for example, cotton or denim",
+      "description": "Fabric of the socks",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "colour",
+      "namespace": "custom",
+      "name": "Colour",
+      "description": "",
       "type": {
         "name": "list.metaobject_reference",
         "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "season",
+      "namespace": "custom",
+      "name": "Season",
+      "description": "Season the sock was released",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
       }
     }
   ],

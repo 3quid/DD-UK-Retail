@@ -1,1 +1,66 @@
-{"sections":{"banner":{"type":"main-collection-banner","disabled":true,"settings":{"show_collection_description":false,"show_collection_image":false,"alignment":"horizontal-left align-content--vertical-bottom","color_background_main":"rgba(0,0,0,0)","color_text_main":"rgba(0,0,0,0)","is_fullwidth":false,"remove_bottom_margin":false}},"product-grid":{"type":"main-collection-product-grid","blocks":{"title":{"type":"title","settings":{}},"price":{"type":"price","disabled":true,"settings":{}},"quick_buy":{"type":"quick_buy","disabled":true,"settings":{}}},"block_order":["title","price","quick_buy"],"settings":{"products_number":24,"enable_filtering":true,"enable_sorting":true,"filters_position":"top","expand_filters_bydefault":false,"stick_sidebar_to_top":true,"image_filter_layout":"onecolumn","layout_desktop":"three-columns","layout_mobile":"grid-palm-1"}}},"order":["banner","product-grid"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": false,
+        "show_collection_image": false,
+        "alignment": "horizontal-left align-content--vertical-bottom",
+        "color_background_main": "rgba(0,0,0,0)",
+        "color_text_main": "rgba(0,0,0,0)",
+        "is_fullwidth": false,
+        "remove_bottom_margin": false
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "disabled": true,
+          "settings": {}
+        },
+        "quick_buy": {
+          "type": "quick_buy",
+          "disabled": true,
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "quick_buy"
+      ],
+      "custom_css": [],
+      "settings": {
+        "products_number": 24,
+        "enable_filtering": true,
+        "enable_sorting": false,
+        "filters_position": "top",
+        "expand_filters_bydefault": false,
+        "stick_sidebar_to_top": true,
+        "image_filter_layout": "onecolumn",
+        "layout_desktop": "three-columns",
+        "layout_mobile": "grid-palm-1"
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "product-grid"
+  ]
+}
