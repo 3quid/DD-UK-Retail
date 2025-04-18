@@ -135,6 +135,15 @@ button {
   }
 }
 
+.collection-infinite-scroll__trigger {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.collection-infinite-scroll__trigger.loading .button {
+  opacity: 0.5;
+  pointer-events: none;
+}
 
 /* End of Custom CSS */
 .clearfix:after {
