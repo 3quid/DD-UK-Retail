@@ -136,13 +136,16 @@ button {
 }
 
 .collection-infinite-scroll__trigger {
-  text-align: center;
-  margin: 2rem 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  bottom: 200px;
+  width: 100%;
+  height: 1px;
 }
 
-.collection-infinite-scroll__trigger.loading .button {
-  opacity: 0.5;
-  pointer-events: none;
+.collection-infinite-scroll__trigger.loading {
+  opacity: 0;
 }
 
 /* End of Custom CSS */

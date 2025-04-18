@@ -13,7 +13,9 @@ class InfiniteScroll {
     if (!this.trigger) return;
 
     this.loading = false;
-    this.observer = new IntersectionObserver(this.handleIntersect.bind(this));
+    this.observer = new IntersectionObserver(this.handleIntersect.bind(this), {
+      rootMargin: '200px' // Start loading before the trigger is visible
+    });
     this.observer.observe(this.trigger);
     
     // Store the current instance
@@ -33,27 +35,49 @@ class InfiniteScroll {
   }
 
   async loadNextPage() {
-    const nextUrl = this.trigger.querySelector('a').href;
-    if (!nextUrl) return;
-
+    if (this.loading) return;
+    
+    const currentPage = new URL(window.location.href);
+    const pageParam = currentPage.searchParams.get('page');
+    const nextPage = pageParam ? parseInt(pageParam) + 1 : 2;
+    
+    const url = new URL(window.location.href);
+    url.searchParams.set('page', nextPage);
+    
     this.loading = true;
     this.trigger.classList.add('loading');
 
     try {
-      const response = await fetch(nextUrl);
+      const response = await fetch(url.toString());
       const text = await response.text();
       const html = new DOMParser().parseFromString(text, 'text/html');
       
-      // Get new products
-      const newProducts = html.querySelector('[data-infinite-scroll-container]').innerHTML;
-      this.productsContainer.insertAdjacentHTML('beforeend', newProducts);
+      const newContainer = html.querySelector('[data-infinite-scroll-container]');
+      const hasNextPage = html.querySelector('[data-infinite-scroll-trigger]');
 
-      // Update trigger with new "next" link or remove if no more pages
-      const newTrigger = html.querySelector('[data-infinite-scroll-trigger]');
-      if (newTrigger) {
-        this.trigger.innerHTML = newTrigger.innerHTML;
-      } else {
+      if (newContainer) {
+        // Get all products from the new page
+        const newProducts = Array.from(newContainer.children);
+        
+        // Sort them by availability
+        const available = newProducts.filter(product => !product.querySelector('.product-item__badge--sold-out'));
+        const unavailable = newProducts.filter(product => product.querySelector('.product-item__badge--sold-out'));
+        
+        // Add available products first
+        available.forEach(product => {
+          this.productsContainer.appendChild(product.cloneNode(true));
+        });
+        
+        // Then add unavailable products
+        unavailable.forEach(product => {
+          this.productsContainer.appendChild(product.cloneNode(true));
+        });
+      }
+
+      if (!hasNextPage) {
+        // No more pages to load
         this.trigger.remove();
+        this.observer.disconnect();
       }
     } catch (error) {
       console.error('Error loading next page:', error);
@@ -66,5 +90,10 @@ class InfiniteScroll {
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
+  new InfiniteScroll();
+});
+
+// Re-initialize after facets update
+document.addEventListener('facets:updated', () => {
   new InfiniteScroll();
 });

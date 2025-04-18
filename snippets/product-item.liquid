@@ -78,7 +78,7 @@
         unless settings.product_card_fallback_image == blank
           render 'lazy-image', image: settings.product_card_fallback_image, alt: product.title, ratio: aspect_ratio, fit: settings.product_card_aspect_ratio_fit, type: 'background', class: 'product-item__image-figure product-item__image-figure--primary lazy-image--animation', sizes: sizes, preload: preload
         else
-          echo 'placeholder.png' | placeholder_svg_tag
+          echo 'image' | placeholder_svg_tag
         endunless
       else
         render 'lazy-image', image: product.featured_media, alt: product.title, ratio: aspect_ratio, fit: settings.product_card_aspect_ratio_fit, type: 'background', class: 'product-item__image-figure product-item__image-figure--primary lazy-image--animation', sizes: sizes, preload: preload

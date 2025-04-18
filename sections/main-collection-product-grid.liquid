@@ -34,6 +34,17 @@
 
 <div data-js-inert>
   
+  {%- liquid
+    # Get all products and sort them by availability
+    assign all_products = collection.products
+    assign available_products = all_products | where: "available", true
+    assign unavailable_products = all_products | where: "available", false
+    
+    # Combine the sorted products
+    assign sorted_products = available_products
+    assign sorted_products = sorted_products | concat: unavailable_products
+  -%}
+
   {%- paginate collection.products by 24 -%}
     
     <div class="container--large">
@@ -152,66 +163,31 @@
 
             <div id="main-collection-product-grid" data-id="{{ section.id }}" class="collection" data-infinite-scroll>
               <div class="grid grid--layout {{ grid_class_desktop }} {{ grid_class_mobile }}" data-infinite-scroll-container>
-                {% paginate collection.products by 48 %}
-                  {% assign all_available_shown = true %}
-                  {% assign displayed_count = 0 %}
-                  {% assign total_available = 0 %}
-                  
-                  {% comment %}Count total available products in current page{% endcomment %}
-                  {% for product in collection.products %}
-                    {% if product.available %}
-                      {% assign total_available = total_available | plus: 1 %}
-                    {% endif %}
-                  {% endfor %}
-                  
-                  {% comment %}First try to show available products up to 24{% endcomment %}
-                  {% for product in collection.products %}
-                    {% if product.available %}
-                      {% if displayed_count < 24 %}
-                        {%- render 'product-item', 
-                          product: product,
-                          section_blocks: section.blocks,
-                          layout: grid_class_desktop,
-                          mobile_layout: section.settings.layout_mobile
-                        -%}
-                        {% assign displayed_count = displayed_count | plus: 1 %}
-                      {% else %}
-                        {% assign all_available_shown = false %}
-                        {% break %}
-                      {% endif %}
-                    {% endif %}
-                  {% endfor %}
-
-                  {% comment %}If we've shown all available products and there are less than 24, start showing unavailable ones{% endcomment %}
-                  {% if displayed_count < 24 and total_available < 24 %}
-                    {% for product in collection.products %}
-                      {% unless product.available %}
-                        {% if displayed_count < 24 %}
-                          {%- render 'product-item', 
-                            product: product,
-                            section_blocks: section.blocks,
-                            layout: grid_class_desktop,
-                            mobile_layout: section.settings.layout_mobile
-                          -%}
-                          {% assign displayed_count = displayed_count | plus: 1 %}
-                        {% else %}
-                          {% break %}
-                        {% endif %}
-                      {% endunless %}
-                    {% endfor %}
-                  {% endif %}
-                {% endpaginate %}
+                {% assign available_products = collection.products | where: "available", true %}
+                {% assign unavailable_products = collection.products | where: "available", false %}
+                
+                {% for product in available_products %}
+                  {%- render 'product-item', 
+                    product: product,
+                    section_blocks: section.blocks,
+                    layout: grid_class_desktop,
+                    mobile_layout: section.settings.layout_mobile
+                  -%}
+                {% endfor %}
+                
+                {% for product in unavailable_products %}
+                  {%- render 'product-item', 
+                    product: product,
+                    section_blocks: section.blocks,
+                    layout: grid_class_desktop,
+                    mobile_layout: section.settings.layout_mobile
+                  -%}
+                {% endfor %}
               </div>
 
-              {% comment %}Show load more if we displayed 24 items and either:
-                1. We haven't shown all available products yet, or
-                2. We've shown all available products and there are more unavailable ones
-              {% endcomment %}
-              {% if displayed_count == 24 and paginate.next %}
+              {% if paginate.next %}
                 <div class="collection-infinite-scroll__trigger" data-infinite-scroll-trigger>
-                  <a href="{{ paginate.next.url }}" class="button button--outline">
-                    Load more
-                  </a>
+                  <span class="visually-hidden">{{ 'general.pagination.loading' | t }}</span>
                 </div>
               {% endif %}
             </div>
@@ -245,66 +221,31 @@
         <div id="CollectionProductGrid">
           <div id="main-collection-product-grid" data-id="{{ section.id }}" class="collection" data-infinite-scroll>
             <div class="grid grid--layout {{ grid_class_desktop }} {{ grid_class_mobile }}" data-infinite-scroll-container>
-              {% paginate collection.products by 48 %}
-                {% assign all_available_shown = true %}
-                {% assign displayed_count = 0 %}
-                {% assign total_available = 0 %}
-                
-                {% comment %}Count total available products in current page{% endcomment %}
-                {% for product in collection.products %}
-                  {% if product.available %}
-                    {% assign total_available = total_available | plus: 1 %}
-                  {% endif %}
-                {% endfor %}
-                
-                {% comment %}First try to show available products up to 24{% endcomment %}
-                {% for product in collection.products %}
-                  {% if product.available %}
-                    {% if displayed_count < 24 %}
-                      {%- render 'product-item', 
-                        product: product,
-                        section_blocks: section.blocks,
-                        layout: grid_class_desktop,
-                        mobile_layout: section.settings.layout_mobile
-                      -%}
-                      {% assign displayed_count = displayed_count | plus: 1 %}
-                    {% else %}
-                      {% assign all_available_shown = false %}
-                      {% break %}
-                    {% endif %}
-                  {% endif %}
-                {% endfor %}
-
-                {% comment %}If we've shown all available products and there are less than 24, start showing unavailable ones{% endcomment %}
-                {% if displayed_count < 24 and total_available < 24 %}
-                  {% for product in collection.products %}
-                    {% unless product.available %}
-                      {% if displayed_count < 24 %}
-                        {%- render 'product-item', 
-                          product: product,
-                          section_blocks: section.blocks,
-                          layout: grid_class_desktop,
-                          mobile_layout: section.settings.layout_mobile
-                        -%}
-                        {% assign displayed_count = displayed_count | plus: 1 %}
-                      {% else %}
-                        {% break %}
-                      {% endif %}
-                    {% endunless %}
-                  {% endfor %}
-                {% endif %}
-              {% endpaginate %}
+              {% assign available_products = collection.products | where: "available", true %}
+              {% assign unavailable_products = collection.products | where: "available", false %}
+              
+              {% for product in available_products %}
+                {%- render 'product-item', 
+                  product: product,
+                  section_blocks: section.blocks,
+                  layout: grid_class_desktop,
+                  mobile_layout: section.settings.layout_mobile
+                -%}
+              {% endfor %}
+              
+              {% for product in unavailable_products %}
+                {%- render 'product-item', 
+                  product: product,
+                  section_blocks: section.blocks,
+                  layout: grid_class_desktop,
+                  mobile_layout: section.settings.layout_mobile
+                -%}
+              {% endfor %}
             </div>
 
-            {% comment %}Show load more if we displayed 24 items and either:
-              1. We haven't shown all available products yet, or
-              2. We've shown all available products and there are more unavailable ones
-            {% endcomment %}
-            {% if displayed_count == 24 and paginate.next %}
+            {% if paginate.next %}
               <div class="collection-infinite-scroll__trigger" data-infinite-scroll-trigger>
-                <a href="{{ paginate.next.url }}" class="button button--outline">
-                  Load more
-                </a>
+                <span class="visually-hidden">{{ 'general.pagination.loading' | t }}</span>
               </div>
             {% endif %}
           </div>
@@ -335,6 +276,7 @@
   </sidebar-drawer>
   <script src="{{ 'component-facets.js' | asset_url }}" defer></script>
 {%- endif -%}
+
 
 {% schema %}
   {
@@ -573,3 +515,6 @@
     </ul>
   {% endfor %}
 </div> {% endcomment %}
+
+{% assign sort_by = collection.sort_by | default: 'available' %}
+{% assign collection_url = collection.url | append: "?sort_by=" | append: sort_by %}
