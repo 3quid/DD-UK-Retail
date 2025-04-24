@@ -169,12 +169,11 @@
           <div class="collection-filters__field">
             <label class="collection-filters__label body-text-sm" for="{{ type }}-SortBy-{{ id }}">{{ 'collections.sort_by_label' | t }}</label>
             <div class="select">
-              {%- assign sort_by = results.sort_by | default: results.default_sort_by -%}
               <select name="sort_by" class="select__select collection-filters__sort" id="{{ type }}-SortBy-{{ id }}" aria-describedby="a11y-refresh-page-message">
+                <option value="available-desc" {% if sort_by == blank or sort_by == 'available-desc' %} selected="selected"{% endif %}>Available First</option>
                 {%- for option in results.sort_options -%}
                   <option value="{{ option.value | escape }}"{% if option.value == sort_by %} selected="selected"{% endif %}>{{ option.name | escape }}</option>
                 {%- endfor -%}
-                <option value="available-desc"{% if sort_by == 'available-desc' %} selected="selected"{% endif %}>Available First</option>
               </select>
             </div>
           </div>

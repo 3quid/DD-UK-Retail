@@ -14,7 +14,7 @@ class InfiniteScroll {
 
     this.loading = false;
     this.observer = new IntersectionObserver(this.handleIntersect.bind(this), {
-      rootMargin: '200px' // Start loading before the trigger is visible
+      rootMargin: '200px'
     });
     this.observer.observe(this.trigger);
     
@@ -34,57 +34,90 @@ class InfiniteScroll {
     }
   }
 
+  isProductOutOfStock(productElement) {
+    // Check for the sold-out badge
+    return productElement.querySelector('.product-item__badge--sold') !== null;
+  }
+
+  sortProducts() {
+    // Get all products except the trigger
+    const products = Array.from(this.productsContainer.children).filter(
+      el => !el.hasAttribute('data-infinite-scroll-trigger')
+    );
+
+    // Remove trigger temporarily
+    if (this.trigger) {
+      this.trigger.remove();
+    }
+
+    // Sort products into in-stock and out-of-stock
+    const inStock = products.filter(product => !this.isProductOutOfStock(product));
+    const outOfStock = products.filter(product => this.isProductOutOfStock(product));
+
+    // Clear container
+    this.productsContainer.innerHTML = '';
+
+    // Add in-stock products first
+    inStock.forEach(product => {
+      this.productsContainer.appendChild(product);
+    });
+
+    // Then add out-of-stock products
+    outOfStock.forEach(product => {
+      this.productsContainer.appendChild(product);
+    });
+
+    // Re-append trigger
+    if (this.trigger) {
+      this.productsContainer.appendChild(this.trigger);
+    }
+  }
+
   async loadNextPage() {
     if (this.loading) return;
-    
-    const currentPage = new URL(window.location.href);
-    const pageParam = currentPage.searchParams.get('page');
-    const nextPage = pageParam ? parseInt(pageParam) + 1 : 2;
-    
-    const url = new URL(window.location.href);
-    url.searchParams.set('page', nextPage);
-    
+
+    const nextUrl = this.trigger.getAttribute('data-next-url');
+    if (!nextUrl) return;
+
     this.loading = true;
-    this.trigger.classList.add('loading');
 
     try {
-      const response = await fetch(url.toString());
+      const response = await fetch(nextUrl);
       const text = await response.text();
       const html = new DOMParser().parseFromString(text, 'text/html');
       
       const newContainer = html.querySelector('[data-infinite-scroll-container]');
-      const hasNextPage = html.querySelector('[data-infinite-scroll-trigger]');
+      const newTrigger = html.querySelector('[data-infinite-scroll-trigger]');
 
       if (newContainer) {
-        // Get all products from the new page
-        const newProducts = Array.from(newContainer.children);
-        
-        // Sort them by availability
-        const available = newProducts.filter(product => !product.querySelector('.product-item__badge--sold-out'));
-        const unavailable = newProducts.filter(product => product.querySelector('.product-item__badge--sold-out'));
-        
-        // Add available products first
-        available.forEach(product => {
-          this.productsContainer.appendChild(product.cloneNode(true));
-        });
-        
-        // Then add unavailable products
-        unavailable.forEach(product => {
-          this.productsContainer.appendChild(product.cloneNode(true));
-        });
-      }
+        // Get new products
+        const newProducts = Array.from(newContainer.children).filter(
+          el => !el.hasAttribute('data-infinite-scroll-trigger')
+        );
 
-      if (!hasNextPage) {
-        // No more pages to load
-        this.trigger.remove();
-        this.observer.disconnect();
+        // Remove trigger temporarily
+        if (this.trigger) {
+          this.trigger.remove();
+        }
+
+        // Add new products
+        newProducts.forEach(product => {
+          this.productsContainer.appendChild(product.cloneNode(true));
+        });
+
+        // Update trigger
+        if (newTrigger) {
+          this.trigger.setAttribute('data-next-url', newTrigger.getAttribute('data-next-url'));
+          this.productsContainer.appendChild(this.trigger);
+        } else {
+          this.observer.disconnect();
+        }
       }
     } catch (error) {
       console.error('Error loading next page:', error);
     }
 
     this.loading = false;
-    this.trigger.classList.remove('loading');
   }
 }
 

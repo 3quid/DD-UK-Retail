@@ -135,6 +135,32 @@ button {
   }
 }
 
+/* Tags */
+ul.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tag-womens, .tag-mens, .tag-kids, .tag-ankle, .tag-knee, .tag-calf, .tag-bamboo, .tag-merino-wool, .tag-toast {
+  font-size: 0.6em;
+  background-color: #fff;
+  color: #cacaca;
+  padding: 2px 5px;
+  border: 1px solid #eeeeee;
+  border-radius: 50px;
+  list-style: none;
+}
+
+ul.tags li:hover {
+  border-color: #000000;
+  color: #000000;
+}
+
+/* Infinite scroll trigger */
 .collection-infinite-scroll__trigger {
   opacity: 0;
   pointer-events: none;

@@ -46,7 +46,12 @@
   -%}
 
   {%- paginate collection.products by 24 -%}
-    
+    {%- liquid
+      # Set default sort to available-desc
+      assign sort_by = collection.sort_by | default: 'available-desc'
+      assign collection_url = collection.url | append: "?sort_by=" | append: sort_by
+    -%}
+
     <div class="container--large">
 
       {%- if filters_position == "sidebar" -%}
@@ -163,30 +168,22 @@
 
             <div id="main-collection-product-grid" data-id="{{ section.id }}" class="collection" data-infinite-scroll>
               <div class="grid grid--layout {{ grid_class_desktop }} {{ grid_class_mobile }}" data-infinite-scroll-container>
-                {% assign available_products = collection.products | where: "available", true %}
-                {% assign unavailable_products = collection.products | where: "available", false %}
-                
-                {% for product in available_products %}
-                  {%- render 'product-item', 
-                    product: product,
-                    section_blocks: section.blocks,
-                    layout: grid_class_desktop,
-                    mobile_layout: section.settings.layout_mobile
-                  -%}
-                {% endfor %}
-                
-                {% for product in unavailable_products %}
-                  {%- render 'product-item', 
-                    product: product,
-                    section_blocks: section.blocks,
-                    layout: grid_class_desktop,
-                    mobile_layout: section.settings.layout_mobile
-                  -%}
-                {% endfor %}
+                {%- for product in collection.products -%}
+                  {%- if product.available -%}
+                    {%- render 'product-item', 
+                      product: product,
+                      section_blocks: section.blocks,
+                      layout: grid_class_desktop,
+                      mobile_layout: section.settings.layout_mobile
+                    -%}
+                  {%- endif -%}
+                {%- endfor -%}
               </div>
 
               {% if paginate.next %}
-                <div class="collection-infinite-scroll__trigger" data-infinite-scroll-trigger>
+                <div class="collection-infinite-scroll__trigger" 
+                     data-infinite-scroll-trigger 
+                     data-next-url="{{ paginate.next.url }}">
                   <span class="visually-hidden">{{ 'general.pagination.loading' | t }}</span>
                 </div>
               {% endif %}
@@ -221,30 +218,22 @@
         <div id="CollectionProductGrid">
           <div id="main-collection-product-grid" data-id="{{ section.id }}" class="collection" data-infinite-scroll>
             <div class="grid grid--layout {{ grid_class_desktop }} {{ grid_class_mobile }}" data-infinite-scroll-container>
-              {% assign available_products = collection.products | where: "available", true %}
-              {% assign unavailable_products = collection.products | where: "available", false %}
-              
-              {% for product in available_products %}
-                {%- render 'product-item', 
-                  product: product,
-                  section_blocks: section.blocks,
-                  layout: grid_class_desktop,
-                  mobile_layout: section.settings.layout_mobile
-                -%}
-              {% endfor %}
-              
-              {% for product in unavailable_products %}
-                {%- render 'product-item', 
-                  product: product,
-                  section_blocks: section.blocks,
-                  layout: grid_class_desktop,
-                  mobile_layout: section.settings.layout_mobile
-                -%}
-              {% endfor %}
+              {%- for product in collection.products -%}
+                {%- if product.available -%}
+                  {%- render 'product-item', 
+                    product: product,
+                    section_blocks: section.blocks,
+                    layout: grid_class_desktop,
+                    mobile_layout: section.settings.layout_mobile
+                  -%}
+                {%- endif -%}
+              {%- endfor -%}
             </div>
 
             {% if paginate.next %}
-              <div class="collection-infinite-scroll__trigger" data-infinite-scroll-trigger>
+              <div class="collection-infinite-scroll__trigger" 
+                   data-infinite-scroll-trigger 
+                   data-next-url="{{ paginate.next.url }}">
                 <span class="visually-hidden">{{ 'general.pagination.loading' | t }}</span>
               </div>
             {% endif %}
