@@ -640,6 +640,40 @@
             <div class="product__description rte" {{ block.shopify_attributes }}>
               {{ product.description }}
             </div>
+            <div class="product__tags">
+            <ul class="tags__product">
+              {% for tag in product.tags %}
+                
+                  {% if tag == 'womens' %}
+                    <li class="tag-womens">Womens</li>
+                  {% endif %}
+                  {% if tag == 'mens' %}
+                    <li class="tag-mens">Mens</li>
+                  {% endif %}
+                  {% if tag == 'kids' %}
+                    <li class="tag-kids">Kids</li>
+                  {% endif %}
+                  {% if tag == 'ankle' %}
+                    <li class="tag-ankle">Ankle</li>
+                  {% endif %}
+                  {% if tag == 'knee' %}
+                    <li class="tag-knee">Knee</li>
+                  {% endif %}
+                  {% if tag == 'calf' %}
+                    <li class="tag-calf">Calf</li>
+                  {% endif %}
+                  {% if tag == 'toast' %}
+                    <li class="tag-toast">Toast</li>
+                  {% endif %}
+                  {% if tag == 'bamboo' %}
+                    <li class="tag-bamboo">Bamboo</li>
+                  {% endif %}
+                  {% if tag == 'merino wool' %}
+                      <li class="tag-merino-wool">Merino Wool</li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
           {%- endif -%}
 
         {%- when 'nutrition' -%}
@@ -1306,6 +1340,8 @@
     </div>
   </sticky-add-to-cart>
 
+  
+
 {%- endif -%}
 
 {% schema %}
@@ -1703,8 +1739,9 @@
       {
         "type": "description",
         "name": "t:sections.main-product.blocks.description.name",
-        "limit": 1
+        "limit": 1,
       },
+      
       {
         "type": "nutrition",
         "name": "t:local-march-update.blocks.nutritional.name",

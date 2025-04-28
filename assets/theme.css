@@ -145,6 +145,14 @@ ul.tags {
   transform: translateX(-50%);
 }
 
+ul.tags__product {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.product__tags { padding: 10px 0px; border-radius: 5px; }
+
 .tag-womens, .tag-mens, .tag-kids, .tag-ankle, .tag-knee, .tag-calf, .tag-bamboo, .tag-merino-wool, .tag-toast {
   font-size: 0.6em;
   background-color: #fff;
@@ -155,7 +163,7 @@ ul.tags {
   list-style: none;
 }
 
-ul.tags li:hover {
+ul.tags li:hover, ul.tags__product li:hover {
   border-color: #000000;
   color: #000000;
 }
