@@ -37,7 +37,7 @@
 
     <span class="product-price--original {{ text_size_class }}">
       <span class="visually-hidden">{{ 'general.accessibility_labels.price.regular' | t }}</span>
-      {{ target.price | money | append: iso_code }}
+      {{ target.price | times: 1.2 | money | append: iso_code }}
     </span>
     
     {%- if target.compare_at_price > target.price -%}
