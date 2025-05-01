@@ -633,17 +633,9 @@
               </span>
             {%- endif -%}
           </div>
-
-        {%- when 'description' -%}
-
-          {%- if product.description != blank -%}
-            <div class="product__description rte" {{ block.shopify_attributes }}>
-              {{ product.description }}
-            </div>
-            <div class="product__tags">
+          <div class="product__tags">
             <ul class="tags__product">
               {% for tag in product.tags %}
-                
                   {% if tag == 'womens' %}
                     <li class="tag-womens">Womens</li>
                   {% endif %}
@@ -673,6 +665,12 @@
                   {% endif %}
                 {% endfor %}
               </ul>
+            </div>
+        {%- when 'description' -%}
+
+          {%- if product.description != blank -%}
+            <div class="product__description rte" {{ block.shopify_attributes }}>
+              {{ product.description }}
             </div>
           {%- endif -%}
 

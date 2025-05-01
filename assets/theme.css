@@ -149,15 +149,21 @@ ul.tags__product {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  clear: left;
+  padding-top: 20px;
 }
 
 .product__tags { padding: 10px 0px; border-radius: 5px; }
 
+/* Tag font size on product page */
+.product__tags li { font-size: 0.8em; padding: 5px 7px; }
+
+/* Tag font size on collection page */
+.collection_item__tags { font-size: 0.6em; padding: 2px 5px; }
+
 .tag-womens, .tag-mens, .tag-kids, .tag-ankle, .tag-knee, .tag-calf, .tag-bamboo, .tag-merino-wool, .tag-toast {
-  font-size: 0.6em;
   background-color: #fff;
   color: #cacaca;
-  padding: 2px 5px;
   border: 1px solid #eeeeee;
   border-radius: 50px;
   list-style: none;
@@ -181,6 +187,15 @@ ul.tags li:hover, ul.tags__product li:hover {
 .collection-infinite-scroll__trigger.loading {
   opacity: 0;
 }
+
+.product__sku, .product__barcode {
+  float: left;
+}
+
+.product__barcode {
+  padding-left: 10px;
+}
+
 
 /* End of Custom CSS */
 .clearfix:after {
