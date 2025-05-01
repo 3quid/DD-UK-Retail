@@ -251,18 +251,6 @@
     "sections": {
       "popups": {
         "type": "popups",
-        "blocks": {
-          "popups-0": {
-            "type": "cookies",
-            "settings": {
-              "popup_bgcolor": "#111111",
-              "popup_txtcolor": "#ffffff"
-            }
-          }
-        },
-        "block_order": [
-          "popups-0"
-        ],
         "settings": {
           "popup_border_radius": 0,
           "popups_position": "right"
