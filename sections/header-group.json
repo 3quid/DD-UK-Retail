@@ -11,30 +11,6 @@
   "type": "header",
   "name": "t:sections.refactor_words.labels.header_group",
   "sections": {
-    "announcement": {
-      "type": "announcement-bar",
-      "blocks": {
-        "content": {
-          "type": "content",
-          "settings": {
-            "text": "Hello new shop! ... 10% Off Everything",
-            "link": "",
-            "target": false
-          }
-        }
-      },
-      "block_order": [
-        "content"
-      ],
-      "settings": {
-        "visibility": "all",
-        "show_locale_selector": false,
-        "show_country_selector": false,
-        "show_social_icons": true,
-        "bar_bgcolor": "#111111",
-        "bar_txtcolor": "#ffffff"
-      }
-    },
     "header": {
       "type": "header",
       "blocks": {
@@ -45,6 +21,7 @@
         },
         "info": {
           "type": "info",
+          "disabled": true,
           "settings": {
             "caption": "Next Day Delivery",
             "title": "Order by 2pm",
@@ -74,7 +51,6 @@
     }
   },
   "order": [
-    "announcement",
     "header"
   ]
 }

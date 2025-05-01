@@ -196,6 +196,7 @@ ul.tags li:hover, ul.tags__product li:hover {
   padding-left: 10px;
 }
 
+.card { border: 0px !important; }
 
 /* End of Custom CSS */
 .clearfix:after {
