@@ -84,6 +84,40 @@
 										<span class="text-animation--underline-thin">{{ item.product.title | escape }}</span>
 									</a>
 
+									<span class="cart-item__sku">{{ item.sku }}</span>
+									<div class="cart__tags">
+										<ul class="tags__product">
+										  {% for tag in item.product.tags %}
+											  {% if tag == 'womens' %}
+												<li class="tag-womens">Womens</li>
+											  {% endif %}
+											  {% if tag == 'mens' %}
+												<li class="tag-mens">Mens</li>
+											  {% endif %}
+											  {% if tag == 'kids' %}
+												<li class="tag-kids">Kids</li>
+											  {% endif %}
+											  {% if tag == 'ankle' %}
+												<li class="tag-ankle">Ankle</li>
+											  {% endif %}
+											  {% if tag == 'knee' %}
+												<li class="tag-knee">Knee</li>
+											  {% endif %}
+											  {% if tag == 'calf' %}
+												<li class="tag-calf">Calf</li>
+											  {% endif %}
+											  {% if tag == 'toast' %}
+												<li class="tag-toast">Toast</li>
+											  {% endif %}
+											  {% if tag == 'bamboo' %}
+												<li class="tag-bamboo">Bamboo</li>
+											  {% endif %}
+											  {% if tag == 'merino wool' %}
+												  <li class="tag-merino-wool">Merino Wool</li>
+											  {% endif %}
+											{% endfor %}
+										  </ul>
+										</div>
 									{%- unless item.product.has_only_default_variant -%}
 											{%- for option in item.options_with_values -%}
 												<span class="cart-item__variant text-size--small text-color--opacity">
