@@ -163,7 +163,7 @@ ul.tags__product {
 
 /* Tag font size on cart page */
 .cart__tags { font-size: 0.5em; padding: 2px 5px; }
-.cart-item__sku { font-size: 0.5em; }
+.cart-item__sku { font-size: 0.7em; }
 
 .tag-womens, .tag-mens, .tag-kids, .tag-ankle, .tag-knee, .tag-calf, .tag-bamboo, .tag-merino-wool, .tag-toast {
   padding: 5px 7px;
