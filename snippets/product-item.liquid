@@ -113,14 +113,14 @@
                   {% endif %}
                 {% endif %}
               ">
-                {%- liquid 
+               <span class="wsgColPrice"> {%- liquid 
                   unless blank_product 
                     assign formatted_price = product.price | money
                     echo product.title | append: ' / ' | append: formatted_price
                   else 
                     echo 'general.onboarding.product_title' | t
                   endunless
-                -%}
+                -%}</span>
               </span>
             </div>
           </a>
