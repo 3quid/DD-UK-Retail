@@ -113,14 +113,17 @@
                   {% endif %}
                 {% endif %}
               ">
-                {%- liquid 
-                  unless blank_product 
-                    assign formatted_price = product.price | money
-                    echo product.title | append: ' / ' | append: formatted_price
-                  else 
-                    echo 'general.onboarding.product_title' | t
-                  endunless
-                -%}
+                {%- unless blank_product -%}
+  {% capture formatted_price %}
+    <span class="price">{{ product.price | money }}</span>
+  {% endcapture %}
+
+  {{ product.title }}
+  <span class="product-item__separator">/</span>
+  {{ formatted_price }}
+{%- else -%}
+  {{ 'general.onboarding.product_title' | t }}
+{%- endunless -%}
               </span>
             </div>
           </a>
