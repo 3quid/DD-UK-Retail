@@ -39,13 +39,6 @@
             "text_transform": false
           }
         },
-        "variant_metafield_wEiQ6P": {
-          "type": "variant_metafield",
-          "settings": {
-            "key": "{{ product.metafields.custom.size.value }}",
-            "title": "Size"
-          }
-        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
@@ -99,7 +92,6 @@
         "variant_picker",
         "description",
         "text_9EKFNB",
-        "variant_metafield_wEiQ6P",
         "buy_buttons",
         "price",
         "sku_barcode_RwpXan",
