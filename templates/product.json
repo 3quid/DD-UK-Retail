@@ -30,12 +30,20 @@
           "type": "description",
           "settings": {}
         },
+        "divider_DdzzhT": {
+          "type": "divider",
+          "settings": {
+            "height": 1,
+            "color": "#dfdfdf",
+            "style": "solid"
+          }
+        },
         "text_9EKFNB": {
           "type": "text",
           "settings": {
-            "text": "<p>Size {{ product.metafields.custom.size.value }} (UK)</p>",
+            "text": "<p>Length: {{ product.metafields.custom.length.value }} | Size: {{ product.metafields.custom.size.value }} (UK)</p>",
             "text_size": "text-size--regular",
-            "text_color": "#6a6a6a",
+            "text_color": "#999999",
             "text_transform": false
           }
         },
@@ -60,7 +68,7 @@
           "type": "sku_barcode",
           "settings": {}
         },
-        "divider_DdzzhT": {
+        "divider_WEBUYx": {
           "type": "divider",
           "settings": {
             "height": 1,
@@ -91,11 +99,12 @@
         "title",
         "variant_picker",
         "description",
+        "divider_DdzzhT",
         "text_9EKFNB",
         "buy_buttons",
         "price",
         "sku_barcode_RwpXan",
-        "divider_DdzzhT",
+        "divider_WEBUYx",
         "share"
       ],
       "settings": {
