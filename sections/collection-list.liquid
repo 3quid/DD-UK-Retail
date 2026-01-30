@@ -39,7 +39,7 @@
           
         {%- if layout contains 'grid-6' -%}
           {%- capture desk_sizes -%}
-            , (max-width: 1023px) calc((100vw - 80px) / 3), (max-width: {{ settings.theme_max_width }}px) calc((100vw - 160px) / 8), {{ settings.theme_max_width | divided_by: 6 }}px
+            , (max-width: 1023px) calc((100vw - 80px) / 3), (max-width: {{ settings.theme_max_width }}px) calc((100vw - 160px) / 6), {{ settings.theme_max_width | divided_by: 6 }}px
           {%- endcapture -%}
         {%- elsif layout contains 'grid-4' -%}
           {%- capture desk_sizes -%}
