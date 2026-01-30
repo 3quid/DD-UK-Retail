@@ -9,6 +9,50 @@
  */
 {
   "sections": {
+    "collection_list_eDdhzp": {
+      "type": "collection-list",
+      "blocks": {
+        "collection_KxVUMF": {
+          "type": "collection",
+          "settings": {
+            "collection": "black-socks",
+            "image": "shopify://shop_images/black.jpg"
+          }
+        },
+        "collection_yXrpUM": {
+          "type": "collection",
+          "settings": {
+            "collection": "grey-socks",
+            "image": "shopify://shop_images/grey.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "collection_KxVUMF",
+        "collection_yXrpUM"
+      ],
+      "name": "t:sections.collection-list.presets.name",
+      "settings": {
+        "heading": "",
+        "subheading": "",
+        "show_view_all": false,
+        "section_heading_layout": "section-heading--center",
+        "style": "grid",
+        "layout": "grid-6 grid-portable-4 grid-lap-3 grid-palm-2",
+        "image_aspect_ratio": "1",
+        "color_background_main": "rgba(0,0,0,0)",
+        "color_text_main": "rgba(0,0,0,0)",
+        "color_borders_main": "rgba(0,0,0,0)",
+        "color_shadow_main": "rgba(0,0,0,0)",
+        "color_hide_borders": true,
+        "color_hide_shadow": true,
+        "section_background_color": "#999999",
+        "section_background_gradient": "",
+        "section_heading_color": "rgba(0,0,0,0)",
+        "remove_margin": false,
+        "seo_h_tag": "h2"
+      }
+    },
     "16541619272fee0e4e": {
       "type": "collection-list",
       "blocks": {
@@ -254,6 +298,7 @@
     }
   },
   "order": [
+    "collection_list_eDdhzp",
     "16541619272fee0e4e",
     "165650871288cb3c80",
     "1657094048f07fb2a2",
