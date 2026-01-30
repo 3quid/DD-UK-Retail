@@ -9,50 +9,6 @@
  */
 {
   "sections": {
-    "collection_list_eDdhzp": {
-      "type": "collection-list",
-      "blocks": {
-        "collection_KxVUMF": {
-          "type": "collection",
-          "settings": {
-            "collection": "black-socks",
-            "image": "shopify://shop_images/black.jpg"
-          }
-        },
-        "collection_yXrpUM": {
-          "type": "collection",
-          "settings": {
-            "collection": "grey-socks",
-            "image": "shopify://shop_images/grey.jpg"
-          }
-        }
-      },
-      "block_order": [
-        "collection_KxVUMF",
-        "collection_yXrpUM"
-      ],
-      "name": "t:sections.collection-list.presets.name",
-      "settings": {
-        "heading": "",
-        "subheading": "",
-        "show_view_all": false,
-        "section_heading_layout": "section-heading--center",
-        "style": "grid",
-        "layout": "grid-6 grid-portable-4 grid-lap-3 grid-palm-2",
-        "image_aspect_ratio": "1",
-        "color_background_main": "rgba(0,0,0,0)",
-        "color_text_main": "rgba(0,0,0,0)",
-        "color_borders_main": "rgba(0,0,0,0)",
-        "color_shadow_main": "rgba(0,0,0,0)",
-        "color_hide_borders": true,
-        "color_hide_shadow": true,
-        "section_background_color": "#999999",
-        "section_background_gradient": "",
-        "section_heading_color": "rgba(0,0,0,0)",
-        "remove_margin": false,
-        "seo_h_tag": "h2"
-      }
-    },
     "16541619272fee0e4e": {
       "type": "collection-list",
       "blocks": {
@@ -167,114 +123,119 @@
         "seo_h_tag": "h2"
       }
     },
-    "1657094048f07fb2a2": {
-      "type": "marquee",
+    "collection_list_eDdhzp": {
+      "type": "collection-list",
       "blocks": {
-        "16570940482780d791-0": {
-          "type": "text",
+        "collection_8mwdfa": {
+          "type": "collection",
           "settings": {
-            "marquee_text": "Welcome to our new website!"
+            "collection": "brown-socks",
+            "image": "shopify://shop_images/brown.jpg"
           }
         },
-        "17541091-3633-48b6-97e0-ca55f3bf4a9f": {
-          "type": "text",
+        "collection_cGGJHF": {
+          "type": "collection",
           "settings": {
-            "marquee_text": "Our spring/summer collection has just been launched"
+            "collection": "pink-socks",
+            "image": "shopify://shop_images/pink.jpg"
+          }
+        },
+        "collection_HdP986": {
+          "type": "collection",
+          "settings": {
+            "collection": "purple-socks",
+            "image": "shopify://shop_images/purple.jpg"
+          }
+        },
+        "collection_qtzUhG": {
+          "type": "collection",
+          "settings": {
+            "collection": "orange",
+            "image": "shopify://shop_images/orange.jpg"
+          }
+        },
+        "collection_iGJQqL": {
+          "type": "collection",
+          "settings": {
+            "collection": "yellow-socks",
+            "image": "shopify://shop_images/yellow.jpg"
+          }
+        },
+        "collection_y7KHtD": {
+          "type": "collection",
+          "settings": {
+            "collection": "green-socks",
+            "image": "shopify://shop_images/green.jpg"
+          }
+        },
+        "collection_VFfwda": {
+          "type": "collection",
+          "settings": {
+            "collection": "blue-socks",
+            "image": "shopify://shop_images/blue.jpg"
+          }
+        },
+        "collection_tPm4nw": {
+          "type": "collection",
+          "settings": {
+            "collection": "red",
+            "image": "shopify://shop_images/red.jpg"
+          }
+        },
+        "collection_KxVUMF": {
+          "type": "collection",
+          "settings": {
+            "collection": "black-socks",
+            "image": "shopify://shop_images/black.jpg"
+          }
+        },
+        "collection_yXrpUM": {
+          "type": "collection",
+          "settings": {
+            "collection": "grey-socks",
+            "image": "shopify://shop_images/grey.jpg"
+          }
+        },
+        "collection_ckmBFg": {
+          "type": "collection",
+          "settings": {
+            "collection": "white-socks",
+            "image": "shopify://shop_images/white.jpg"
           }
         }
       },
       "block_order": [
-        "16570940482780d791-0",
-        "17541091-3633-48b6-97e0-ca55f3bf4a9f"
+        "collection_8mwdfa",
+        "collection_cGGJHF",
+        "collection_HdP986",
+        "collection_qtzUhG",
+        "collection_iGJQqL",
+        "collection_y7KHtD",
+        "collection_VFfwda",
+        "collection_tPm4nw",
+        "collection_KxVUMF",
+        "collection_yXrpUM",
+        "collection_ckmBFg"
       ],
-      "disabled": true,
-      "settings": {
-        "scroll_direction": "left",
-        "speed": 90,
-        "pause_on_hover": true,
-        "horizontal_space": "1.1",
-        "text_size": "100",
-        "remove_top_margin": false,
-        "remove_bottom_margin": false,
-        "color_background_main": "#f4ecf4",
-        "section_background_gradient": "",
-        "color_text_main": "#000000"
-      }
-    },
-    "1654161920efe5f084": {
-      "type": "text-columns-icons",
-      "blocks": {
-        "1654161920f21316cf-0": {
-          "type": "image",
-          "settings": {
-            "icon": "delivery",
-            "title": "Shipping",
-            "caption": "Useful information about your shipping details",
-            "link": "",
-            "open_in_new_window": false,
-            "color_background_main": "rgba(0,0,0,0)",
-            "color_icons_main": "rgba(0,0,0,0)",
-            "seo_h_tag": "h3"
-          }
-        },
-        "1654161920f21316cf-1": {
-          "type": "image",
-          "settings": {
-            "icon": "time-limit",
-            "title": "Returns",
-            "caption": "Show how much time customers have for testing your products",
-            "link": "",
-            "open_in_new_window": false,
-            "color_background_main": "rgba(0,0,0,0)",
-            "color_icons_main": "rgba(0,0,0,0)",
-            "seo_h_tag": "h3"
-          }
-        },
-        "1654161920f21316cf-2": {
-          "type": "image",
-          "settings": {
-            "icon": "store",
-            "title": "Pickup",
-            "caption": "Let your customers know about local pickup",
-            "link": "",
-            "open_in_new_window": false,
-            "color_background_main": "rgba(0,0,0,0)",
-            "color_icons_main": "rgba(0,0,0,0)",
-            "seo_h_tag": "h3"
-          }
-        },
-        "1654161920f21316cf-3": {
-          "type": "image",
-          "settings": {
-            "icon": "tree",
-            "title": "Brand",
-            "caption": "Write your brand story and journey",
-            "link": "",
-            "open_in_new_window": false,
-            "color_background_main": "rgba(0,0,0,0)",
-            "color_icons_main": "rgba(0,0,0,0)",
-            "seo_h_tag": "h3"
-          }
-        }
-      },
-      "block_order": [
-        "1654161920f21316cf-0",
-        "1654161920f21316cf-1",
-        "1654161920f21316cf-2",
-        "1654161920f21316cf-3"
-      ],
-      "disabled": true,
+      "name": "t:sections.collection-list.presets.name",
       "settings": {
         "heading": "",
         "subheading": "",
-        "section_heading_layout": "section-heading--left",
-        "style": "slider",
-        "layout": "grid-4 grid-portable-3 grid-lap-2",
-        "border_radius": 200,
-        "section_background_color": "rgba(0,0,0,0)",
+        "show_view_all": false,
+        "section_heading_layout": "section-heading--center",
+        "style": "grid",
+        "layout": "grid-6 grid-portable-4 grid-lap-3 grid-palm-2",
+        "image_aspect_ratio": "1",
+        "color_background_main": "#ffffff",
+        "color_text_main": "#bcbcbc",
+        "color_borders_main": "rgba(0,0,0,0)",
+        "color_shadow_main": "rgba(0,0,0,0)",
+        "color_hide_borders": true,
+        "color_hide_shadow": true,
+        "section_background_color": "#ffffff",
         "section_background_gradient": "",
         "section_heading_color": "rgba(0,0,0,0)",
-        "remove_margin": false,
+        "remove_margin": true,
         "seo_h_tag": "h2"
       }
     },
@@ -298,11 +259,9 @@
     }
   },
   "order": [
-    "collection_list_eDdhzp",
     "16541619272fee0e4e",
     "165650871288cb3c80",
-    "1657094048f07fb2a2",
-    "1654161920efe5f084",
+    "collection_list_eDdhzp",
     "1655112847aaa4cc50"
   ]
 }
