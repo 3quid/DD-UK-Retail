@@ -1,0 +1,37 @@
+{%- comment -%}
+  Injects an Adobe Fonts stylesheet into document.head once.
+  Safe to run on every theme editor section re-render.
+{%- endcomment -%}
+
+{%- liquid
+  assign raw_kit = kit_id | default: '' | strip
+  if raw_kit contains 'use.typekit.net/'
+    assign raw_kit = raw_kit | split: 'use.typekit.net/' | last
+  endif
+  assign raw_kit = raw_kit | remove: '.css' | remove: 'https://' | remove: 'http://' | strip
+-%}
+
+{%- if raw_kit != blank -%}
+  <script>
+    (function () {
+      var kitId = {{ raw_kit | json }};
+      if (!kitId || document.querySelector('link[data-adobe-kit="' + kitId + '"]')) {
+        return;
+      }
+
+      if (!document.querySelector('link[rel="preconnect"][href="https://use.typekit.net"]')) {
+        var preconnect = document.createElement('link');
+        preconnect.rel = 'preconnect';
+        preconnect.href = 'https://use.typekit.net';
+        preconnect.crossOrigin = 'anonymous';
+        document.head.appendChild(preconnect);
+      }
+
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://use.typekit.net/' + kitId + '.css';
+      link.setAttribute('data-adobe-kit', kitId);
+      document.head.appendChild(link);
+    })();
+  </script>
+{%- endif -%}

@@ -87,6 +87,16 @@
 				"default": 0
 			},
 			{
+				"type": "header",
+				"content": "Adobe Fonts"
+			},
+			{
+				"type": "text",
+				"id": "adobe_fonts_kit_id",
+				"label": "Adobe Fonts kit ID",
+				"info": "Optional. Paste the ID from use.typekit.net/XXXXX.css. In your Adobe web project, add dorisanddude.com and your-store.myshopify.com under allowed domains."
+			},
+			{
 				"type": "select",
 				"id": "buttons_weight",
 				"label": "t:sections.local-extra-words.settings_schema.typography.buttons.label",

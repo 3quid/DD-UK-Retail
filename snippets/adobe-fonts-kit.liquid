@@ -1,0 +1,17 @@
+{%- comment -%}
+  Loads an Adobe Fonts (Typekit) stylesheet.
+  Accepts a kit ID or full embed URL/path.
+{%- endcomment -%}
+
+{%- liquid
+  assign raw_kit = kit_id | default: '' | strip
+  if raw_kit contains 'use.typekit.net/'
+    assign raw_kit = raw_kit | split: 'use.typekit.net/' | last
+  endif
+  assign raw_kit = raw_kit | remove: '.css' | remove: 'https://' | remove: 'http://' | strip
+-%}
+
+{%- if raw_kit != blank -%}
+  <link rel="preconnect" href="https://use.typekit.net" crossorigin>
+  <link rel="stylesheet" href="https://use.typekit.net/{{ raw_kit }}.css" data-adobe-kit="{{ raw_kit }}">
+{%- endif -%}

@@ -9,6 +9,111 @@
  */
 {
   "sections": {
+    "homepage_overlap_hero_JnVbp6": {
+      "type": "homepage-overlap-hero",
+      "blocks": {
+        "column_ah4P6z": {
+          "type": "column",
+          "name": "Column 1",
+          "settings": {
+            "column_title": "Puffins",
+            "column_title_color": "#FFDE07",
+            "background_image": "shopify://shop_images/Black_Death.png",
+            "top_sock_image": "shopify://shop_images/2687x.png",
+            "top_sock_link": "shopify://collections/puffins",
+            "top_sock_label": "Check out all our puffins",
+            "top_sock_link_new_tab": false,
+            "top_sock_horizontal_offset": 3,
+            "top_sock_vertical_offset": -3,
+            "top_sock_rotation": -8,
+            "top_sock_size": 81,
+            "bottom_sock_image": "shopify://shop_images/2362x.png",
+            "bottom_sock_link": "shopify://collections/puffins",
+            "bottom_sock_label": "Check out all our puffins",
+            "bottom_sock_link_new_tab": false,
+            "bottom_sock_horizontal_offset": 8,
+            "bottom_sock_vertical_offset": -11,
+            "bottom_sock_rotation": -20,
+            "bottom_sock_size": 83
+          }
+        },
+        "column_t3jEHB": {
+          "type": "column",
+          "name": "Column 2",
+          "settings": {
+            "column_title": "Stripes",
+            "column_title_color": "#D8FFF9",
+            "background_image": "shopify://shop_images/Ginger_sky.png",
+            "top_sock_image": "shopify://shop_images/2453x.png",
+            "top_sock_link": "shopify://collections/stripes",
+            "top_sock_label": "Link to our stripey sock collection",
+            "top_sock_link_new_tab": false,
+            "top_sock_horizontal_offset": 1,
+            "top_sock_vertical_offset": 11,
+            "top_sock_rotation": 148,
+            "top_sock_size": 62,
+            "bottom_sock_image": "shopify://shop_images/2452x.png",
+            "bottom_sock_link": "shopify://collections/stripes",
+            "bottom_sock_label": "Link to our stripey sock collection",
+            "bottom_sock_link_new_tab": false,
+            "bottom_sock_horizontal_offset": 4,
+            "bottom_sock_vertical_offset": -12,
+            "bottom_sock_rotation": -24,
+            "bottom_sock_size": 73
+          }
+        },
+        "column_LRzt6X": {
+          "type": "column",
+          "name": "Column 3",
+          "settings": {
+            "column_title": "Baaaa!",
+            "column_title_color": "#000000",
+            "background_image": "shopify://shop_images/British_paint.png",
+            "top_sock_image": "shopify://shop_images/2359_x.png",
+            "top_sock_link": "shopify://collections/sheep",
+            "top_sock_label": "View the sheep collection",
+            "top_sock_link_new_tab": false,
+            "top_sock_horizontal_offset": 3,
+            "top_sock_vertical_offset": -1,
+            "top_sock_rotation": 48,
+            "top_sock_size": 76,
+            "bottom_sock_image": "shopify://shop_images/2360x.png",
+            "bottom_sock_link": "shopify://collections/sheep",
+            "bottom_sock_label": "View the sheep collection",
+            "bottom_sock_link_new_tab": false,
+            "bottom_sock_horizontal_offset": -1,
+            "bottom_sock_vertical_offset": -17,
+            "bottom_sock_rotation": 28,
+            "bottom_sock_size": 84
+          }
+        }
+      },
+      "block_order": [
+        "column_ah4P6z",
+        "column_t3jEHB",
+        "column_LRzt6X"
+      ],
+      "name": "Homepage overlap hero",
+      "settings": {
+        "overlap_amount": 55,
+        "aspect_ratio": "5 / 2",
+        "hide_middle_on_mobile": true,
+        "adobe_fonts_kit_id": "https://use.typekit.net/ede5kbl.css",
+        "title_font_family": "sketchnote-square",
+        "title_area_height": 14,
+        "title_font_size": 45,
+        "title_font_size_mobile": 16,
+        "title_color": "#ffffff",
+        "heading": "",
+        "subheading": "",
+        "section_heading_layout": "section-heading--center",
+        "section_background_color": "rgba(0,0,0,0)",
+        "section_background_gradient": "",
+        "section_heading_color": "rgba(0,0,0,0)",
+        "remove_margin": true,
+        "seo_h_tag": "h2"
+      }
+    },
     "16541619272fee0e4e": {
       "type": "collection-list",
       "blocks": {
@@ -259,6 +364,7 @@
     }
   },
   "order": [
+    "homepage_overlap_hero_JnVbp6",
     "16541619272fee0e4e",
     "165650871288cb3c80",
     "collection_list_eDdhzp",

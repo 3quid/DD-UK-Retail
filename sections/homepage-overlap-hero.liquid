@@ -1,0 +1,536 @@
+{{ 'section-homepage-overlap-hero.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign overlap_title_font = section.settings.title_font_family | default: 'sketchnote-square' | strip
+  assign overlap_adobe_kit = settings.adobe_fonts_kit_id | strip
+  if overlap_adobe_kit == blank
+    assign overlap_adobe_kit = section.settings.adobe_fonts_kit_id | strip
+  endif
+  if section.index == 1
+    assign preload = true
+  else
+    assign preload = false
+  endif
+  assign sock_preload = true
+-%}
+
+{%- render 'adobe-fonts-kit-head', kit_id: overlap_adobe_kit -%}
+
+{%- liquid
+  assign overlap_px = section.settings.overlap_amount | default: 30
+  assign col_count = section.blocks.size | default: 3
+  assign overlap_total = col_count | minus: 1 | times: overlap_px
+  assign hide_middle_class = ''
+  if section.settings.hide_middle_on_mobile
+    assign hide_middle_class = 'overlap-hero--hide-middle'
+  endif
+
+  case section.settings.aspect_ratio
+    when '3 / 1'
+      assign hero_aspect = '3'
+    when '2 / 1'
+      assign hero_aspect = '2'
+    when '16 / 9'
+      assign hero_aspect = '1.7777778'
+    else
+      assign hero_aspect = '2.5'
+  endcase
+-%}
+
+<div
+  id="section-{{ section.id }}"
+  class="container--fullwidth {% unless section.settings.remove_margin %} container--vertical-space {% endunless %} {% if section.settings.section_background_color != 'rgba(0,0,0,0)' or section.settings.section_background_gradient != blank %} container--has-background {% endif %} remove-empty-space"
+>
+  {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
+    <div class="container--large">
+      {%- render 'section-heading', heading: section.settings.heading, subheading: section.settings.subheading, heading_tag: section.settings.seo_h_tag, layout: section.settings.section_heading_layout -%}
+    </div>
+  {%- endif -%}
+
+  {%- if section.blocks.size > 0 -%}
+    {%- style -%}
+      #section-{{ section.id }} .overlap-hero__row {
+        --overlap-hero-overlap: {{ overlap_px }}px;
+        --overlap-hero-col-basis: calc((100% + {{ overlap_total }}px) / {{ col_count }});
+        --overlap-hero-title-height: {{ section.settings.title_area_height }}%;
+        --overlap-hero-title-size-min: {{ section.settings.title_font_size_mobile }}px;
+        --overlap-hero-title-size-max: {{ section.settings.title_font_size }}px;
+        --overlap-hero-title-color: {{ section.settings.title_color }};
+        aspect-ratio: {{ hero_aspect }};
+      }
+      #section-{{ section.id }} .overlap-hero__title-text {
+        font-family: "{{ overlap_title_font | escape }}", sans-serif;
+      }
+      {%- for block in section.blocks -%}
+        {%- if block.settings.column_title_color != 'rgba(0,0,0,0)' -%}
+          #overlap-column-{{ block.id }} .overlap-hero__title-text {
+            color: {{ block.settings.column_title_color }};
+          }
+        {%- endif -%}
+      {%- endfor -%}
+      @media screen and (max-width: 767px) {
+        #section-{{ section.id }} .overlap-hero--hide-middle .overlap-hero__row {
+          --overlap-hero-col-basis: calc((100% + {{ overlap_px }}px) / 2);
+        }
+      }
+    {%- endstyle -%}
+
+    <div class="overlap-hero {{ hide_middle_class }}">
+      <div class="overlap-hero__row">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign column_class = 'overlap-hero__column'
+            assign column_z = col_count | minus: forloop.index | plus: 1
+            if forloop.first
+              assign column_class = column_class | append: ' overlap-hero__column--first'
+            endif
+            if forloop.index == 2
+              assign column_class = column_class | append: ' overlap-hero__column--middle'
+            endif
+            if forloop.last
+              assign column_class = column_class | append: ' overlap-hero__column--last'
+            endif
+          -%}
+
+          <div
+            id="overlap-column-{{ block.id }}"
+            class="{{ column_class }}"
+          >
+            <div class="overlap-hero__title" {{ block.shopify_attributes }}>
+              {%- if block.settings.column_title != blank -%}
+                <span class="overlap-hero__title-text">{{ block.settings.column_title | escape }}</span>
+              {%- endif -%}
+            </div>
+
+            <div class="overlap-hero__bg" style="--overlap-hero-bg-z: {{ column_z }};">
+              {%- if block.settings.background_image != blank -%}
+                <div class="{% if block.settings.background_image_mobile != blank %} element--hide-on-small {% endif %}">
+                  {%- render 'overlap-hero-background', image: block.settings.background_image, preload: sock_preload, sizes: '(max-width: 767px) 50vw, 33vw' -%}
+                </div>
+              {%- else -%}
+                <div class="{% if block.settings.background_image_mobile != blank %} element--hide-on-small {% endif %}">
+                  {%- render 'lazy-svg', image: 'image', ratio: 1.5, class: 'svg-placeholder svg-placeholder--background' -%}
+                </div>
+              {%- endif -%}
+
+              {%- if block.settings.background_image_mobile != blank -%}
+                <div class="element--hide-on-desk">
+                  {%- render 'overlap-hero-background', image: block.settings.background_image_mobile, preload: sock_preload, sizes: '(max-width: 767px) 50vw, 33vw' -%}
+                </div>
+              {%- endif -%}
+            </div>
+
+            <div class="overlap-hero__socks">
+              {%- if block.settings.top_sock_link != blank -%}
+                <a
+                  href="{{ block.settings.top_sock_link }}"
+                  class="overlap-hero__sock overlap-hero__sock--top"
+                  {% if block.settings.top_sock_link_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+                  aria-label="{{ block.settings.top_sock_label | default: 'View product' | escape }}"
+                  style="--sock-offset-x: {{ block.settings.top_sock_horizontal_offset }}%; --sock-offset-y: {{ block.settings.top_sock_vertical_offset }}%; --sock-rotate: {{ block.settings.top_sock_rotation }}deg; --sock-size: {{ block.settings.top_sock_size }}%; transform: translate(var(--sock-offset-x), var(--sock-offset-y));"
+                >
+                  {%- if block.settings.top_sock_image != blank -%}
+                    {%- render 'lazy-image', image: block.settings.top_sock_image, sizes: 'sizes="(max-width: 767px) 25vw, 15vw"', preload: sock_preload, class: 'overlap-hero__sock-image lazy-image--no-transition' -%}
+                  {%- endif -%}
+                </a>
+              {%- elsif block.settings.top_sock_image != blank -%}
+                <div
+                  class="overlap-hero__sock overlap-hero__sock--top"
+                  style="--sock-offset-x: {{ block.settings.top_sock_horizontal_offset }}%; --sock-offset-y: {{ block.settings.top_sock_vertical_offset }}%; --sock-rotate: {{ block.settings.top_sock_rotation }}deg; --sock-size: {{ block.settings.top_sock_size }}%; transform: translate(var(--sock-offset-x), var(--sock-offset-y));"
+                >
+                  {%- render 'lazy-image', image: block.settings.top_sock_image, sizes: 'sizes="(max-width: 767px) 25vw, 15vw"', preload: sock_preload, class: 'overlap-hero__sock-image lazy-image--no-transition' -%}
+                </div>
+              {%- endif -%}
+
+              {%- if block.settings.bottom_sock_link != blank -%}
+                <a
+                  href="{{ block.settings.bottom_sock_link }}"
+                  class="overlap-hero__sock overlap-hero__sock--bottom"
+                  {% if block.settings.bottom_sock_link_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+                  aria-label="{{ block.settings.bottom_sock_label | default: 'View product' | escape }}"
+                  style="--sock-offset-x: {{ block.settings.bottom_sock_horizontal_offset }}%; --sock-offset-y: {{ block.settings.bottom_sock_vertical_offset }}%; --sock-rotate: {{ block.settings.bottom_sock_rotation }}deg; --sock-size: {{ block.settings.bottom_sock_size }}%; transform: translate(var(--sock-offset-x), var(--sock-offset-y));"
+                >
+                  {%- if block.settings.bottom_sock_image != blank -%}
+                    {%- render 'lazy-image', image: block.settings.bottom_sock_image, sizes: 'sizes="(max-width: 767px) 25vw, 15vw"', preload: sock_preload, class: 'overlap-hero__sock-image lazy-image--no-transition' -%}
+                  {%- endif -%}
+                </a>
+              {%- elsif block.settings.bottom_sock_image != blank -%}
+                <div
+                  class="overlap-hero__sock overlap-hero__sock--bottom"
+                  style="--sock-offset-x: {{ block.settings.bottom_sock_horizontal_offset }}%; --sock-offset-y: {{ block.settings.bottom_sock_vertical_offset }}%; --sock-rotate: {{ block.settings.bottom_sock_rotation }}deg; --sock-size: {{ block.settings.bottom_sock_size }}%; transform: translate(var(--sock-offset-x), var(--sock-offset-y));"
+                >
+                  {%- render 'lazy-image', image: block.settings.bottom_sock_image, sizes: 'sizes="(max-width: 767px) 25vw, 15vw"', preload: sock_preload, class: 'overlap-hero__sock-image lazy-image--no-transition' -%}
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+{%- if section.settings.section_background_color != 'rgba(0,0,0,0)' -%}
+  {% style %}
+    #shopify-section-{{ section.id }} {
+      background-color: {{ section.settings.section_background_color }};
+    }
+  {% endstyle %}
+{%- endif -%}
+{%- if section.settings.section_background_gradient != blank -%}
+  {% style %}
+    #shopify-section-{{ section.id }} {
+      background: {{ section.settings.section_background_gradient }};
+    }
+  {% endstyle %}
+{%- endif -%}
+{%- if section.settings.section_heading_color != 'rgba(0,0,0,0)' -%}
+  {% style %}
+    #shopify-section-{{ section.id }} .section-heading {
+      --color-text-main: {{ section.settings.section_heading_color }};
+    }
+  {% endstyle %}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Homepage overlap hero",
+  "class": "can-be-fullwidth",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "overlap_amount",
+      "label": "Column overlap",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 30,
+      "info": "How far each column overlaps the next. Match your PNG edge design."
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio",
+      "label": "Hero height",
+      "options": [
+        { "value": "3 / 1", "label": "Wide (3:1)" },
+        { "value": "5 / 2", "label": "Medium (5:2)" },
+        { "value": "2 / 1", "label": "Standard (2:1)" },
+        { "value": "16 / 9", "label": "Cinematic (16:9)" }
+      ],
+      "default": "5 / 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_middle_on_mobile",
+      "label": "Hide middle column on mobile",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Column titles"
+    },
+    {
+      "type": "text",
+      "id": "adobe_fonts_kit_id",
+      "label": "Adobe Fonts kit ID",
+      "info": "Paste the ID from use.typekit.net/XXXXX.css. Also works if set under Theme settings > Typography > Adobe Fonts."
+    },
+    {
+      "type": "text",
+      "id": "title_font_family",
+      "label": "Title font family name",
+      "default": "sketchnote-square",
+      "info": "Copy the exact CSS font-family name from your Adobe web project. Also add dorisanddude.com and 0uhrc2-ab.myshopify.com to the web project's allowed domains."
+    },
+    {
+      "type": "range",
+      "id": "title_area_height",
+      "label": "Title area height",
+      "min": 8,
+      "max": 28,
+      "step": 1,
+      "unit": "%",
+      "default": 14,
+      "info": "Reserved space at the top of each column."
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "label": "Title font size (desktop max)",
+      "min": 14,
+      "max": 56,
+      "step": 1,
+      "unit": "px",
+      "default": 28,
+      "info": "Maximum title size on large screens. Scales fluidly down to the mobile minimum."
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_mobile",
+      "label": "Title font size (mobile min)",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 20,
+      "info": "Minimum title size on small screens."
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "select",
+      "id": "section_heading_layout",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "section-heading--left", "label": "Left" },
+        { "value": "section-heading--center", "label": "Center" }
+      ],
+      "default": "section-heading--left"
+    },
+    {
+      "type": "header",
+      "content": "Section design"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Background color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color_background",
+      "id": "section_background_gradient",
+      "label": "Background gradient"
+    },
+    {
+      "type": "color",
+      "id": "section_heading_color",
+      "label": "Heading color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_margin",
+      "label": "Remove top and bottom spacing",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "seo_h_tag",
+      "label": "Heading SEO tag",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Column",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Title"
+        },
+        {
+          "type": "text",
+          "id": "column_title",
+          "label": "Column title",
+          "default": "Hot this week",
+          "info": "Shown in the space at the top of the column."
+        },
+        {
+          "type": "color",
+          "id": "column_title_color",
+          "label": "Title color override",
+          "info": "Optional. Leave transparent to use the section title color."
+        },
+        {
+          "type": "header",
+          "content": "Background"
+        },
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Column background (desktop)",
+          "info": "Use a PNG with transparent wavy edges so columns blend together."
+        },
+        {
+          "type": "image_picker",
+          "id": "background_image_mobile",
+          "label": "Column background (mobile, optional)"
+        },
+        {
+          "type": "header",
+          "content": "Top sock"
+        },
+        {
+          "type": "image_picker",
+          "id": "top_sock_image",
+          "label": "Top sock image"
+        },
+        {
+          "type": "url",
+          "id": "top_sock_link",
+          "label": "Top sock link"
+        },
+        {
+          "type": "text",
+          "id": "top_sock_label",
+          "label": "Top sock link label (accessibility)"
+        },
+        {
+          "type": "checkbox",
+          "id": "top_sock_link_new_tab",
+          "label": "Open top sock link in new tab",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "top_sock_horizontal_offset",
+          "label": "Top sock horizontal offset",
+          "min": -40,
+          "max": 40,
+          "step": 1,
+          "unit": "%",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "top_sock_vertical_offset",
+          "label": "Top sock vertical offset",
+          "min": -40,
+          "max": 40,
+          "step": 1,
+          "unit": "%",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "top_sock_rotation",
+          "label": "Top sock rotation",
+          "min": -180,
+          "max": 180,
+          "step": 4,
+          "unit": "°",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "top_sock_size",
+          "label": "Top sock size",
+          "min": 40,
+          "max": 140,
+          "step": 1,
+          "unit": "%",
+          "default": 85,
+          "info": "Size relative to the top half of the column."
+        },
+        {
+          "type": "header",
+          "content": "Bottom sock"
+        },
+        {
+          "type": "image_picker",
+          "id": "bottom_sock_image",
+          "label": "Bottom sock image"
+        },
+        {
+          "type": "url",
+          "id": "bottom_sock_link",
+          "label": "Bottom sock link"
+        },
+        {
+          "type": "text",
+          "id": "bottom_sock_label",
+          "label": "Bottom sock link label (accessibility)"
+        },
+        {
+          "type": "checkbox",
+          "id": "bottom_sock_link_new_tab",
+          "label": "Open bottom sock link in new tab",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "bottom_sock_horizontal_offset",
+          "label": "Bottom sock horizontal offset",
+          "min": -40,
+          "max": 40,
+          "step": 1,
+          "unit": "%",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "bottom_sock_vertical_offset",
+          "label": "Bottom sock vertical offset",
+          "min": -40,
+          "max": 40,
+          "step": 1,
+          "unit": "%",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "bottom_sock_rotation",
+          "label": "Bottom sock rotation",
+          "min": -180,
+          "max": 180,
+          "step": 4,
+          "unit": "°",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "bottom_sock_size",
+          "label": "Bottom sock size",
+          "min": 40,
+          "max": 140,
+          "step": 1,
+          "unit": "%",
+          "default": 85,
+          "info": "Size relative to the bottom half of the column."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Homepage overlap hero",
+      "blocks": [
+        { "type": "column" },
+        { "type": "column" },
+        { "type": "column" }
+      ]
+    }
+  ]
+}
+{% endschema %}

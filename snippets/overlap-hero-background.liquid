@@ -1,0 +1,33 @@
+{% comment %}
+  Renders a column background PNG with alpha preserved (format: png).
+
+  Accepts:
+  - image: {Object} required
+  - preload: {Boolean}
+  - sizes: {String} sizes attribute value e.g. '(max-width: 767px) 50vw, 33vw'
+{% endcomment %}
+
+{%- liquid
+  assign bg_image = image
+  assign bg_alt = bg_image.alt | default: '' | escape
+-%}
+
+<img
+  class="overlap-hero__bg-img"
+  src="{{ bg_image | image_url: width: 1000, format: 'png' }}"
+  srcset="
+    {%- if bg_image.width >= 480 -%}{{ bg_image | image_url: width: 480, format: 'png' }} 480w,{%- endif -%}
+    {%- if bg_image.width >= 640 -%}{{ bg_image | image_url: width: 640, format: 'png' }} 640w,{%- endif -%}
+    {%- if bg_image.width >= 840 -%}{{ bg_image | image_url: width: 840, format: 'png' }} 840w,{%- endif -%}
+    {%- if bg_image.width >= 1080 -%}{{ bg_image | image_url: width: 1080, format: 'png' }} 1080w,{%- endif -%}
+    {%- if bg_image.width >= 1280 -%}{{ bg_image | image_url: width: 1280, format: 'png' }} 1280w,{%- endif -%}
+    {%- if bg_image.width >= 1540 -%}{{ bg_image | image_url: width: 1540, format: 'png' }} 1540w,{%- endif -%}
+    {{ bg_image | image_url: width: bg_image.width, format: 'png' }} {{ bg_image.width }}w
+  "
+  sizes="{{ sizes | default: '(max-width: 767px) 50vw, 33vw' }}"
+  width="{{ bg_image.width }}"
+  height="{{ bg_image.height }}"
+  alt="{{ bg_alt }}"
+  {% unless preload %}loading="lazy"{% endunless %}
+  {% if bg_image.presentation.focal_point %}style="object-position: {{ bg_image.presentation.focal_point }}"{% endif %}
+>
