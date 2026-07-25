@@ -28,6 +28,8 @@
   case section.settings.aspect_ratio
     when '3 / 1'
       assign hero_aspect = '3'
+    when '5 / 2'
+      assign hero_aspect = '2.5'
     when '2 / 1'
       assign hero_aspect = '2'
     when '16 / 9'
@@ -35,6 +37,29 @@
     else
       assign hero_aspect = '2.5'
   endcase
+
+  if section.settings.aspect_ratio_mobile == 'same'
+    assign hero_aspect_mobile = hero_aspect
+  else
+    case section.settings.aspect_ratio_mobile
+      when '3 / 1'
+        assign hero_aspect_mobile = '3'
+      when '5 / 2'
+        assign hero_aspect_mobile = '2.5'
+      when '2 / 1'
+        assign hero_aspect_mobile = '2'
+      when '16 / 9'
+        assign hero_aspect_mobile = '1.7777778'
+      when '4 / 3'
+        assign hero_aspect_mobile = '1.3333333'
+      when '3 / 2'
+        assign hero_aspect_mobile = '1.5'
+      when '1 / 1'
+        assign hero_aspect_mobile = '1'
+      else
+        assign hero_aspect_mobile = '1.5'
+    endcase
+  endif
 -%}
 
 <div
@@ -69,6 +94,9 @@
         {%- endif -%}
       {%- endfor -%}
       @media screen and (max-width: 767px) {
+        #section-{{ section.id }} .overlap-hero__row {
+          aspect-ratio: {{ hero_aspect_mobile }};
+        }
         #section-{{ section.id }} .overlap-hero--hide-middle .overlap-hero__row {
           --overlap-hero-col-basis: calc((100% + {{ overlap_px }}px) / 2);
         }
@@ -216,7 +244,7 @@
     {
       "type": "select",
       "id": "aspect_ratio",
-      "label": "Hero height",
+      "label": "Hero height (desktop)",
       "options": [
         { "value": "3 / 1", "label": "Wide (3:1)" },
         { "value": "5 / 2", "label": "Medium (5:2)" },
@@ -224,6 +252,22 @@
         { "value": "16 / 9", "label": "Cinematic (16:9)" }
       ],
       "default": "5 / 2"
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio_mobile",
+      "label": "Hero height (mobile)",
+      "options": [
+        { "value": "same", "label": "Same as desktop" },
+        { "value": "2 / 1", "label": "Standard (2:1)" },
+        { "value": "3 / 2", "label": "Tall (3:2)" },
+        { "value": "4 / 3", "label": "Extra tall (4:3)" },
+        { "value": "1 / 1", "label": "Square (1:1)" },
+        { "value": "5 / 2", "label": "Medium (5:2)" },
+        { "value": "16 / 9", "label": "Cinematic (16:9)" }
+      ],
+      "default": "3 / 2",
+      "info": "Uses the same background images — they scale with object-fit cover. No separate mobile artwork needed."
     },
     {
       "type": "checkbox",
