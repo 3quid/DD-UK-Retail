@@ -1,0 +1,567 @@
+{{ 'section-about-story.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign story_font = section.settings.story_font
+  assign custom_font_asset = section.settings.custom_font_asset | strip
+  assign custom_font_asset = custom_font_asset | remove: '/assets/' | remove: 'assets/'
+  if custom_font_asset contains '/'
+    assign custom_font_asset = custom_font_asset | split: '/' | last
+  endif
+  assign use_asset_font = false
+  if custom_font_asset != blank
+    assign use_asset_font = true
+  endif
+
+  if section.settings.background_repeat
+    assign bg_repeat = 'repeat'
+    assign bg_size = 'auto'
+  else
+    assign bg_repeat = 'no-repeat'
+    assign bg_size = 'cover'
+  endif
+
+  if section.index == 1
+    assign preload = true
+  else
+    assign preload = false
+  endif
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .about-story {
+    --about-story-bg-fallback: {{ section.settings.background_fallback_color }};
+    --about-story-bg-size: {{ bg_size }};
+    --about-story-bg-repeat: {{ bg_repeat }};
+    --about-story-font-size: {{ section.settings.font_size_desktop }}px;
+    --about-story-font-size-mobile: {{ section.settings.font_size_mobile }}px;
+    --about-story-text-padding-y: {{ section.settings.text_row_padding }}px;
+    --about-story-paragraph-gap: {{ section.settings.paragraph_gap }}px;
+    --about-story-scrim-bg: {{ section.settings.scrim_background }};
+    --about-story-text-max-width: {{ section.settings.text_max_width }}px;
+    color: {{ section.settings.text_color }};
+  }
+
+  {%- if section.settings.background_image != blank -%}
+    #shopify-section-{{ section.id }} .about-story {
+      --about-story-bg-image: url({{ section.settings.background_image | image_url: width: 2400 }});
+    }
+  {%- endif -%}
+
+  {%- if use_asset_font -%}
+    @font-face {
+      font-family: "Dawg";
+      src: url("{{ custom_font_asset | asset_url }}") format("woff2");
+      font-display: swap;
+      font-weight: 400;
+      font-style: normal;
+    }
+    #shopify-section-{{ section.id }} .about-story,
+    #shopify-section-{{ section.id }} .about-story__paragraph,
+    #shopify-section-{{ section.id }} .about-story .rte,
+    #shopify-section-{{ section.id }} .about-story .rte p {
+      font-family: "Dawg", cursive, sans-serif;
+    }
+  {%- elsif story_font != blank -%}
+    #shopify-section-{{ section.id }} .about-story__paragraph {
+      font-family: {{ story_font.family }}, {{ story_font.fallback_families }};
+      font-weight: {{ story_font.weight }};
+      font-style: {{ story_font.style }};
+    }
+  {%- endif -%}
+
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'text_row' -%}
+      {%- if block.settings.overlap_enabled -%}
+        #about-story-text-{{ block.id }} {
+          --about-overlap-amount: {{ block.settings.overlap_amount }}px;
+          --about-overlap-amount-mobile: {{ block.settings.overlap_amount_mobile }}px;
+          --about-text-offset-x: {{ block.settings.horizontal_offset }}%;
+        }
+      {%- endif -%}
+      {%- for i in (1..4) -%}
+        {%- liquid
+          assign rotation_key = 'paragraph_' | append: i | append: '_rotation'
+          assign rotation = block.settings[rotation_key]
+          assign mobile_rotation_key = 'paragraph_' | append: i | append: '_rotation_mobile'
+          assign mobile_rotation = block.settings[mobile_rotation_key]
+        -%}
+        {%- if rotation != 0 or mobile_rotation != 0 -%}
+          #about-story-para-{{ block.id }}-{{ i }} {
+            --about-para-rotate: {{ rotation }}deg;
+            --about-para-rotate-mobile: {{ mobile_rotation }}deg;
+          }
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endstyle -%}
+
+<div
+  id="section-{{ section.id }}"
+  class="container--fullwidth {% unless section.settings.remove_margin %} container--vertical-space {% endunless %} remove-empty-space"
+>
+  <section class="about-story" aria-labelledby="about-story-heading-{{ section.id }}">
+    <h1 id="about-story-heading-{{ section.id }}" class="visually-hidden">{{ page.title | default: 'About us' | escape }}</h1>
+
+    <div class="about-story__bg" aria-hidden="true"></div>
+
+    <div class="about-story__inner">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+
+          {%- when 'image' -%}
+            <div class="about-story__row about-story__row--image" {{ block.shopify_attributes }}>
+              {%- if block.settings.image != blank -%}
+                {%- capture sizes -%}sizes="100vw"{%- endcapture -%}
+                {%- render 'lazy-image',
+                  image: block.settings.image,
+                  sizes: sizes,
+                  alt: block.settings.image_alt,
+                  preload: preload
+                -%}
+              {%- else -%}
+                <div class="about-story__placeholder">{{ 'lifestyle-1' | placeholder_svg_tag }}</div>
+              {%- endif -%}
+            </div>
+
+          {%- when 'text_row' -%}
+            {%- liquid
+              assign block_show_scrim = section.settings.show_scrim
+              if block.settings.hide_scrim
+                assign block_show_scrim = false
+              endif
+            -%}
+            <div
+              id="about-story-text-{{ block.id }}"
+              class="about-story__row about-story__row--text{% if block.settings.overlap_enabled %} about-story__row--overlap{% endif %}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="about-story__text-inner about-story__text-inner--align-{{ block.settings.text_alignment }}">
+                {%- for i in (1..4) -%}
+                  {%- liquid
+                    assign text_key = 'paragraph_' | append: i
+                    assign style_key = 'paragraph_' | append: i | append: '_style'
+                    assign para_text = block.settings[text_key]
+                    assign para_style = block.settings[style_key]
+                  -%}
+                  {%- if para_text != blank -%}
+                    {%- if para_style == 'headline' -%}
+                      <h2
+                        id="about-story-para-{{ block.id }}-{{ i }}"
+                        class="about-story__paragraph about-story__paragraph--headline{% if block_show_scrim %} about-story__paragraph--scrim{% endif %}"
+                      >
+                        {{ para_text | replace: '<p>', '' | replace: '</p>', '' }}
+                      </h2>
+                    {%- else -%}
+                      <div
+                        id="about-story-para-{{ block.id }}-{{ i }}"
+                        class="about-story__paragraph about-story__paragraph--body rte{% if block_show_scrim %} about-story__paragraph--scrim{% endif %}"
+                      >
+                        {{ para_text }}
+                      </div>
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </section>
+</div>
+
+{%- unless use_asset_font or story_font.system? or story_font == blank -%}
+  <template id="about-story-font-{{ section.id }}">
+    <style>
+      {{ story_font | font_face: font_display: 'swap' }}
+    </style>
+  </template>
+  <script>
+    document.head.insertAdjacentHTML('beforeend', document.getElementById('about-story-font-{{ section.id }}').innerHTML);
+  </script>
+{%- endunless -%}
+
+{% schema %}
+{
+  "name": "Our story",
+  "tag": "section",
+  "class": "section-about-story",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Abstract background"
+    },
+    {
+      "type": "color",
+      "id": "background_fallback_color",
+      "label": "Background fallback colour",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "checkbox",
+      "id": "background_repeat",
+      "label": "Tile background (repeat)",
+      "default": false,
+      "info": "Off = cover full area. On = repeat pattern."
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "text",
+      "id": "custom_font_asset",
+      "label": "Custom font asset filename",
+      "info": "Upload WOFF2 to Assets, then enter filename here (e.g. doris-handwriting.woff2). Takes priority over font picker below."
+    },
+    {
+      "type": "font_picker",
+      "id": "story_font",
+      "label": "Story font",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "font_size_desktop",
+      "label": "Body font size (desktop)",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile",
+      "label": "Body font size (mobile)",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 17
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text colour",
+      "default": "#1d1d1d"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_scrim",
+      "label": "Soft background behind text",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "scrim_background",
+      "label": "Text background colour",
+      "default": "rgba(255,255,255,0.88)"
+    },
+    {
+      "type": "range",
+      "id": "text_max_width",
+      "label": "Text column max width",
+      "min": 320,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "default": 640
+    },
+    {
+      "type": "range",
+      "id": "text_row_padding",
+      "label": "Vertical padding on text rows",
+      "min": 16,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "paragraph_gap",
+      "label": "Gap between paragraphs",
+      "min": 8,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_margin",
+      "label": "Remove top/bottom section margin",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Illustration",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image alt text",
+          "info": "Describe the scene for accessibility (not the full story text)."
+        }
+      ]
+    },
+    {
+      "type": "text_row",
+      "name": "Story text",
+      "settings": [
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": "Alignment",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Centre" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "header",
+          "content": "Overlap illustration"
+        },
+        {
+          "type": "checkbox",
+          "id": "overlap_enabled",
+          "label": "Overlap previous illustration",
+          "default": false,
+          "info": "Pulls this text block up over the illustration above, like handwriting scribbled on the art."
+        },
+        {
+          "type": "range",
+          "id": "overlap_amount",
+          "label": "Overlap amount (desktop)",
+          "min": 0,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "default": 120,
+          "info": "How far the text moves up over the image above."
+        },
+        {
+          "type": "range",
+          "id": "overlap_amount_mobile",
+          "label": "Overlap amount (mobile)",
+          "min": 0,
+          "max": 240,
+          "step": 10,
+          "unit": "px",
+          "default": 60
+        },
+        {
+          "type": "range",
+          "id": "horizontal_offset",
+          "label": "Horizontal shift",
+          "min": -30,
+          "max": 30,
+          "step": 1,
+          "unit": "%",
+          "default": 0,
+          "info": "Nudge text left or right when overlapping."
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_scrim",
+          "label": "Hide text background on this block",
+          "default": false,
+          "info": "Turn on for a cleaner scribbled-over look on illustrations."
+        },
+        {
+          "type": "header",
+          "content": "Paragraph 1"
+        },
+        {
+          "type": "richtext",
+          "id": "paragraph_1",
+          "label": "Text"
+        },
+        {
+          "type": "select",
+          "id": "paragraph_1_style",
+          "label": "Style",
+          "options": [
+            { "value": "body", "label": "Body" },
+            { "value": "headline", "label": "Headline" }
+          ],
+          "default": "body"
+        },
+        {
+          "type": "range",
+          "id": "paragraph_1_rotation",
+          "label": "Rotation (desktop)",
+          "min": -4,
+          "max": 4,
+          "step": 0.5,
+          "unit": "°",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "paragraph_1_rotation_mobile",
+          "label": "Rotation (mobile)",
+          "min": -4,
+          "max": 4,
+          "step": 0.5,
+          "unit": "°",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Paragraph 2"
+        },
+        {
+          "type": "richtext",
+          "id": "paragraph_2",
+          "label": "Text"
+        },
+        {
+          "type": "select",
+          "id": "paragraph_2_style",
+          "label": "Style",
+          "options": [
+            { "value": "body", "label": "Body" },
+            { "value": "headline", "label": "Headline" }
+          ],
+          "default": "body"
+        },
+        {
+          "type": "range",
+          "id": "paragraph_2_rotation",
+          "label": "Rotation (desktop)",
+          "min": -4,
+          "max": 4,
+          "step": 0.5,
+          "unit": "°",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "paragraph_2_rotation_mobile",
+          "label": "Rotation (mobile)",
+          "min": -4,
+          "max": 4,
+          "step": 0.5,
+          "unit": "°",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Paragraph 3"
+        },
+        {
+          "type": "richtext",
+          "id": "paragraph_3",
+          "label": "Text"
+        },
+        {
+          "type": "select",
+          "id": "paragraph_3_style",
+          "label": "Style",
+          "options": [
+            { "value": "body", "label": "Body" },
+            { "value": "headline", "label": "Headline" }
+          ],
+          "default": "body"
+        },
+        {
+          "type": "range",
+          "id": "paragraph_3_rotation",
+          "label": "Rotation (desktop)",
+          "min": -4,
+          "max": 4,
+          "step": 0.5,
+          "unit": "°",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "paragraph_3_rotation_mobile",
+          "label": "Rotation (mobile)",
+          "min": -4,
+          "max": 4,
+          "step": 0.5,
+          "unit": "°",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Paragraph 4"
+        },
+        {
+          "type": "richtext",
+          "id": "paragraph_4",
+          "label": "Text"
+        },
+        {
+          "type": "select",
+          "id": "paragraph_4_style",
+          "label": "Style",
+          "options": [
+            { "value": "body", "label": "Body" },
+            { "value": "headline", "label": "Headline" }
+          ],
+          "default": "body"
+        },
+        {
+          "type": "range",
+          "id": "paragraph_4_rotation",
+          "label": "Rotation (desktop)",
+          "min": -4,
+          "max": 4,
+          "step": 0.5,
+          "unit": "°",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "paragraph_4_rotation_mobile",
+          "label": "Rotation (mobile)",
+          "min": -4,
+          "max": 4,
+          "step": 0.5,
+          "unit": "°",
+          "default": 0
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Our story",
+      "blocks": [
+        { "type": "image" },
+        { "type": "text_row" },
+        { "type": "image" },
+        { "type": "text_row" },
+        { "type": "image" },
+        { "type": "text_row" }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}
