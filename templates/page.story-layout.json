@@ -12,9 +12,44 @@
     "story_layout": {
       "type": "about-story",
       "blocks": {
+        "image_EFGcBG": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/comfort.png",
+            "image_alt": ""
+          }
+        },
+        "text_row_GqKLE6": {
+          "type": "text_row",
+          "settings": {
+            "text_alignment": "center",
+            "overlap_enabled": false,
+            "overlap_amount": 120,
+            "overlap_amount_mobile": 60,
+            "horizontal_offset": 0,
+            "hide_scrim": false,
+            "paragraph_1": "<p>Comfort</p>",
+            "paragraph_1_style": "headline",
+            "paragraph_1_rotation": 1,
+            "paragraph_1_rotation_mobile": 0.5,
+            "paragraph_2": "<p>Our feet go through a lot during the day so we think they should be treated like kings. That's why we have spent years perfecting our ultimate supersoft sock recipe to help feet feel fantastic all day long.</p>",
+            "paragraph_2_style": "body",
+            "paragraph_2_rotation": -1.5,
+            "paragraph_2_rotation_mobile": -1,
+            "paragraph_3": "",
+            "paragraph_3_style": "body",
+            "paragraph_3_rotation": 0,
+            "paragraph_3_rotation_mobile": 0,
+            "paragraph_4": "",
+            "paragraph_4_style": "body",
+            "paragraph_4_rotation": 0,
+            "paragraph_4_rotation_mobile": 0
+          }
+        },
         "image_1": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/fun.png",
             "image_alt": ""
           }
         },
@@ -27,14 +62,14 @@
             "overlap_amount_mobile": 60,
             "horizontal_offset": 0,
             "hide_scrim": false,
-            "paragraph_1": "",
-            "paragraph_1_style": "body",
-            "paragraph_1_rotation": 0,
-            "paragraph_1_rotation_mobile": 0,
-            "paragraph_2": "",
+            "paragraph_1": "<p>Fun</p>",
+            "paragraph_1_style": "headline",
+            "paragraph_1_rotation": -1,
+            "paragraph_1_rotation_mobile": -0.5,
+            "paragraph_2": "<p>We enjoy the simple things in life: family,  exploring nature, family baking, going on adventures and making our own fun. Life's too short for plain white socks. Which is why we weave colour and personality (and a little bit of Cornish sunshine) into every pair we create.</p>",
             "paragraph_2_style": "body",
-            "paragraph_2_rotation": 0,
-            "paragraph_2_rotation_mobile": 0,
+            "paragraph_2_rotation": 1.5,
+            "paragraph_2_rotation_mobile": 1,
             "paragraph_3": "",
             "paragraph_3_style": "body",
             "paragraph_3_rotation": 0,
@@ -44,15 +79,61 @@
             "paragraph_4_rotation": 0,
             "paragraph_4_rotation_mobile": 0
           }
+        },
+        "image_2": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/sustain.png",
+            "image_alt": ""
+          }
+        },
+        "text_2": {
+          "type": "text_row",
+          "settings": {
+            "text_alignment": "center",
+            "overlap_enabled": false,
+            "overlap_amount": 120,
+            "overlap_amount_mobile": 60,
+            "horizontal_offset": 0,
+            "hide_scrim": false,
+            "paragraph_1": "<p>Sustainability</p>",
+            "paragraph_1_style": "headline",
+            "paragraph_1_rotation": 0,
+            "paragraph_1_rotation_mobile": 0,
+            "paragraph_2": "<p>We're rather fond of our planet. So, not only do we use sustainable, organic cotton and recycled fibres in our socks, we also package them with recyclability in mind.</p>",
+            "paragraph_2_style": "body",
+            "paragraph_2_rotation": 0,
+            "paragraph_2_rotation_mobile": 0,
+            "paragraph_3": "<p>Doris & Dude. Doing our bit for feet. And the planet.</p>",
+            "paragraph_3_style": "headline",
+            "paragraph_3_rotation": -1,
+            "paragraph_3_rotation_mobile": -0.5,
+            "paragraph_4": "<p> </p>",
+            "paragraph_4_style": "body",
+            "paragraph_4_rotation": 0,
+            "paragraph_4_rotation_mobile": 0
+          }
         }
       },
       "block_order": [
+        "image_EFGcBG",
+        "text_row_GqKLE6",
         "image_1",
-        "text_1"
+        "text_1",
+        "image_2",
+        "text_2"
       ],
       "settings": {
+        "background_image": "shopify://shop_images/background-mission.jpg",
         "background_fallback_color": "#f4f4f4",
         "background_repeat": false,
+        "show_title": true,
+        "title": "Doris & Dude: On a mission",
+        "title_alignment": "center",
+        "title_size_desktop": 56,
+        "title_size_mobile": 36,
+        "title_padding_top": 48,
+        "title_padding_bottom": 32,
         "custom_font_asset": "Dawg.woff2",
         "story_font": "sans_serif_n4",
         "font_size_desktop": 24,
@@ -67,7 +148,5 @@
       }
     }
   },
-  "order": [
-    "story_layout"
-  ]
+  "order": ["story_layout"]
 }
