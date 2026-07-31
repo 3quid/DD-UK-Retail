@@ -38,6 +38,10 @@
     --about-story-paragraph-gap: {{ section.settings.paragraph_gap }}px;
     --about-story-scrim-bg: {{ section.settings.scrim_background }};
     --about-story-text-max-width: {{ section.settings.text_max_width }}px;
+    --about-story-title-size: {{ section.settings.title_size_desktop }}px;
+    --about-story-title-size-mobile: {{ section.settings.title_size_mobile }}px;
+    --about-story-title-padding-top: {{ section.settings.title_padding_top }}px;
+    --about-story-title-padding-bottom: {{ section.settings.title_padding_bottom }}px;
     color: {{ section.settings.text_color }};
   }
 
@@ -56,6 +60,7 @@
       font-style: normal;
     }
     #shopify-section-{{ section.id }} .about-story,
+    #shopify-section-{{ section.id }} .about-story__title,
     #shopify-section-{{ section.id }} .about-story__paragraph,
     #shopify-section-{{ section.id }} .about-story .rte,
     #shopify-section-{{ section.id }} .about-story .rte p {
@@ -101,11 +106,27 @@
   class="container--fullwidth {% unless section.settings.remove_margin %} container--vertical-space {% endunless %} remove-empty-space"
 >
   <section class="about-story" aria-labelledby="about-story-heading-{{ section.id }}">
-    <h1 id="about-story-heading-{{ section.id }}" class="visually-hidden">{{ page.title | default: 'About us' | escape }}</h1>
+    {%- liquid
+      assign story_title = section.settings.title | default: page.title | default: 'About us'
+      if section.settings.show_title and section.settings.title != blank
+        assign show_visible_title = true
+      else
+        assign show_visible_title = false
+      endif
+    -%}
+    {%- unless show_visible_title -%}
+      <h1 id="about-story-heading-{{ section.id }}" class="visually-hidden">{{ story_title | escape }}</h1>
+    {%- endunless -%}
 
     <div class="about-story__bg" aria-hidden="true"></div>
 
     <div class="about-story__inner">
+      {%- if show_visible_title -%}
+        <header class="about-story__header about-story__header--align-{{ section.settings.title_alignment }}">
+          <h1 id="about-story-heading-{{ section.id }}" class="about-story__title">{{ section.settings.title | escape }}</h1>
+        </header>
+      {%- endif -%}
+
       {%- for block in section.blocks -%}
         {%- case block.type -%}
 
@@ -209,6 +230,73 @@
       "label": "Tile background (repeat)",
       "default": false,
       "info": "Off = cover full area. On = repeat pattern."
+    },
+    {
+      "type": "header",
+      "content": "Page title"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Show page title",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Our story"
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Title alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Centre" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "title_size_desktop",
+      "label": "Title size (desktop)",
+      "min": 24,
+      "max": 96,
+      "step": 2,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "label": "Title size (mobile)",
+      "min": 20,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "title_padding_top",
+      "label": "Space above title",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "title_padding_bottom",
+      "label": "Space below title",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 32
     },
     {
       "type": "header",
