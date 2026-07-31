@@ -93,7 +93,7 @@
             "text_alignment": "center",
             "overlap_enabled": true,
             "overlap_amount": 0,
-            "overlap_amount_mobile": 60,
+            "overlap_amount_mobile": 0,
             "horizontal_offset": 0,
             "hide_scrim": false,
             "paragraph_1": "<p>Sustainability</p>",
