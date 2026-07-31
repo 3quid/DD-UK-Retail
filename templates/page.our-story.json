@@ -9,88 +9,12 @@
  */
 {
   "sections": {
-    "about_story": {
-      "type": "about-story",
-      "blocks": {
-        "image_harbour": {
-          "type": "image",
-          "settings": {
-            "image_alt": "Dude sitting on the harbour wall, looking out to sea"
-          }
-        },
-        "text_harbour": {
-          "type": "text_row",
-          "settings": {
-            "text_alignment": "center",
-            "overlap_enabled": false,
-            "paragraph_1": "<p>Dude sat there on the harbour wall, staring out to sea. He kicked off his flip flops and reclined, feeling dozy in the warm sunshine. What a place. A while later his eye was drawn to an object bobbing in the waves. At first he thought it might have been a seal, or even a dolphin, but it wasn't. A mass of tangled rope, nets and fishing line. Ugh, that's horrible thought Dude, we humans really should do better.</p>",
-            "paragraph_1_style": "body",
-            "paragraph_1_rotation": -1,
-            "paragraph_1_rotation_mobile": 0
-          }
-        },
-        "image_design": {
-          "type": "image",
-          "settings": {
-            "image_alt": "Designing the first pair of Doris and Dude socks"
-          }
-        },
-        "text_inspiration": {
-          "type": "text_row",
-          "settings": {
-            "text_alignment": "center",
-            "overlap_enabled": false,
-            "paragraph_1": "<p>The moment though, resonated with Dude and some months later, when he started to design his own socks, the memory of that floating heap of plastic, ruining the ocean, inspired him to do better. He swore that he'd only source materials that could decompose or be recycled. Organic cotton and bamboo would be the mainstays and packaging would be plastic free.</p>",
-            "paragraph_1_style": "body",
-            "paragraph_1_rotation": 1.5,
-            "paragraph_1_rotation_mobile": 0,
-            "paragraph_2": "<p>Doris &amp; Dude was born</p>",
-            "paragraph_2_style": "headline",
-            "paragraph_2_rotation": -2,
-            "paragraph_2_rotation_mobile": 0
-          }
-        },
-        "image_production": {
-          "type": "image",
-          "settings": {
-            "image_alt": "Modern day sock production in European factories"
-          }
-        },
-        "text_today": {
-          "type": "text_row",
-          "settings": {
-            "text_alignment": "center",
-            "overlap_enabled": false,
-            "paragraph_1": "<p>Now, selling 100,000 pair of socks every year, Doris &amp; Dude still works to the same ethical standards. We produce all of our socks in regularly audited European factories, all of our socks are made using certified organic cotton &amp; bamboo and our designs are dominated and inspired by nature.</p>",
-            "paragraph_1_style": "body",
-            "paragraph_1_rotation": -0.5,
-            "paragraph_1_rotation_mobile": 0
-          }
-        }
-      },
-      "block_order": [
-        "image_harbour",
-        "text_harbour",
-        "image_design",
-        "text_inspiration",
-        "image_production",
-        "text_today"
-      ],
-      "settings": {
-        "background_fallback_color": "#f4f4f4",
-        "background_repeat": false,
-        "custom_font_asset": "Dawg.woff2",
-        "font_size_desktop": 18,
-        "font_size_mobile": 17,
-        "text_color": "#1d1d1d",
-        "show_scrim": true,
-        "scrim_background": "rgba(255,255,255,0.88)",
-        "text_max_width": 640,
-        "text_row_padding": 48,
-        "paragraph_gap": 28,
-        "remove_margin": true
-      }
+    "main": {
+      "type": "main-page",
+      "settings": {}
     }
   },
-  "order": ["about_story"]
+  "order": [
+    "main"
+  ]
 }
