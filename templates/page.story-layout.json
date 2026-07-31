@@ -23,14 +23,14 @@
           "type": "text_row",
           "settings": {
             "text_alignment": "center",
-            "overlap_enabled": false,
-            "overlap_amount": 120,
+            "overlap_enabled": true,
+            "overlap_amount": 160,
             "overlap_amount_mobile": 60,
             "horizontal_offset": 0,
             "hide_scrim": false,
             "paragraph_1": "<p>Comfort</p>",
             "paragraph_1_style": "headline",
-            "paragraph_1_rotation": 1,
+            "paragraph_1_rotation": 1.5,
             "paragraph_1_rotation_mobile": 0.5,
             "paragraph_2": "<p>Our feet go through a lot during the day so we think they should be treated like kings. That's why we have spent years perfecting our ultimate supersoft sock recipe to help feet feel fantastic all day long.</p>",
             "paragraph_2_style": "body",
@@ -57,7 +57,7 @@
           "type": "text_row",
           "settings": {
             "text_alignment": "center",
-            "overlap_enabled": false,
+            "overlap_enabled": true,
             "overlap_amount": 120,
             "overlap_amount_mobile": 60,
             "horizontal_offset": 0,
@@ -91,18 +91,18 @@
           "type": "text_row",
           "settings": {
             "text_alignment": "center",
-            "overlap_enabled": false,
-            "overlap_amount": 120,
+            "overlap_enabled": true,
+            "overlap_amount": 0,
             "overlap_amount_mobile": 60,
             "horizontal_offset": 0,
             "hide_scrim": false,
             "paragraph_1": "<p>Sustainability</p>",
             "paragraph_1_style": "headline",
-            "paragraph_1_rotation": 0,
+            "paragraph_1_rotation": -2.5,
             "paragraph_1_rotation_mobile": 0,
             "paragraph_2": "<p>We're rather fond of our planet. So, not only do we use sustainable, organic cotton and recycled fibres in our socks, we also package them with recyclability in mind.</p>",
             "paragraph_2_style": "body",
-            "paragraph_2_rotation": 0,
+            "paragraph_2_rotation": 0.5,
             "paragraph_2_rotation_mobile": 0,
             "paragraph_3": "<p>Doris & Dude. Doing our bit for feet. And the planet.</p>",
             "paragraph_3_style": "headline",
@@ -148,5 +148,7 @@
       }
     }
   },
-  "order": ["story_layout"]
+  "order": [
+    "story_layout"
+  ]
 }
