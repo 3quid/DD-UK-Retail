@@ -178,6 +178,10 @@ html[dir=ltr] .product-item__badges {
   display: flex;
   flex-direction: column;
 }
+
+.main-content--align-product-items .product-item .collection_item__tags {
+  margin-top: auto;
+}
 .main-content--align-product-items .product-item__text:first-of-type {
   flex-grow: 1;
 }
