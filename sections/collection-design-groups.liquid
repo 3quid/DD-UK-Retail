@@ -1,0 +1,154 @@
+{{ 'section-collection-design-groups.css' | asset_url | stylesheet_tag }}
+
+{%- unless section.settings.enabled -%}
+  {%- comment -%} Scaffold: enable in theme editor when design_name filter is live. {%- endcomment -%}
+{%- else -%}
+  {%- liquid
+    assign filter_key = section.settings.filter_key | default: 'design_name' | downcase
+    assign groups_filter = nil
+    assign active_group_value = nil
+
+    for filter in collection.filters
+      assign param_downcase = filter.param_name | downcase
+      assign label_downcase = filter.label | downcase
+      if param_downcase contains filter_key or label_downcase contains filter_key
+        assign groups_filter = filter
+        break
+      endif
+    endfor
+
+    if groups_filter != nil
+      for value in groups_filter.active_values
+        assign active_group_value = value.label
+        break
+      endfor
+    endif
+  -%}
+
+  {%- if groups_filter != nil and groups_filter.values.size > 0 and active_group_value == blank -%}
+    <div
+      id="section-{{ section.id }}"
+      class="collection-design-groups container--large {% unless section.settings.remove_margin %} container--vertical-space {% endunless %}"
+    >
+      {%- if section.settings.heading != blank -%}
+        <div class="section-heading gutter-bottom--regular">
+          <h2 class="h4 collection-design-groups__heading">{{ section.settings.heading | escape }}</h2>
+        </div>
+      {%- endif -%}
+
+      <div class="collection-design-groups__grid" role="list">
+        {%- paginate collection.products by 250 -%}
+          {%- for value in groups_filter.values -%}
+            {%- if value.count > 0 -%}
+              {%- liquid
+                assign value_label = value.label | strip
+                assign show_m = false
+                assign show_w = false
+                assign show_mx = false
+                assign show_k = false
+                assign show_kx = false
+
+                for product in collection.products
+                  assign product_design = product.metafields.custom.design_name | default: product.title | strip
+                  if product_design == value_label
+                    assign handle_downcase = product.handle | downcase
+                    if handle_downcase contains 'kids-xl-'
+                      assign show_kx = true
+                    elsif handle_downcase contains 'kids-'
+                      assign show_k = true
+                    elsif handle_downcase contains 'mens-xl-'
+                      assign show_mx = true
+                    elsif handle_downcase contains 'mens-'
+                      assign show_m = true
+                    elsif handle_downcase contains 'womens-'
+                      assign show_w = true
+                    endif
+                  endif
+                endfor
+              -%}
+
+              <a
+                href="{{ value.url_to_add | escape }}"
+                class="collection-design-groups__card{% if value.active %} collection-design-groups__card--active{% endif %}"
+                role="listitem"
+              >
+                <span class="collection-design-groups__label">{{ value.label | escape }}</span>
+
+                <div class="collection-design-groups__meta">
+                  <span class="collection-design-groups__count">
+                    {%- if value.count == 1 -%}
+                      1 style
+                    {%- else -%}
+                      {{ value.count }} styles
+                    {%- endif -%}
+                  </span>
+
+                  <span class="collection-design-groups__badges" aria-hidden="true">
+                    {%- if show_m -%}
+                      <span class="collection-design-groups__badge" title="Men's">M</span>
+                    {%- endif -%}
+                    {%- if show_w -%}
+                      <span class="collection-design-groups__badge" title="Women's">W</span>
+                    {%- endif -%}
+                    {%- if show_mx -%}
+                      <span class="collection-design-groups__badge" title="Men's XL">MX</span>
+                    {%- endif -%}
+                    {%- if show_k -%}
+                      <span class="collection-design-groups__badge" title="Kids">K</span>
+                    {%- endif -%}
+                    {%- if show_kx -%}
+                      <span class="collection-design-groups__badge" title="Kids XL">KX</span>
+                    {%- endif -%}
+                  </span>
+                </div>
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endpaginate -%}
+      </div>
+    </div>
+  {%- endif -%}
+{%- endunless -%}
+
+{% schema %}
+{
+  "name": "26 Coll design groups",
+  "class": "collection-design-groups-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Renders browse groups from a Search & Discovery product filter (e.g. custom.design_name). Hidden when a group filter is already active or when disabled."
+    },
+    {
+      "type": "checkbox",
+      "id": "enabled",
+      "label": "Show design groups",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "filter_key",
+      "label": "Filter key",
+      "default": "design_name",
+      "info": "Matches filter param or label containing this text (case insensitive)."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Browse by design"
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_margin",
+      "label": "Remove section margin",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "26 Coll design groups"
+    }
+  ]
+}
+{% endschema %}

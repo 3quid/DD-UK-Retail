@@ -1,0 +1,23 @@
+{%- comment -%}
+  Echoes audience badge code from product handle: M, W, MX, K, KX.
+
+  Accepts:
+  - product: {Object} product
+  - handle: {String} optional handle override
+{%- endcomment -%}
+{%- liquid
+  assign handle_downcase = handle | default: product.handle | downcase
+  assign audience_badge = ''
+
+  if handle_downcase contains 'kids-xl-'
+    assign audience_badge = 'KX'
+  elsif handle_downcase contains 'kids-'
+    assign audience_badge = 'K'
+  elsif handle_downcase contains 'mens-xl-'
+    assign audience_badge = 'MX'
+  elsif handle_downcase contains 'mens-'
+    assign audience_badge = 'M'
+  elsif handle_downcase contains 'womens-'
+    assign audience_badge = 'W'
+  endif
+-%}{{- audience_badge -}}

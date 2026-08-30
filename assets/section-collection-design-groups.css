@@ -1,0 +1,98 @@
+.collection-design-groups__heading {
+  margin: 0;
+}
+
+/* Tight gap between design groups and the filter bar below */
+.collection-design-groups-section .collection-design-groups.container--vertical-space {
+  margin-bottom: 0;
+}
+
+.collection-design-groups-section + .shopify-section.container--vertical-space {
+  margin-top: 0.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .collection-design-groups-section + .shopify-section.container--vertical-space {
+    margin-top: 0.625rem;
+  }
+}
+
+.collection-design-groups__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+  gap: 0.75rem;
+}
+
+.collection-design-groups__card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  aspect-ratio: 1;
+  padding: 0.85rem 0.75rem;
+  border: 2px solid rgba(0, 0, 0, 0.12);
+  border-radius: 0.35rem;
+  text-decoration: none;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.65);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.collection-design-groups__card:hover,
+.collection-design-groups__card:focus-visible {
+  border-color: rgba(0, 0, 0, 0.35);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.collection-design-groups__card--active {
+  border-color: currentColor;
+  background: rgba(255, 255, 255, 1);
+}
+
+.collection-design-groups__label {
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.collection-design-groups__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem;
+  width: 100%;
+  margin-top: auto;
+}
+
+.collection-design-groups__count {
+  font-size: 0.78rem;
+  line-height: 1.2;
+  opacity: 0.65;
+  white-space: nowrap;
+}
+
+.collection-design-groups__badges {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+}
+
+.collection-design-groups__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 50%;
+  font-size: 0.52rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+@media screen and (max-width: 767px) {
+  .collection-design-groups__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
