@@ -3,15 +3,54 @@
   assign logo_mobile_height = section.settings.logo_mobile_height
   assign logo_src = section.settings.logo_src
   assign logo_mobile_src = section.settings.logo_mobile_src
+  capture menu_font_family
+    render 'collection-title-font-family'
+  endcapture
+  assign menu_font_family = menu_font_family | strip
 -%}
 
 {% style %}
   .header__top {
     --header-logo: {{ logo_height }}px;
+    --logo-baseline-trim: {{ section.settings.logo_baseline_trim | default: 14 }}px;
   }
   @media screen and (max-width: 767px) {
     .header__top {
       --header-logo: {{ logo_mobile_height }}px;
+    }
+  }
+  @media screen and (max-width: 1023px) {
+    #site-menu-sidebar mobile-navigation .site-nav .menu-link,
+    #site-menu-sidebar mobile-navigation .site-nav .submenu-back a {
+      font-family: {{ menu_font_family | json }}, sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+  }
+  @media screen and (min-width: 1024px) {
+    .header__nav .site-nav.style--classic .menu-link {
+      font-family: {{ menu_font_family | json }}, sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      font-size: calc(19px / 16 * var(--base-menu-size) + 0px);
+    }
+
+    .header__nav .site-nav.style--classic nav > ul > li > .menu-link {
+      border-radius: 0.25rem;
+      transition: background-color 0.15s ease, color 0.1s linear;
+    }
+
+    .no-touchevents .header__nav .site-nav.style--classic nav > ul > li > .menu-link:hover,
+    .no-touchevents .header__nav .site-nav.style--classic nav > ul > li > .menu-link:focus-visible {
+      background: #fff;
+    }
+
+    .site-nav.style--classic .has-submenu:hover .submenu:after,
+    .site-nav.style--classic .has-submenu.focus .submenu:after,
+    .site-nav.style--classic .submenu-is-mega-menu.focus .submenu:after {
+      background: #fff;
     }
   }
   @media screen and (min-width: {{ settings.theme_max_width | plus: 1 }}px) {
@@ -56,13 +95,21 @@
 
       </div>
 
+      <div class="header__nav portable-hide">
+        <span class="scrollable-navigation-button scrollable-navigation-button--left" aria-hidden="true">{%- render 'theme-symbols', icon: 'chevron' -%}</span>
+        <scrollable-navigation class="header-links">
+          {%- render 'site-nav', linklist: section.settings.main_linklist, blocks: section.blocks, type: 'classic' -%}
+        </scrollable-navigation>
+        <span class="scrollable-navigation-button scrollable-navigation-button--right" aria-hidden="true">{%- render 'theme-symbols', icon: 'chevron' -%}</span>
+      </div>
+
       <!-- header blocks -->
 
       <div class="header-actions header-actions--buttons {% if section.settings.show_search %} header-actions--show-search {% endif %} portable-hide">
 
         {%- if section.settings.show_search -%}
-          <search-form style="position:relative">
-            <div class="button button--outline button--icon button--outline-hover button--no-padding button--no-hover site-search-handle">
+          <search-form class="header-search-form">
+            <div class="button button--outline button--icon button--outline-hover button--no-padding button--no-hover site-search-handle site-search-handle--collapsible header-search-handle">
               <span class="button__icon" role="img" aria-hidden="true">{%- render 'theme-symbols', icon: 'search' -%}</span>
               <form action="{{ routes.search_url }}" method="get" role="search" autocomplete="off">
                 <input name="q" type="search" autocomplete="off" 
@@ -82,12 +129,12 @@
         {% # theme-check-disable UnclosedHTMLElement %}{%- if shop.customer_accounts_enabled -%}
 
           {%- if customer -%}
-            <a class="button button--outline button--icon" href="{{ routes.account_url }}">
+            <a class="button button--outline button--icon button--icon-circle header-account-button" href="{{ routes.account_url }}">
           {%- else -%}
-            <a class="button button--outline button--icon" href="{{ routes.account_login_url }}">
+            <a class="button button--outline button--icon button--icon-circle header-account-button" href="{{ routes.account_login_url }}">
           {%- endif -%}
             <span class="button__icon" role="img" aria-hidden="true">{%- render 'theme-symbols', icon: 'account' -%}</span>
-            {{ 'general.breadcrumb.account' | t }}
+            <span class="visually-hidden">{{ 'general.breadcrumb.account' | t }}</span>
           </a>
         {%- endif -%}{% # theme-check-enable UnclosedHTMLElement %}
 
@@ -98,7 +145,7 @@
         -%}
         
         <a 
-          class="button button--solid button--icon no-js-hidden"
+          class="button button--outline button--icon button--icon-circle header-cart-button no-js-hidden"
           {% if settings.cart_action == 'overlay' and template != 'cart' %} 
             data-js-sidebar-handle aria-expanded="false" aria-controls="site-cart-sidebar" role="button"
           {% else %}
@@ -109,20 +156,20 @@
           <span class="visually-hidden">{{ 'general.accessibility_labels.open_cart' | t }}</span>
           <span class="button__icon" role="img" aria-hidden="true">{%- render 'theme-symbols', icon: 'cart' -%}</span>
           <span class="visually-hidden">{{ 'cart.title' | t }} {{ 'cart.total' | t }}:</span>
-          <span data-header-cart-total>{{ cart.total_price | money | append: iso_code }}</span>
-          <span data-header-cart-count class="element--wrap-paranth" aria-hidden="true">{{ cart.item_count }}</span>
-          <span class="visually-hidden">{{  'cart.items_count' | t: count: '' }}</span>
+          <span class="visually-hidden" data-header-cart-total>{{ cart.total_price | money | append: iso_code }}</span>
+          <span data-header-cart-count aria-hidden="true">{{ cart.item_count }}</span>
+          <span class="visually-hidden">{{  'cart.items_count' | t: count: cart.item_count }}</span>
         </a>
 
         <noscript>
           <a 
-            class="button button--solid button--icon button--regular data-js-hidden"
+            class="button button--outline button--icon button--icon-circle header-cart-button data-js-hidden"
             href="{{ routes.cart_url }}"
             tabindex="0"
           >
             <span class="button__icon" role="img" aria-hidden="true">{%- render 'theme-symbols', icon: 'cart' -%}</span>
-            <span data-header-cart-total aria-hidden="true">{{ cart.total_price | money | append: iso_code }}</span>&nbsp;
-            (<span data-header-cart-count aria-hidden="true">{{ cart.item_count }}</span>)
+            <span class="visually-hidden" data-header-cart-total>{{ cart.total_price | money | append: iso_code }}</span>
+            <span data-header-cart-count aria-hidden="true">{{ cart.item_count }}</span>
           </a>
         </noscript>
 
@@ -248,12 +295,6 @@
 
     <div class="header__bottom container--large">
 
-      <span class="scrollable-navigation-button scrollable-navigation-button--left" aria-hidden="true">{%- render 'theme-symbols', icon: 'chevron' -%}</span>
-      <scrollable-navigation class="header-links">
-        {%- render 'site-nav', linklist: section.settings.main_linklist, blocks: section.blocks, type: 'classic' -%}
-      </scrollable-navigation>
-      <span class="scrollable-navigation-button scrollable-navigation-button--right" aria-hidden="true">{%- render 'theme-symbols', icon: 'chevron' -%}</span>
-
       <div class="header-actions header-actions--blocks" data-js-header-actions>{{ header_blocks }}</div>
 
     </div>
@@ -287,12 +328,10 @@
 
 </main-header>
 
-<sidebar-drawer id="site-menu-sidebar" class="sidebar sidebar--left" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" style="display:none">
+<sidebar-drawer id="site-menu-sidebar" class="sidebar sidebar--left sidebar--menu" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" style="display:none">
       
-  <div class="sidebar__header">
-    <span class="sidebar__title h5">
-      {{ 'general.accessibility_labels.menu' | t }}
-    </span>
+  <div class="sidebar__header sidebar__header--close-only">
+    <span class="visually-hidden">{{ 'general.accessibility_labels.menu' | t }}</span>
     <button class="sidebar__close" data-js-close>
       <span class="visually-hidden">{{ 'general.accessibility_labels.close_sidebar' | t }}</span>
       <span aria-hidden="true" aria-role="img">{%- render 'theme-symbols', icon: 'close' -%}</span>
@@ -340,6 +379,17 @@
         "max": 100,
         "step": 1,
         "default": 45
+      },
+      {
+        "type": "range",
+        "id": "logo_baseline_trim",
+        "label": "Logo baseline offset",
+        "info": "Transparent space below the letterforms in your logo image. Aligns menu text baseline with the logo on desktop.",
+        "unit": "px",
+        "min": 0,
+        "max": 40,
+        "step": 1,
+        "default": 14
       },
       {
         "type": "image_picker",
