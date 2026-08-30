@@ -1,0 +1,35 @@
+{%- comment -%}
+  Echoes the primary colour bucket for a product (e.g. red, blue).
+
+  Reads custom.colour as list.metaobject_reference (metaobject handle or label),
+  with fallback for plain single-line text values.
+
+  Accepts:
+  - product: {Object} product
+{%- endcomment -%}
+{%- liquid
+  assign colour_bucket = ''
+  assign colour_metafield = product.metafields.custom.colour
+
+  if colour_metafield != blank and colour_metafield.value != blank
+    assign colour_value = colour_metafield.value
+    assign first_colour = colour_value | first
+
+    if first_colour != blank
+      if first_colour.system.handle != blank
+        assign colour_bucket = first_colour.system.handle
+      elsif first_colour.label.value != blank
+        assign colour_bucket = first_colour.label.value
+      elsif first_colour.label != blank
+        assign colour_bucket = first_colour.label
+      endif
+    endif
+
+    if colour_bucket == blank
+      assign raw_colour = colour_value | strip | downcase
+      unless raw_colour contains 'gid://' or raw_colour contains '["'
+        assign colour_bucket = raw_colour
+      endunless
+    endif
+  endif
+-%}{{- colour_bucket | strip | downcase -}}

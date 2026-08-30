@@ -1556,7 +1556,7 @@
 		"settings": [
 			{
 				"type": "paragraph",
-				"content": "Product page hero backgrounds. Upload one image per main colour bucket — matched automatically from each product’s Colour metafield (custom.colour). Values must be: Blue, Green, Red, Yellow, Grey, Pink, or Purple."
+				"content": "Product page hero backgrounds. Upload one image per colour — matched from each product’s Colour metafield (custom.colour metaobjects: Red, Blue, etc.)."
 			},
 			{
 				"type": "image_picker",

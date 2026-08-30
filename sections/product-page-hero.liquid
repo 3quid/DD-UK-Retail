@@ -10,8 +10,12 @@
 
   assign fallback_bg_color = settings.product_default_background_color | default: '#e8e4dc'
 
+  capture product_colour_capture
+    render 'product-colour-bucket', product: product
+  endcapture
+  assign product_colour = product_colour_capture | strip | downcase
+
   assign default_bg = blank
-  assign product_colour = product.metafields.custom.colour.value | default: '' | strip | downcase
 
   if product_colour != blank
     case product_colour
@@ -29,6 +33,14 @@
         assign default_bg = settings.product_hero_background_pink
       when 'purple'
         assign default_bg = settings.product_hero_background_purple
+      when 'orange'
+        assign default_bg = settings.product_hero_background_orange
+      when 'brown'
+        assign default_bg = settings.product_hero_background_brown
+      when 'black'
+        assign default_bg = settings.product_hero_background_black
+      when 'white'
+        assign default_bg = settings.product_hero_background_white
     endcase
   endif
 
