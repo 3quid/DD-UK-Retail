@@ -35,9 +35,20 @@
   -%}
 
   {%- if groups_filter != nil and qualifying_group_count > 0 and active_group_value == blank -%}
+    {%- liquid
+      assign sorted_group_values = groups_filter.values | sort: 'count' | reverse
+      assign collapsible_mobile = false
+      assign collapsible_desktop = false
+      if qualifying_group_count > 4
+        assign collapsible_mobile = true
+      endif
+      if qualifying_group_count > 10
+        assign collapsible_desktop = true
+      endif
+    -%}
     <div
       id="section-{{ section.id }}"
-      class="collection-design-groups container--large {% unless section.settings.remove_margin %} container--vertical-space {% endunless %}"
+      class="collection-design-groups container--large{% unless section.settings.remove_margin %} container--vertical-space{% endunless %}{% if collapsible_mobile %} is-collapsible-mobile{% endif %}{% if collapsible_desktop %} is-collapsible-desktop{% endif %}"
     >
       {%- if section.settings.heading != blank -%}
         <div class="section-heading gutter-bottom--regular">
@@ -47,7 +58,7 @@
 
       <div class="collection-design-groups__grid" role="list">
         {%- paginate collection.products by 250 -%}
-          {%- for value in groups_filter.values -%}
+          {%- for value in sorted_group_values -%}
             {%- if value.count > 1 -%}
               {%- liquid
                 assign value_label = value.label | strip
@@ -115,7 +126,21 @@
           {%- endfor -%}
         {%- endpaginate -%}
       </div>
+
+      {%- if collapsible_mobile or collapsible_desktop -%}
+        <div class="collection-design-groups__toggle-wrap">
+          <button
+            type="button"
+            class="collection-design-groups__toggle link underlined-link"
+            aria-expanded="false"
+          >
+            <span class="collection-design-groups__toggle-label collection-design-groups__toggle-label--more">See all groups</span>
+            <span class="collection-design-groups__toggle-label collection-design-groups__toggle-label--less">Show fewer groups</span>
+          </button>
+        </div>
+      {%- endif -%}
     </div>
+    <script src="{{ 'section-collection-design-groups.js' | asset_url }}" defer></script>
   {%- endif -%}
 {%- endunless -%}
 
@@ -126,7 +151,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Renders browse groups from a Search & Discovery product filter (e.g. custom.design_name). Only shows designs with 2+ styles in this collection. Hidden when a group filter is already active or when disabled."
+      "content": "Renders browse groups from a Search & Discovery product filter (e.g. custom.design_name). Only shows designs with 2+ styles, sorted by style count. Shows 10 on desktop / 4 on mobile with See all groups to expand."
     },
     {
       "type": "checkbox",
