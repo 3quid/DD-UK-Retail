@@ -65,12 +65,12 @@
                       assign show_kx = true
                     elsif handle_downcase contains 'kids-'
                       assign show_k = true
+                    elsif handle_downcase contains 'womens-' or handle_downcase contains 'women-'
+                      assign show_w = true
                     elsif handle_downcase contains 'mens-xl-'
                       assign show_mx = true
-                    elsif handle_downcase contains 'mens-'
+                    elsif handle_downcase contains 'mens-' or handle_downcase contains 'men-'
                       assign show_m = true
-                    elsif handle_downcase contains 'womens-'
-                      assign show_w = true
                     endif
                   endif
                 endfor

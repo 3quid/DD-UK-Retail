@@ -13,11 +13,11 @@
     assign audience_badge = 'K+'
   elsif handle_downcase contains 'kids-'
     assign audience_badge = 'K'
+  elsif handle_downcase contains 'womens-' or handle_downcase contains 'women-'
+    assign audience_badge = 'W'
   elsif handle_downcase contains 'mens-xl-'
     assign audience_badge = 'M+'
-  elsif handle_downcase contains 'mens-'
+  elsif handle_downcase contains 'mens-' or handle_downcase contains 'men-'
     assign audience_badge = 'M'
-  elsif handle_downcase contains 'womens-'
-    assign audience_badge = 'W'
   endif
 -%}{{- audience_badge -}}
