@@ -1,0 +1,33 @@
+{%- comment -%}
+  Audience pill (Mens / Womens / Kids) with colours matched to design-group badges.
+
+  Accepts:
+  - tag: {String} womens, mens, or kids
+  - product: {Object} product
+{%- endcomment -%}
+{%- liquid
+  assign handle_downcase = product.handle | downcase
+  assign label = ''
+  assign modifier = ''
+
+  case tag
+    when 'womens'
+      assign label = 'Womens'
+      assign modifier = 'tag-audience--w'
+    when 'mens'
+      assign label = 'Mens'
+      assign modifier = 'tag-audience--m'
+      if handle_downcase contains 'mens-xl-'
+        assign modifier = 'tag-audience--m-plus'
+      endif
+    when 'kids'
+      assign label = 'Kids'
+      assign modifier = 'tag-audience--k'
+      if handle_downcase contains 'kids-xl-'
+        assign modifier = 'tag-audience--k-plus'
+      endif
+  endcase
+-%}
+{%- if label != blank -%}
+  <li class="tag-audience {{ modifier }}">{{ label }}</li>
+{%- endif -%}

@@ -317,14 +317,8 @@
   <ul class="tags">
   {% for tag in product.tags %}
     
-      {% if tag == 'womens' %}
-        <li class="tag-womens">Womens</li>
-      {% endif %}
-      {% if tag == 'mens' %}
-        <li class="tag-mens">Mens</li>
-      {% endif %}
-      {% if tag == 'kids' %}
-        <li class="tag-kids">Kids</li>
+      {% if tag == 'womens' or tag == 'mens' or tag == 'kids' %}
+        {% render 'product-audience-tag', tag: tag, product: product %}
       {% endif %}
       {% if tag == 'ankle' %}
         <li class="tag-ankle">Ankle</li>

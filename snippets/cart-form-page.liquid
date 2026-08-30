@@ -88,15 +88,9 @@
 									<div class="cart__tags">
 										<ul class="tags__product">
 										  {% for tag in item.product.tags %}
-											  {% if tag == 'womens' %}
-												<li class="tag-womens">Womens</li>
-											  {% endif %}
-											  {% if tag == 'mens' %}
-												<li class="tag-mens">Mens</li>
-											  {% endif %}
-											  {% if tag == 'kids' %}
-												<li class="tag-kids">Kids</li>
-											  {% endif %}
+											{% if tag == 'womens' or tag == 'mens' or tag == 'kids' %}
+												{% render 'product-audience-tag', tag: tag, product: item.product %}
+											{% endif %}
 											  {% if tag == 'ankle' %}
 												<li class="tag-ankle">Ankle</li>
 											  {% endif %}
