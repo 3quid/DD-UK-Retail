@@ -148,6 +148,16 @@ button {
   --audience-k-plus-bg: #f5dce6;
   --audience-k-plus-border: rgba(190, 110, 140, 0.24);
   --audience-text: rgba(0, 0, 0, 0.72);
+  --length-ankle-bg: #eef6fc;
+  --length-ankle-border: rgba(120, 170, 210, 0.2);
+  --length-calf-bg: #d9ecf8;
+  --length-calf-border: rgba(100, 155, 200, 0.24);
+  --length-knee-bg: #c2dff2;
+  --length-knee-border: rgba(80, 140, 190, 0.28);
+  --fabric-bamboo-bg: #fff0e3;
+  --fabric-bamboo-border: rgba(220, 150, 90, 0.22);
+  --fabric-merino-bg: #f5dcc4;
+  --fabric-merino-border: rgba(200, 130, 70, 0.26);
 }
 
 ul.tags {
@@ -201,13 +211,51 @@ ul.tags__product {
 .cart__tags { font-size: 0.5em; padding: 2px 5px; }
 .cart-item__sku { font-size: 0.7em; }
 
-.tag-ankle, .tag-knee, .tag-calf, .tag-bamboo, .tag-merino-wool, .tag-toast {
+.tag-toast {
   padding: 5px 7px;
   background-color: #fff;
   color: #b3b3b3;
   border: 1px solid #eeeeee;
   border-radius: 50px;
   list-style: none;
+}
+
+.tag-ankle,
+.tag-calf,
+.tag-knee,
+.tag-bamboo,
+.tag-merino-wool {
+  padding: 5px 7px;
+  border-radius: 50px;
+  list-style: none;
+  border: 1px solid transparent;
+  color: var(--audience-text);
+  font-weight: 700;
+}
+
+.tag-ankle {
+  background-color: var(--length-ankle-bg);
+  border-color: var(--length-ankle-border);
+}
+
+.tag-calf {
+  background-color: var(--length-calf-bg);
+  border-color: var(--length-calf-border);
+}
+
+.tag-knee {
+  background-color: var(--length-knee-bg);
+  border-color: var(--length-knee-border);
+}
+
+.tag-bamboo {
+  background-color: var(--fabric-bamboo-bg);
+  border-color: var(--fabric-bamboo-border);
+}
+
+.tag-merino-wool {
+  background-color: var(--fabric-merino-bg);
+  border-color: var(--fabric-merino-border);
 }
 
 .tag-audience {
