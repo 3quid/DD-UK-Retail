@@ -23,9 +23,18 @@
         break
       endfor
     endif
+
+    assign qualifying_group_count = 0
+    if groups_filter != nil
+      for value in groups_filter.values
+        if value.count > 1
+          assign qualifying_group_count = qualifying_group_count | plus: 1
+        endif
+      endfor
+    endif
   -%}
 
-  {%- if groups_filter != nil and groups_filter.values.size > 0 and active_group_value == blank -%}
+  {%- if groups_filter != nil and qualifying_group_count > 0 and active_group_value == blank -%}
     <div
       id="section-{{ section.id }}"
       class="collection-design-groups container--large {% unless section.settings.remove_margin %} container--vertical-space {% endunless %}"
@@ -39,7 +48,7 @@
       <div class="collection-design-groups__grid" role="list">
         {%- paginate collection.products by 250 -%}
           {%- for value in groups_filter.values -%}
-            {%- if value.count > 0 -%}
+            {%- if value.count > 1 -%}
               {%- liquid
                 assign value_label = value.label | strip
                 assign show_m = false
@@ -117,7 +126,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Renders browse groups from a Search & Discovery product filter (e.g. custom.design_name). Hidden when a group filter is already active or when disabled."
+      "content": "Renders browse groups from a Search & Discovery product filter (e.g. custom.design_name). Only shows designs with 2+ styles in this collection. Hidden when a group filter is already active or when disabled."
     },
     {
       "type": "checkbox",
