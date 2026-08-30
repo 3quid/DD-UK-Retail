@@ -1,8 +1,7 @@
 {%- comment -%}
-  Audience pill (Mens / Womens / Kids) with colours matched to design-group badges.
+  Audience pill from product handle (fallback: tags). Colours match design-group badges.
 
   Accepts:
-  - tag: {String} womens, mens, or kids
   - product: {Object} product
 {%- endcomment -%}
 {%- liquid
@@ -10,23 +9,35 @@
   assign label = ''
   assign modifier = ''
 
-  case tag
-    when 'womens'
+  if handle_downcase contains 'kids-xl-'
+    assign label = 'Kids XL'
+    assign modifier = 'tag-audience--k-plus'
+  elsif handle_downcase contains 'kids-'
+    assign label = 'Kids'
+    assign modifier = 'tag-audience--k'
+  elsif handle_downcase contains 'womens-' or handle_downcase contains 'women-'
+    assign label = 'Womens'
+    assign modifier = 'tag-audience--w'
+  elsif handle_downcase contains 'mens-xl-'
+    assign label = 'Mens XL'
+    assign modifier = 'tag-audience--m-plus'
+  elsif handle_downcase contains 'mens-' or handle_downcase contains 'men-'
+    assign label = 'Mens'
+    assign modifier = 'tag-audience--m'
+  endif
+
+  if label == blank
+    if product.tags contains 'womens'
       assign label = 'Womens'
       assign modifier = 'tag-audience--w'
-    when 'mens'
+    elsif product.tags contains 'mens'
       assign label = 'Mens'
       assign modifier = 'tag-audience--m'
-      if handle_downcase contains 'mens-xl-'
-        assign modifier = 'tag-audience--m-plus'
-      endif
-    when 'kids'
+    elsif product.tags contains 'kids'
       assign label = 'Kids'
       assign modifier = 'tag-audience--k'
-      if handle_downcase contains 'kids-xl-'
-        assign modifier = 'tag-audience--k-plus'
-      endif
-  endcase
+    endif
+  endif
 -%}
 {%- if label != blank -%}
   <li class="tag-audience {{ modifier }}">{{ label }}</li>
