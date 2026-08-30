@@ -62,6 +62,9 @@
 
           {%- for filter in results.filters -%}
 
+            {%- capture facet_bar_hidden -%}{%- render 'collection-filter-facet-bar-hidden', filter: filter -%}{%- endcapture -%}
+            {%- if facet_bar_hidden != blank -%}{%- continue -%}{%- endif -%}
+
             {%- assign total_active_values = total_active_values | plus: filter.active_values.size -%}
 
             {%- case filter.type -%}

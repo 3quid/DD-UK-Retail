@@ -1,0 +1,22 @@
+{% comment %}
+  Echoes "1" when a filter should be hidden from the standard facet bar.
+  Used by design groups: Search & Discovery still powers collection.filters,
+  but high-cardinality filters (e.g. design_name) are not shown as dropdowns.
+
+  Accepts:
+  - filter: {Object} filter from collection.filters
+{% endcomment %}
+{%- liquid
+  assign facet_bar_hidden = false
+  assign hidden_keys = 'design_name' | split: '|'
+  assign param_downcase = filter.param_name | downcase
+  assign label_downcase = filter.label | downcase
+
+  for hidden_key in hidden_keys
+    assign key = hidden_key | strip
+    if param_downcase contains key or label_downcase contains key
+      assign facet_bar_hidden = true
+      break
+    endif
+  endfor
+-%}{%- if facet_bar_hidden -%}1{%- endif -%}
