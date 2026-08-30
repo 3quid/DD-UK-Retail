@@ -74,31 +74,33 @@
               >
                 <span class="collection-design-groups__label">{{ value.label | escape }}</span>
 
-                <span class="collection-design-groups__badges" aria-hidden="true">
-                  {%- if show_m -%}
-                    <span class="collection-design-groups__badge" title="Men's">M</span>
-                  {%- endif -%}
-                  {%- if show_w -%}
-                    <span class="collection-design-groups__badge" title="Women's">W</span>
-                  {%- endif -%}
-                  {%- if show_mx -%}
-                    <span class="collection-design-groups__badge" title="Men's XL">M+</span>
-                  {%- endif -%}
-                  {%- if show_k -%}
-                    <span class="collection-design-groups__badge" title="Kids">K</span>
-                  {%- endif -%}
-                  {%- if show_kx -%}
-                    <span class="collection-design-groups__badge" title="Kids XL">K+</span>
-                  {%- endif -%}
-                </span>
+                <div class="collection-design-groups__footer">
+                  <span class="collection-design-groups__badges" aria-hidden="true">
+                    {%- if show_m -%}
+                      <span class="collection-design-groups__badge" title="Men's">M</span>
+                    {%- endif -%}
+                    {%- if show_w -%}
+                      <span class="collection-design-groups__badge" title="Women's">W</span>
+                    {%- endif -%}
+                    {%- if show_mx -%}
+                      <span class="collection-design-groups__badge" title="Men's XL">M+</span>
+                    {%- endif -%}
+                    {%- if show_k -%}
+                      <span class="collection-design-groups__badge" title="Kids">K</span>
+                    {%- endif -%}
+                    {%- if show_kx -%}
+                      <span class="collection-design-groups__badge" title="Kids XL">K+</span>
+                    {%- endif -%}
+                  </span>
 
-                <span class="collection-design-groups__count">
-                  {%- if value.count == 1 -%}
-                    1 style
-                  {%- else -%}
-                    {{ value.count }} styles
-                  {%- endif -%}
-                </span>
+                  <span class="collection-design-groups__count">
+                    {%- if value.count == 1 -%}
+                      1 style
+                    {%- else -%}
+                      {{ value.count }} styles
+                    {%- endif -%}
+                  </span>
+                </div>
               </a>
             {%- endif -%}
           {%- endfor -%}
