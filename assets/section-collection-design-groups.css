@@ -2,6 +2,18 @@
   margin: 0;
 }
 
+.collection-design-groups__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.collection-design-groups__header .collection-design-groups__heading:only-child {
+  flex: 1 1 auto;
+}
+
 /* Tight gap between design groups and the filter bar below */
 .collection-design-groups-section .collection-design-groups.container--vertical-space {
   margin-bottom: 0;
@@ -40,7 +52,8 @@
 
 .collection-design-groups__toggle-wrap {
   display: none;
-  margin-top: 0.75rem;
+  flex: 0 0 auto;
+  margin-left: auto;
 }
 
 @media screen and (max-width: 767px) {

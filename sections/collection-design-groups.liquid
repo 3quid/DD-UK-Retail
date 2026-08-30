@@ -50,11 +50,24 @@
       id="section-{{ section.id }}"
       class="collection-design-groups container--large{% unless section.settings.remove_margin %} container--vertical-space{% endunless %}{% if collapsible_mobile %} is-collapsible-mobile{% endif %}{% if collapsible_desktop %} is-collapsible-desktop{% endif %}"
     >
-      {%- if section.settings.heading != blank -%}
-        <div class="section-heading gutter-bottom--regular">
+      <div class="collection-design-groups__header gutter-bottom--regular">
+        {%- if section.settings.heading != blank -%}
           <h2 class="h4 collection-design-groups__heading">{{ section.settings.heading | escape }}</h2>
-        </div>
-      {%- endif -%}
+        {%- endif -%}
+
+        {%- if collapsible_mobile or collapsible_desktop -%}
+          <div class="collection-design-groups__toggle-wrap">
+            <button
+              type="button"
+              class="collection-design-groups__toggle link underlined-link"
+              aria-expanded="false"
+            >
+              <span class="collection-design-groups__toggle-label collection-design-groups__toggle-label--more">See all groups</span>
+              <span class="collection-design-groups__toggle-label collection-design-groups__toggle-label--less">Show fewer groups</span>
+            </button>
+          </div>
+        {%- endif -%}
+      </div>
 
       <div class="collection-design-groups__grid" role="list">
         {%- paginate collection.products by 250 -%}
@@ -126,19 +139,6 @@
           {%- endfor -%}
         {%- endpaginate -%}
       </div>
-
-      {%- if collapsible_mobile or collapsible_desktop -%}
-        <div class="collection-design-groups__toggle-wrap">
-          <button
-            type="button"
-            class="collection-design-groups__toggle link underlined-link"
-            aria-expanded="false"
-          >
-            <span class="collection-design-groups__toggle-label collection-design-groups__toggle-label--more">See all groups</span>
-            <span class="collection-design-groups__toggle-label collection-design-groups__toggle-label--less">Show fewer groups</span>
-          </button>
-        </div>
-      {%- endif -%}
     </div>
     <script src="{{ 'section-collection-design-groups.js' | asset_url }}" defer></script>
   {%- endif -%}
