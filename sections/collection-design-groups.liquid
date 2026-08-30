@@ -51,12 +51,12 @@
       class="collection-design-groups container--large{% unless section.settings.remove_margin %} container--vertical-space{% endunless %}{% if collapsible_mobile %} is-collapsible-mobile{% endif %}{% if collapsible_desktop %} is-collapsible-desktop{% endif %}"
     >
       <div class="collection-design-groups__header gutter-bottom--regular">
-        {%- if section.settings.heading != blank -%}
-          <h2 class="h4 collection-design-groups__heading">{{ section.settings.heading | escape }}</h2>
-        {%- endif -%}
+        <div class="collection-design-groups__title-row">
+          {%- if section.settings.heading != blank -%}
+            <h2 class="h4 collection-design-groups__heading">{{ section.settings.heading | escape }}</h2>
+          {%- endif -%}
 
-        {%- if collapsible_mobile or collapsible_desktop -%}
-          <div class="collection-design-groups__toggle-wrap">
+          {%- if collapsible_mobile or collapsible_desktop -%}
             <button
               type="button"
               class="collection-design-groups__toggle link underlined-link"
@@ -65,8 +65,8 @@
               <span class="collection-design-groups__toggle-label collection-design-groups__toggle-label--more">See all groups</span>
               <span class="collection-design-groups__toggle-label collection-design-groups__toggle-label--less">Show fewer groups</span>
             </button>
-          </div>
-        {%- endif -%}
+          {%- endif -%}
+        </div>
       </div>
 
       <div class="collection-design-groups__grid" role="list">

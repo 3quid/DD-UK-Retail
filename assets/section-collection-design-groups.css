@@ -4,20 +4,19 @@
   padding: 1rem;
 }
 
-.collection-design-groups__heading {
+.collection-design-groups__header {
   margin: 0;
 }
 
-.collection-design-groups__header {
+.collection-design-groups__title-row {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
   flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.75rem;
 }
 
-.collection-design-groups__header .collection-design-groups__heading:only-child {
-  flex: 1 1 auto;
+.collection-design-groups__heading {
+  margin: 0;
 }
 
 /* Tight gap between design groups and the filter bar below */
@@ -57,21 +56,34 @@
   }
 }
 
-.collection-design-groups__toggle-wrap {
+.collection-design-groups__toggle {
   display: none;
-  flex: 0 0 auto;
-  margin-left: auto;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.92em;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+
+.collection-design-groups__toggle:hover,
+.collection-design-groups__toggle:focus-visible {
+  text-decoration-thickness: 2px;
 }
 
 @media screen and (max-width: 767px) {
-  .collection-design-groups.is-collapsible-mobile .collection-design-groups__toggle-wrap {
-    display: block;
+  .collection-design-groups.is-collapsible-mobile .collection-design-groups__toggle {
+    display: inline;
   }
 }
 
 @media screen and (min-width: 768px) {
-  .collection-design-groups.is-collapsible-desktop .collection-design-groups__toggle-wrap {
-    display: block;
+  .collection-design-groups.is-collapsible-desktop .collection-design-groups__toggle {
+    display: inline;
   }
 }
 
@@ -81,14 +93,6 @@
 
 .collection-design-groups:not(.is-expanded) .collection-design-groups__toggle-label--less {
   display: none;
-}
-
-.collection-design-groups__toggle {
-  background: none;
-  border: 0;
-  padding: 0;
-  cursor: pointer;
-  font: inherit;
 }
 
 .collection-design-groups__card {
