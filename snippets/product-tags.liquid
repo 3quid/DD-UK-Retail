@@ -1,0 +1,40 @@
+{%- comment -%}
+  Product detail pills in a fixed order: audience → length → fabric → other.
+
+  Accepts:
+  - product: {Object} product
+{%- endcomment -%}
+{%- liquid
+  assign audience_tags = 'womens,mens,kids' | split: ','
+  assign length_tags = 'ankle,knee,calf' | split: ','
+  assign fabric_tags = 'merino wool,bamboo' | split: ','
+  assign other_tags = 'toast' | split: ','
+-%}
+
+{%- for tag in audience_tags -%}
+  {%- if product.tags contains tag -%}
+    {%- render 'product-audience-tag', tag: tag, product: product -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- for tag in length_tags -%}
+  {%- if product.tags contains tag -%}
+    <li class="tag-{{ tag }}">{{ tag | capitalize }}</li>
+  {%- endif -%}
+{%- endfor -%}
+
+{%- for tag in fabric_tags -%}
+  {%- if product.tags contains tag -%}
+    {%- if tag == 'merino wool' -%}
+      <li class="tag-merino-wool">Merino Wool</li>
+    {%- else -%}
+      <li class="tag-{{ tag }}">{{ tag | capitalize }}</li>
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- for tag in other_tags -%}
+  {%- if product.tags contains tag -%}
+    <li class="tag-{{ tag }}">{{ tag | capitalize }}</li>
+  {%- endif -%}
+{%- endfor -%}

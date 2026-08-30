@@ -315,30 +315,7 @@
   -%}
   <div class="collection_item__tags">
   <ul class="tags">
-  {% for tag in product.tags %}
-    
-      {% if tag == 'womens' or tag == 'mens' or tag == 'kids' %}
-        {% render 'product-audience-tag', tag: tag, product: product %}
-      {% endif %}
-      {% if tag == 'ankle' %}
-        <li class="tag-ankle">Ankle</li>
-      {% endif %}
-      {% if tag == 'knee' %}
-        <li class="tag-knee">Knee</li>
-      {% endif %}
-      {% if tag == 'calf' %}
-        <li class="tag-calf">Calf</li>
-      {% endif %}
-      {% if tag == 'toast' %}
-        <li class="tag-toast">Toast</li>
-      {% endif %}
-      {% if tag == 'bamboo' %}
-        <li class="tag-bamboo">Bamboo</li>
-      {% endif %}
-      {% if tag == 'merino wool' %}
-          <li class="tag-merino-wool">Merino Wool</li>
-      {% endif %}
-    {% endfor %}
+    {% render 'product-tags', product: product %}
   </ul>
   </div>
 </div>
