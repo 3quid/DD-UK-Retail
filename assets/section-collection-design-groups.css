@@ -82,12 +82,38 @@
   min-width: 1.25rem;
   height: 1.25rem;
   padding: 0 0.12rem;
-  border: 1px solid rgba(0, 0, 0, 0.18);
+  border: 1px solid transparent;
   border-radius: 999px;
   font-size: 0.52rem;
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.02em;
+  color: rgba(0, 0, 0, 0.72);
+}
+
+.collection-design-groups__badge--w {
+  background: #faf4d7;
+  border-color: rgba(210, 180, 70, 0.22);
+}
+
+.collection-design-groups__badge--m {
+  background: #e9f3e4;
+  border-color: rgba(110, 150, 90, 0.2);
+}
+
+.collection-design-groups__badge--m-plus {
+  background: #d8ead0;
+  border-color: rgba(95, 135, 80, 0.24);
+}
+
+.collection-design-groups__badge--k {
+  background: #fcebf1;
+  border-color: rgba(200, 130, 155, 0.2);
+}
+
+.collection-design-groups__badge--k-plus {
+  background: #f5dce6;
+  border-color: rgba(190, 110, 140, 0.24);
 }
 
 @media screen and (max-width: 767px) {
