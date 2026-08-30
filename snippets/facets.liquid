@@ -33,7 +33,7 @@
 -%}
 
 {%- unless results.products.size == 0 -%}
-  {%- if results.results_count -%}
+  {%- if results.results_count and results.terms == blank -%}
     <div class="text-color--opacity margin-bottom--regular" id="CollectionProductCount" role="status">
       {{ 'search.page.results_count' | t: offset: offset, page_size: page_size, count: results.results_count }}
     </div>

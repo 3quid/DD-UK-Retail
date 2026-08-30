@@ -49,19 +49,15 @@
 
         <div class="margin-bottom--large">
           {{ 'search.page.results' | t: count: search.results_count, terms: search.terms }}
-          {%- unless section.settings.enable_filtering or section.settings.enable_sorting -%}
-            <div class="text-color--opacity">{{ 'search.page.results_count' | t: offset: offset, page_size: page_size, count: paginate.items }}</div>
-          {%- endunless -%}
         </div>
 
         {%- if products_results.size > 0 or search.results.size == 0 and search.filters != empty -%}
 
-          <div class="margin-bottom--regular">
-            <h2 class="h5">{{ 'search.form.product_results_title' | t }} ({{ products_results.size }})</h2>
-            {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
+          {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
+            <div class="margin-bottom--regular">
               {%- render 'facets', results: search, enable_filtering: section.settings.enable_filtering, enable_sorting: section.settings.enable_sorting, image_filter_layout: section.settings.image_filter_layout, offset: offset, page_size: page_size, type: 'desktop', filters_position: "top" -%}
-            {%- endif -%}
-          </div>
+            </div>
+          {%- endif -%}
 
           {%- assign products_in_current = true -%}
 
