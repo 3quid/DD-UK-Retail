@@ -97,6 +97,46 @@
 				"info": "Optional. Paste the ID from use.typekit.net/XXXXX.css. In your Adobe web project, add dorisanddude.com and your-store.myshopify.com under allowed domains."
 			},
 			{
+				"type": "header",
+				"content": "Brand font (self-hosted)"
+			},
+			{
+				"type": "text",
+				"id": "custom_brand_font_asset",
+				"label": "Brand font 1 — WOFF2 filename",
+				"default": "Dawg.woff2",
+				"info": "Upload to Theme assets (e.g. Dawg.woff2). Used on Our Story and elsewhere."
+			},
+			{
+				"type": "text",
+				"id": "custom_brand_font_family",
+				"label": "Brand font 1 — family name",
+				"default": "Dawg"
+			},
+			{
+				"type": "text",
+				"id": "custom_brand_font_2_asset",
+				"label": "Brand font 2 — WOFF2 filename",
+				"default": "DarumadropOne-Regular.woff2",
+				"info": "Upload to Theme assets (e.g. DarumadropOne-Regular.woff2)."
+			},
+			{
+				"type": "text",
+				"id": "custom_brand_font_2_family",
+				"label": "Brand font 2 — family name",
+				"default": "Darumadrop One"
+			},
+			{
+				"type": "select",
+				"id": "collection_title_font",
+				"label": "Collection title font",
+				"options": [
+					{ "value": "font_1", "label": "Brand font 1 (Dawg)" },
+					{ "value": "font_2", "label": "Brand font 2 (Darumadrop One)" }
+				],
+				"default": "font_2"
+			},
+			{
 				"type": "select",
 				"id": "buttons_weight",
 				"label": "t:sections.local-extra-words.settings_schema.typography.buttons.label",
@@ -1412,6 +1452,192 @@
 				"id": "social_custom",
 				"label": "t:custom-social-icons.link.label",
 				"info": "https://socialnetwork.com/shopify"
+			}
+		]
+	},
+	{
+		"name": "Collections",
+		"settings": [
+			{
+				"type": "paragraph",
+				"content": "Default hero backgrounds for all collection pages (six rotate by collection ID). Override per collection via Admin metafields: Hero background, Feature image, Grid background."
+			},
+			{
+				"type": "image_picker",
+				"id": "collection_default_background_1",
+				"label": "Default background 1"
+			},
+			{
+				"type": "image_picker",
+				"id": "collection_default_background_2",
+				"label": "Default background 2"
+			},
+			{
+				"type": "image_picker",
+				"id": "collection_default_background_3",
+				"label": "Default background 3"
+			},
+			{
+				"type": "image_picker",
+				"id": "collection_default_background_4",
+				"label": "Default background 4"
+			},
+			{
+				"type": "image_picker",
+				"id": "collection_default_background_5",
+				"label": "Default background 5"
+			},
+			{
+				"type": "image_picker",
+				"id": "collection_default_background_6",
+				"label": "Default background 6"
+			},
+			{
+				"type": "image_picker",
+				"id": "collection_default_feature_image",
+				"label": "Default feature graphic (optional)",
+				"info": "Transparent PNG. Leave empty for background-only heroes on uncurated collections."
+			},
+			{
+				"type": "color",
+				"id": "collection_default_background_color",
+				"label": "Fallback colour (when no image)",
+				"default": "#e8e4dc"
+			}
+		]
+	},
+	{
+		"name": "Pages",
+		"settings": [
+			{
+				"type": "paragraph",
+				"content": "Default hero backgrounds for standard pages (Privacy policy, Terms, etc.). Six backgrounds rotate by page ID. Use the “standard-hero” page template and upload neutral images here."
+			},
+			{
+				"type": "image_picker",
+				"id": "page_default_background_1",
+				"label": "Default background 1"
+			},
+			{
+				"type": "image_picker",
+				"id": "page_default_background_2",
+				"label": "Default background 2"
+			},
+			{
+				"type": "image_picker",
+				"id": "page_default_background_3",
+				"label": "Default background 3"
+			},
+			{
+				"type": "image_picker",
+				"id": "page_default_background_4",
+				"label": "Default background 4"
+			},
+			{
+				"type": "image_picker",
+				"id": "page_default_background_5",
+				"label": "Default background 5"
+			},
+			{
+				"type": "image_picker",
+				"id": "page_default_background_6",
+				"label": "Default background 6"
+			},
+			{
+				"type": "color",
+				"id": "page_default_background_color",
+				"label": "Fallback colour (when no image)",
+				"default": "#e8e4dc"
+			}
+		]
+	},
+	{
+		"name": "Products",
+		"settings": [
+			{
+				"type": "paragraph",
+				"content": "Default hero backgrounds for product pages. Upload up to six images — each product is assigned one based on its ID (same rotation pattern as Pages and Collections). Shopify theme settings do not support a single multi-image gallery field; these six slots are the theme-wide equivalent."
+			},
+			{
+				"type": "image_picker",
+				"id": "product_default_background_1",
+				"label": "Default background 1"
+			},
+			{
+				"type": "image_picker",
+				"id": "product_default_background_2",
+				"label": "Default background 2"
+			},
+			{
+				"type": "image_picker",
+				"id": "product_default_background_3",
+				"label": "Default background 3"
+			},
+			{
+				"type": "image_picker",
+				"id": "product_default_background_4",
+				"label": "Default background 4"
+			},
+			{
+				"type": "image_picker",
+				"id": "product_default_background_5",
+				"label": "Default background 5"
+			},
+			{
+				"type": "image_picker",
+				"id": "product_default_background_6",
+				"label": "Default background 6"
+			},
+			{
+				"type": "color",
+				"id": "product_default_background_color",
+				"label": "Fallback colour (when no image)",
+				"default": "#e8e4dc"
+			}
+		]
+	},
+	{
+		"name": "Collection Grids",
+		"settings": [
+			{
+				"type": "paragraph",
+				"content": "Default tile backgrounds when a collection has no Grid background metafield (six rotate by collection ID). Set per collection in Admin → Products → Collections → metafields, same as Hero background and Feature image."
+			},
+			{
+				"type": "image_picker",
+				"id": "grid_default_background_1",
+				"label": "Default background 1"
+			},
+			{
+				"type": "image_picker",
+				"id": "grid_default_background_2",
+				"label": "Default background 2"
+			},
+			{
+				"type": "image_picker",
+				"id": "grid_default_background_3",
+				"label": "Default background 3"
+			},
+			{
+				"type": "image_picker",
+				"id": "grid_default_background_4",
+				"label": "Default background 4"
+			},
+			{
+				"type": "image_picker",
+				"id": "grid_default_background_5",
+				"label": "Default background 5"
+			},
+			{
+				"type": "image_picker",
+				"id": "grid_default_background_6",
+				"label": "Default background 6"
+			},
+			{
+				"type": "color",
+				"id": "grid_default_background_color",
+				"label": "Fallback colour (when no image)",
+				"default": "#e8e4dc"
 			}
 		]
 	}

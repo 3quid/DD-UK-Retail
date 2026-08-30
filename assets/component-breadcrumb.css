@@ -34,6 +34,38 @@
   height: clamp(2.5rem, var(--container-vertical-space), 5rem);
   width: 100%;
 }
+
+/* Hero sections pull main upward under the header — absolute breadcrumbs end up above the logo row */
+body:has(.page-hero-section) .breadcrumb-main,
+body:has(.collection-page-hero-section) .breadcrumb-main,
+body:has(.product-page-hero-section) .breadcrumb-main,
+body:has(.homepage-featured-hero-section) .breadcrumb-main,
+body:has(.collection-branded-hero-section) .breadcrumb-main {
+  display: none;
+}
+
+@media screen and (max-width: 1023px) {
+  .breadcrumb-main {
+    position: relative;
+    top: auto;
+    height: auto;
+    z-index: 1;
+    background: var(--color-background-main);
+    border-bottom: 1px solid var(--color-borders-main);
+  }
+
+  .breadcrumb-main:before,
+  .breadcrumb-main:after {
+    display: none;
+  }
+
+  .breadcrumb-container {
+    height: auto;
+    min-height: 2.5rem;
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+  }
+}
 html[dir=rtl] .breadcrumb-main {
   right: 0;
 }
