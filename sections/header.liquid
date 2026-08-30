@@ -38,19 +38,17 @@
     }
 
     .header__nav .site-nav.style--classic nav > ul > li > .menu-link {
-      border-radius: 0.25rem;
-      transition: background-color 0.15s ease, color 0.1s linear;
+      transition: color 0.1s linear;
     }
 
-    .no-touchevents .header__nav .site-nav.style--classic nav > ul > li > .menu-link:hover,
-    .no-touchevents .header__nav .site-nav.style--classic nav > ul > li > .menu-link:focus-visible {
-      background: #fff;
+    .no-touchevents .header__nav .site-nav.style--classic nav > ul > li > .menu-link:hover span,
+    .no-touchevents .header__nav .site-nav.style--classic nav > ul > li > .menu-link:focus-visible span {
+      color: #fff;
     }
 
-    .site-nav.style--classic .has-submenu:hover .submenu:after,
-    .site-nav.style--classic .has-submenu.focus .submenu:after,
-    .site-nav.style--classic .submenu-is-mega-menu.focus .submenu:after {
-      background: #fff;
+    .no-touchevents .header__nav .site-nav.style--classic nav > ul > li > .menu-link:hover span + .icon svg *,
+    .no-touchevents .header__nav .site-nav.style--classic nav > ul > li > .menu-link:focus-visible span + .icon svg * {
+      fill: #fff;
     }
   }
   @media screen and (min-width: {{ settings.theme_max_width | plus: 1 }}px) {
