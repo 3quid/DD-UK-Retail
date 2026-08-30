@@ -37,8 +37,32 @@
       font-size: calc(19px / 16 * var(--base-menu-size) + 0px);
     }
 
+    .header__nav .site-nav.style--classic nav > ul > li > .menu-link > span:first-child {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      z-index: 1;
+    }
+
+    .header__nav .site-nav.style--classic nav > ul > li > .menu-link > span:first-child::before {
+      content: "";
+      position: absolute;
+      inset: -0.4rem -0.85rem;
+      border-radius: 999px;
+      background: #000;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      z-index: -1;
+      pointer-events: none;
+    }
+
     .header__nav .site-nav.style--classic nav > ul > li > .menu-link {
       transition: color 0.1s linear;
+    }
+
+    .no-touchevents .header__nav .site-nav.style--classic nav > ul > li > .menu-link:hover > span:first-child::before,
+    .no-touchevents .header__nav .site-nav.style--classic nav > ul > li > .menu-link:focus-visible > span:first-child::before {
+      opacity: 1;
     }
 
     .no-touchevents .header__nav .site-nav.style--classic nav > ul > li > .menu-link:hover span,
