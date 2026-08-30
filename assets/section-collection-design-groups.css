@@ -1,3 +1,9 @@
+.collection-design-groups {
+  background: #f9f9f9;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
 .collection-design-groups__heading {
   margin: 0;
 }
