@@ -41,22 +41,23 @@
       position: relative;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       z-index: 1;
-      line-height: 1.15;
+      line-height: 1;
+      padding: 0.55rem 1rem;
+      margin: -0.55rem -1rem;
     }
 
     .header__nav .site-nav.style--classic nav > ul > li > .menu-link > span:first-child > span {
-      position: relative;
-      top: -1px;
+      display: block;
+      line-height: 1;
+      transform: translateY(-0.14em);
     }
 
     .header__nav .site-nav.style--classic nav > ul > li > .menu-link > span:first-child::before {
       content: "";
       position: absolute;
-      top: calc(-0.55rem - 5px);
-      right: calc(-0.85rem - 4px);
-      bottom: calc(-0.45rem - 2px);
-      left: calc(-0.85rem - 4px);
+      inset: 0;
       border-radius: 9999px;
       background: #000;
       opacity: 0;
