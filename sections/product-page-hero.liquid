@@ -10,23 +10,47 @@
 
   assign fallback_bg_color = settings.product_default_background_color | default: '#e8e4dc'
 
-  assign bg_seed = product.id | plus: product.handle.size
-  assign bg_slot = bg_seed | modulo: 6 | plus: 1
   assign default_bg = blank
-  case bg_slot
-    when 1
-      assign default_bg = settings.product_default_background_1
-    when 2
-      assign default_bg = settings.product_default_background_2
-    when 3
-      assign default_bg = settings.product_default_background_3
-    when 4
-      assign default_bg = settings.product_default_background_4
-    when 5
-      assign default_bg = settings.product_default_background_5
-    when 6
-      assign default_bg = settings.product_default_background_6
-  endcase
+  assign product_colour = product.metafields.custom.colour.value | default: '' | strip | downcase
+
+  if product_colour != blank
+    case product_colour
+      when 'blue'
+        assign default_bg = settings.product_hero_background_blue
+      when 'green'
+        assign default_bg = settings.product_hero_background_green
+      when 'red'
+        assign default_bg = settings.product_hero_background_red
+      when 'yellow'
+        assign default_bg = settings.product_hero_background_yellow
+      when 'grey', 'gray'
+        assign default_bg = settings.product_hero_background_grey
+      when 'pink'
+        assign default_bg = settings.product_hero_background_pink
+      when 'purple'
+        assign default_bg = settings.product_hero_background_purple
+    endcase
+  endif
+
+  if default_bg == blank
+    assign bg_seed = product.id | plus: product.handle.size
+    assign bg_slot = bg_seed | modulo: 6 | plus: 1
+    case bg_slot
+      when 1
+        assign default_bg = settings.product_default_background_1
+      when 2
+        assign default_bg = settings.product_default_background_2
+      when 3
+        assign default_bg = settings.product_default_background_3
+      when 4
+        assign default_bg = settings.product_default_background_4
+      when 5
+        assign default_bg = settings.product_default_background_5
+      when 6
+        assign default_bg = settings.product_default_background_6
+    endcase
+  endif
+
   if default_bg == blank
     if settings.product_default_background_1 != blank
       assign default_bg = settings.product_default_background_1
@@ -147,7 +171,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Title defaults to the product name. Backgrounds rotate from Theme settings → Products (six images by product ID). Optional overrides below."
+      "content": "Title defaults to the product name. Background is chosen from Theme settings → Products using the product’s Colour metafield (custom.colour: Blue, Green, Red, Yellow, Grey, Pink, Purple). Falls back to rotating defaults when colour is blank or has no upload."
     },
     {
       "type": "header",

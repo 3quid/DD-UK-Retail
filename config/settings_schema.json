@@ -1556,7 +1556,50 @@
 		"settings": [
 			{
 				"type": "paragraph",
-				"content": "Default hero backgrounds for product pages. Upload up to six images — each product is assigned one based on its ID (same rotation pattern as Pages and Collections). Shopify theme settings do not support a single multi-image gallery field; these six slots are the theme-wide equivalent."
+				"content": "Product page hero backgrounds. Upload one image per main colour bucket — matched automatically from each product’s Colour metafield (custom.colour). Values must be: Blue, Green, Red, Yellow, Grey, Pink, or Purple."
+			},
+			{
+				"type": "image_picker",
+				"id": "product_hero_background_blue",
+				"label": "Blue hero background"
+			},
+			{
+				"type": "image_picker",
+				"id": "product_hero_background_green",
+				"label": "Green hero background"
+			},
+			{
+				"type": "image_picker",
+				"id": "product_hero_background_red",
+				"label": "Red hero background"
+			},
+			{
+				"type": "image_picker",
+				"id": "product_hero_background_yellow",
+				"label": "Yellow hero background"
+			},
+			{
+				"type": "image_picker",
+				"id": "product_hero_background_grey",
+				"label": "Grey hero background"
+			},
+			{
+				"type": "image_picker",
+				"id": "product_hero_background_pink",
+				"label": "Pink hero background"
+			},
+			{
+				"type": "image_picker",
+				"id": "product_hero_background_purple",
+				"label": "Purple hero background"
+			},
+			{
+				"type": "header",
+				"content": "Fallback backgrounds"
+			},
+			{
+				"type": "paragraph",
+				"content": "Used when a product has no Colour metafield, an unrecognised value, or no upload for that colour. Six images rotate by product ID."
 			},
 			{
 				"type": "image_picker",
