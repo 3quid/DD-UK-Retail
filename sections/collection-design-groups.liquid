@@ -48,8 +48,11 @@
     -%}
     <div
       id="section-{{ section.id }}"
-      class="collection-design-groups container--large{% unless section.settings.remove_margin %} container--vertical-space{% endunless %}{% if collapsible_mobile %} is-collapsible-mobile{% endif %}{% if collapsible_desktop %} is-collapsible-desktop{% endif %}"
+      class="container--large{% unless section.settings.remove_margin %} container--vertical-space{% endunless %}"
     >
+      <div
+        class="collection-design-groups{% if collapsible_mobile %} is-collapsible-mobile{% endif %}{% if collapsible_desktop %} is-collapsible-desktop{% endif %}"
+      >
       <div class="collection-design-groups__header gutter-bottom--regular">
         <div class="collection-design-groups__title-row">
           {%- if section.settings.heading != blank -%}
@@ -138,6 +141,7 @@
             {%- endif -%}
           {%- endfor -%}
         {%- endpaginate -%}
+      </div>
       </div>
     </div>
     <script src="{{ 'section-collection-design-groups.js' | asset_url }}" defer></script>

@@ -1,7 +1,10 @@
 .collection-design-groups {
+  --design-groups-bleed: 1rem;
   background: #f9f9f9;
   border-radius: 0.5rem;
-  padding: 1rem;
+  padding-block: 1rem;
+  padding-inline: var(--design-groups-bleed);
+  margin-inline: calc(-1 * var(--design-groups-bleed));
 }
 
 .collection-design-groups__header {
@@ -20,7 +23,7 @@
 }
 
 /* Tight gap between design groups and the filter bar below */
-.collection-design-groups-section .collection-design-groups.container--vertical-space {
+.collection-design-groups-section .container--large.container--vertical-space {
   margin-bottom: 0;
 }
 
