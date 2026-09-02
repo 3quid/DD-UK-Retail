@@ -1,1 +1,75 @@
-{"sections":{"main":{"type":"main-page","settings":{}},"contact-form":{"type":"contact-form","settings":{}}},"order":["main","contact-form"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "page_hero_4HCzHa": {
+      "type": "page-hero",
+      "name": "26 Page hero",
+      "settings": {
+        "title_override": "",
+        "strapline": "",
+        "hero_background": "shopify://shop_images/hero-bg-puffins.png",
+        "show_title_prefix": false,
+        "hero_height_desktop": 10,
+        "hero_height_mobile": 10,
+        "hero_title_size": 5,
+        "hero_title_size_mobile": 3.5,
+        "hero_title_offset_x": 0,
+        "hero_title_offset_y": 0,
+        "hero_title_rotation": 0,
+        "hero_title_rotation_mobile": 0,
+        "hero_text_offset_x": 0,
+        "hero_text_offset_y": 0,
+        "hero_text_rotation": 0,
+        "hero_text_rotation_mobile": 0,
+        "hero_strapline_size": 1.5,
+        "hero_strapline_size_mobile": 1.5,
+        "hero_strapline_gap": 0.5,
+        "hero_strapline_rotation": 0,
+        "hero_strapline_rotation_mobile": 0,
+        "title_font_family": ""
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "hide_title": true,
+        "center": false
+      }
+    },
+    "contact-form": {
+      "type": "contact-form",
+      "blocks": {
+        "text_fxCMfy": {
+          "type": "text",
+          "settings": {
+            "title": "Contact information",
+            "content": "<p><strong>Address: </strong>Unit 1 Holman Way, Nuneaton, Warwickshire, United Kingdom, CV11 4PN</p><p><strong>Email:</strong> <a href=\"mailto:dude@dorisanddude.com\" title=\"mailto:dude@dorisanddude.com\">dude@dorisanddude.com</a></p>",
+            "seo_h_tag": "h3"
+          }
+        }
+      },
+      "block_order": [
+        "text_fxCMfy"
+      ],
+      "settings": {
+        "heading": "Send us a message",
+        "show_phone": false,
+        "show_subject": true,
+        "seo_h_tag": "h2"
+      }
+    }
+  },
+  "order": [
+    "page_hero_4HCzHa",
+    "main",
+    "contact-form"
+  ]
+}
