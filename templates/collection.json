@@ -7,45 +7,73 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
+/*
+ * Default collection template — 26 layout.
+ * Hero defaults: Theme settings → Collections.
+ * Per-collection override: collection metafields (hero_background, feature_image).
+ */
 {
   "sections": {
-    "banner": {
-      "type": "main-collection-banner",
-      "disabled": true,
+    "page_hero": {
+      "type": "collection-page-hero",
       "settings": {
-        "show_collection_description": false,
-        "show_collection_image": false,
-        "alignment": "horizontal-left align-content--vertical-bottom",
-        "color_background_main": "rgba(0,0,0,0)",
-        "color_text_main": "rgba(0,0,0,0)",
-        "is_fullwidth": false,
-        "remove_bottom_margin": false
+        "show_title_prefix": true,
+        "hero_text_offset_x": 0,
+        "hero_text_offset_y": 0,
+        "hero_text_rotation": -4,
+        "hero_text_rotation_mobile": 0,
+        "hero_title_size": 8,
+        "hero_title_size_mobile": 5,
+        "hero_title_offset_x": 0,
+        "hero_title_offset_y": 0,
+        "hero_title_rotation": 0,
+        "hero_title_rotation_mobile": 0,
+        "hero_strapline_size": 2,
+        "hero_strapline_size_mobile": 1.5,
+        "hero_strapline_gap": 0,
+        "hero_strapline_rotation": 0,
+        "hero_strapline_rotation_mobile": 0,
+        "feature_1_flip_horizontal": false,
+        "feature_1_rotation": 0,
+        "feature_1_scale": 100,
+        "feature_1_offset_x": 0,
+        "feature_1_offset_y": -23,
+        "feature_2_flip_horizontal": true,
+        "feature_2_rotation": 0,
+        "feature_2_scale": 200,
+        "feature_2_offset_x": 0,
+        "feature_2_offset_y": 0,
+        "feature_3_flip_horizontal": false,
+        "feature_3_rotation": 0,
+        "feature_3_scale": 65,
+        "feature_3_offset_x": 0,
+        "feature_3_offset_y": -34,
+        "hero_height_desktop": 30,
+        "hero_height_mobile": 25,
+        "title_font_family": ""
       }
     },
-    "product-grid": {
+    "design_groups": {
+      "type": "collection-design-groups",
+      "settings": {
+        "enabled": true,
+        "filter_key": "design_name",
+        "heading": "Browse by design",
+        "show_heading": false,
+        "remove_margin": false
+      }
+    },
+    "product_grid": {
       "type": "main-collection-product-grid",
       "blocks": {
         "title": {
           "type": "title",
           "settings": {}
-        },
-        "price": {
-          "type": "price",
-          "disabled": true,
-          "settings": {}
-        },
-        "quick_buy": {
-          "type": "quick_buy",
-          "disabled": true,
-          "settings": {}
         }
       },
       "block_order": [
-        "title",
-        "price",
-        "quick_buy"
+        "title"
       ],
-      "custom_css": [],
       "settings": {
         "products_number": 24,
         "enable_filtering": true,
@@ -60,7 +88,8 @@
     }
   },
   "order": [
-    "banner",
-    "product-grid"
+    "page_hero",
+    "design_groups",
+    "product_grid"
   ]
 }
