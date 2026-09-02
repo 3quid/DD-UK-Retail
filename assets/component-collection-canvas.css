@@ -452,15 +452,18 @@
   }
 
   .collection-canvas--hero .collection-canvas__title {
-    align-items: center;
-    text-align: center;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    margin-inline: auto;
     transform: translate(var(--layer-offset-x, 0%), var(--layer-offset-y, 0%))
       rotate(var(--title-rotate-mobile, var(--title-rotate, var(--layer-rotate, 0deg))));
-    transform-origin: center center;
+    transform-origin: left center;
   }
 
   .collection-canvas--hero .collection-canvas__title-prefix {
-    align-self: center;
+    align-self: flex-start;
   }
 
   .collection-canvas--hero .collection-canvas__strapline {
