@@ -9,10 +9,43 @@
  */
 {
   "sections": {
+    "page_hero_PHDgni": {
+      "type": "page-hero",
+      "name": "26 Page hero",
+      "settings": {
+        "title_override": "",
+        "strapline": "",
+        "show_title_prefix": false,
+        "hero_height_desktop": 15,
+        "hero_height_mobile": 10,
+        "hero_title_size": 5,
+        "hero_title_size_mobile": 3,
+        "hero_title_offset_x": 0,
+        "hero_title_offset_y": 0,
+        "hero_title_rotation": 0,
+        "hero_title_rotation_mobile": 0,
+        "hero_text_offset_x": 0,
+        "hero_text_offset_y": 0,
+        "hero_text_rotation": 0,
+        "hero_text_rotation_mobile": 0,
+        "hero_strapline_size": 1.5,
+        "hero_strapline_size_mobile": 1.5,
+        "hero_strapline_gap": 0.5,
+        "hero_strapline_rotation": 0,
+        "hero_strapline_rotation_mobile": 0,
+        "title_font_family": ""
+      }
+    },
     "main": {
       "type": "main-page",
-      "settings": {}
+      "settings": {
+        "hide_title": true,
+        "center": false
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "page_hero_PHDgni",
+    "main"
+  ]
 }
