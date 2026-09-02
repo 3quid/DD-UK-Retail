@@ -9,15 +9,32 @@
  */
 {
   "sections": {
-    "page_hero": {
+    "page_hero_W4ahB4": {
       "type": "page-hero",
+      "name": "26 Page hero",
       "settings": {
-        "title_override": "The Story of Doris & Dude",
-        "hero_background": "shopify://shop_images/background.jpg",
-        "hero_height_desktop": 30,
-        "hero_height_mobile": 24,
+        "title_override": "",
+        "strapline": "",
+        "hero_background": "shopify://shop_images/page-hero-bg1.png",
+        "show_title_prefix": false,
+        "hero_height_desktop": 15,
+        "hero_height_mobile": 10,
         "hero_title_size": 5,
-        "hero_title_size_mobile": 3.5
+        "hero_title_size_mobile": 3.5,
+        "hero_title_offset_x": 0,
+        "hero_title_offset_y": 0,
+        "hero_title_rotation": 0,
+        "hero_title_rotation_mobile": 0,
+        "hero_text_offset_x": 0,
+        "hero_text_offset_y": 0,
+        "hero_text_rotation": 0,
+        "hero_text_rotation_mobile": 0,
+        "hero_strapline_size": 1.5,
+        "hero_strapline_size_mobile": 1.5,
+        "hero_strapline_gap": 0.5,
+        "hero_strapline_rotation": 0,
+        "hero_strapline_rotation_mobile": 0,
+        "title_font_family": ""
       }
     },
     "about_story": {
@@ -135,8 +152,7 @@
         "text_today"
       ],
       "settings": {
-        "background_image": "shopify://shop_images/background.jpg",
-        "background_fallback_color": "#f4f4f4",
+        "background_fallback_color": "#FFFFFF",
         "background_repeat": false,
         "show_title": false,
         "title": "The Story of Doris & Dude",
@@ -159,5 +175,8 @@
       }
     }
   },
-  "order": ["page_hero", "about_story"]
+  "order": [
+    "page_hero_W4ahB4",
+    "about_story"
+  ]
 }
