@@ -1,0 +1,28 @@
+.collection-branded-hero__inner {
+  --collection-hero-height: var(--branded-hero-height, 30vh);
+  --collection-hero-height-mobile: var(--branded-hero-height-mobile, 60vh);
+}
+
+.collection-branded-hero .collection-canvas--hero {
+  min-height: var(--collection-hero-height, 30vh);
+}
+
+@media screen and (max-width: 767px) {
+  .collection-branded-hero .collection-canvas--hero {
+    min-height: var(--collection-hero-height-mobile, 60vh);
+  }
+
+  .collection-branded-hero .collection-canvas--hero .collection-canvas__layers {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: inherit;
+    padding-inline: 5%;
+    box-sizing: border-box;
+  }
+
+  .collection-branded-hero .collection-canvas--hero .collection-canvas__text-block {
+    text-align: center;
+  }
+}

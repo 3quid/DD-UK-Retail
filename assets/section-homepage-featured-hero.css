@@ -1,0 +1,88 @@
+.homepage-featured-hero {
+  width: 100%;
+}
+
+.homepage-featured-hero__inner {
+  --collection-hero-height: var(--featured-hero-height, 30vh);
+  --collection-hero-height-mobile: var(--featured-hero-height-mobile, 60vh);
+}
+
+.homepage-featured-hero .collection-canvas--hero {
+  min-height: var(--collection-hero-height, 30vh);
+  overflow: visible;
+}
+
+.homepage-featured-hero .collection-canvas__overlays,
+.homepage-featured-hero .collection-canvas__overlay-columns {
+  overflow: visible;
+}
+
+.homepage-featured-hero .collection-canvas__overlay-columns {
+  /* Size each graphic relative to its column cell, not the full hero */
+  --overlay-column-graphic-size: 92%;
+  --overlay-column-graphic-max-height: 88%;
+}
+
+@media screen and (max-width: 767px) {
+  .homepage-featured-hero .collection-canvas--hero {
+    min-height: auto;
+  }
+
+  .homepage-featured-hero .collection-canvas--hero .collection-canvas__layers {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding-inline: 5%;
+    box-sizing: border-box;
+  }
+
+  .homepage-featured-hero .collection-canvas--hero .collection-canvas__text-block {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 auto;
+    --hero-text-block-top: auto;
+    text-align: center;
+    transform: translate(var(--layer-offset-x, 0%), var(--layer-offset-y, 0%))
+      rotate(var(--layer-rotate-mobile, var(--layer-rotate, 0deg)));
+    transform-origin: center center;
+  }
+
+  .homepage-featured-hero .collection-canvas--hero .collection-canvas__overlays {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    flex: 1 1 auto;
+    order: 2;
+  }
+
+  .homepage-featured-hero .collection-canvas__overlay-columns {
+    position: relative;
+    right: auto;
+    top: auto;
+    width: 100%;
+    height: auto;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    --overlay-column-graphic-size: 94%;
+    --overlay-column-graphic-max-height: none;
+  }
+
+  .homepage-featured-hero .collection-canvas__overlay-column {
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .homepage-featured-hero .collection-canvas--hero .collection-canvas__previews {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    max-width: 100%;
+    flex: 0 0 auto;
+    order: 3;
+    padding-bottom: 0.75rem;
+  }
+}
