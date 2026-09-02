@@ -1,0 +1,63 @@
+.homepage-story-promos__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.homepage-story-promos__card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1;
+  text-decoration: none;
+  color: inherit;
+}
+
+.homepage-story-promos__image {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.homepage-story-promos__image img,
+.homepage-story-promos__image .lazy-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.homepage-story-promos__text {
+  flex: 0 0 auto;
+  z-index: 1;
+  padding: 1rem 1.25rem;
+  color: #1d1d1d;
+  text-align: center;
+}
+
+.homepage-story-promos__card h2.homepage-story-promos__title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+@media screen and (max-width: 767px) {
+  .homepage-story-promos__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .homepage-story-promos__text {
+    padding: 0.5rem 0.25rem;
+  }
+
+  .homepage-story-promos__card h2.homepage-story-promos__title {
+    font-size: 0.75rem;
+    line-height: 1.15;
+  }
+}

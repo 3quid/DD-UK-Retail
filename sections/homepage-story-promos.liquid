@@ -14,7 +14,7 @@
       <a href="{{ section.settings.mission_link | default: '/pages/story-layout' }}" class="homepage-story-promos__card">
         {%- if section.settings.mission_image != blank -%}
           <div class="homepage-story-promos__image" aria-hidden="true">
-            {%- render 'lazy-image', image: section.settings.mission_image, sizes: 'sizes="(max-width: 767px) 100vw, 33vw"', type: 'background' -%}
+            {%- render 'lazy-image', image: section.settings.mission_image, sizes: 'sizes="(max-width: 767px) 33vw, 33vw"', type: 'background' -%}
           </div>
         {%- endif -%}
         <div class="homepage-story-promos__text">
@@ -27,7 +27,7 @@
       <a href="{{ section.settings.story_link | default: '/pages/our-story' }}" class="homepage-story-promos__card">
         {%- if section.settings.story_image != blank -%}
           <div class="homepage-story-promos__image" aria-hidden="true">
-            {%- render 'lazy-image', image: section.settings.story_image, sizes: 'sizes="(max-width: 767px) 100vw, 33vw"', type: 'background' -%}
+            {%- render 'lazy-image', image: section.settings.story_image, sizes: 'sizes="(max-width: 767px) 33vw, 33vw"', type: 'background' -%}
           </div>
         {%- endif -%}
         <div class="homepage-story-promos__text">
@@ -40,7 +40,7 @@
       <a href="{{ section.settings.care_link | default: '/pages/care-instructions' }}" class="homepage-story-promos__card">
         {%- if section.settings.care_image != blank -%}
           <div class="homepage-story-promos__image" aria-hidden="true">
-            {%- render 'lazy-image', image: section.settings.care_image, sizes: 'sizes="(max-width: 767px) 100vw, 33vw"', type: 'background' -%}
+            {%- render 'lazy-image', image: section.settings.care_image, sizes: 'sizes="(max-width: 767px) 33vw, 33vw"', type: 'background' -%}
           </div>
         {%- endif -%}
         <div class="homepage-story-promos__text">
