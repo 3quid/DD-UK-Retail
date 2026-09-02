@@ -21,8 +21,8 @@
         "hero_text_offset_y": 0,
         "hero_text_rotation": -4,
         "hero_text_rotation_mobile": 0,
-        "hero_title_size": 9.5,
-        "hero_title_size_mobile": 5.5,
+        "hero_title_size": 8,
+        "hero_title_size_mobile": 5,
         "hero_title_offset_x": 0,
         "hero_title_offset_y": 0,
         "hero_title_rotation": 0,
@@ -123,6 +123,28 @@
             "grid_feature_size": 100
           }
         },
+        "tile_spots": {
+          "type": "collection_tile",
+          "settings": {
+            "collection": "foxes",
+            "override_title": "",
+            "grid_background": "shopify://shop_images/collection-grid-bg8.png",
+            "grid_align": "left",
+            "grid_text_offset_x": 27,
+            "grid_text_offset_y": 0,
+            "grid_text_rotation": -8,
+            "grid_text_rotation_mobile": 0,
+            "grid_title_offset_x": 0,
+            "grid_title_offset_y": 0,
+            "grid_title_rotation": 0,
+            "grid_title_rotation_mobile": 0,
+            "grid_feature_offset_x": -10,
+            "grid_feature_offset_y": 0,
+            "grid_feature_rotation": 0,
+            "grid_feature_rotation_mobile": 0,
+            "grid_feature_size": 100
+          }
+        },
         "tile_transport": {
           "type": "collection_tile",
           "settings": {
@@ -134,28 +156,6 @@
             "grid_text_offset_x": 10,
             "grid_text_offset_y": 0,
             "grid_text_rotation": 4,
-            "grid_text_rotation_mobile": 0,
-            "grid_title_offset_x": 0,
-            "grid_title_offset_y": 0,
-            "grid_title_rotation": 0,
-            "grid_title_rotation_mobile": 0,
-            "grid_feature_offset_x": 0,
-            "grid_feature_offset_y": 0,
-            "grid_feature_rotation": 0,
-            "grid_feature_rotation_mobile": 0,
-            "grid_feature_size": 100
-          }
-        },
-        "tile_spots": {
-          "type": "collection_tile",
-          "settings": {
-            "collection": "spots",
-            "override_title": "Spots",
-            "grid_background": "shopify://shop_images/collection-grid-bg8.png",
-            "grid_align": "left",
-            "grid_text_offset_x": 0,
-            "grid_text_offset_y": 0,
-            "grid_text_rotation": -4,
             "grid_text_rotation_mobile": 0,
             "grid_title_offset_x": 0,
             "grid_title_offset_y": 0,
@@ -196,8 +196,8 @@
         "tile_animals",
         "tile_stripes",
         "tile_puffins",
-        "tile_transport",
         "tile_spots",
+        "tile_transport",
         "tile_sheep"
       ],
       "settings": {
@@ -205,52 +205,62 @@
         "tiles_desktop": 6,
         "tiles_mobile": 4,
         "columns_desktop": 3,
-        "columns_mobile": 2,
-        "grid_title_size": 3,
-        "grid_title_size_mobile": 2,
+        "columns_mobile": 1,
+        "grid_title_size": 3.5,
+        "grid_title_size_mobile": 3,
         "title_font_family": "sketchnote-square",
         "remove_margin": false
       }
     },
-    "feature_sock_grid": {
-      "type": "homepage-feature-sock-grid",
+    "featured_collection_gKpf6j": {
+      "type": "featured-collection",
       "blocks": {
-        "sock_1": {
-          "type": "sock",
-          "settings": {
-            "title": "",
-            "link": "",
-            "open_in_new_tab": false,
-            "rotation": 0
-          }
+        "price_NxEU4p": {
+          "type": "price",
+          "disabled": true,
+          "settings": {}
         },
-        "sock_2": {
-          "type": "sock",
-          "settings": {
-            "title": "",
-            "link": "",
-            "open_in_new_tab": false,
-            "rotation": 0
-          }
+        "title_gbre9E": {
+          "type": "title",
+          "settings": {}
         },
-        "sock_3": {
-          "type": "sock",
-          "settings": {
-            "title": "",
-            "link": "",
-            "open_in_new_tab": false,
-            "rotation": 0
-          }
+        "quick_buy_qk4DGN": {
+          "type": "quick_buy",
+          "disabled": true,
+          "settings": {}
         }
       },
       "block_order": [
-        "sock_1",
-        "sock_2",
-        "sock_3"
+        "price_NxEU4p",
+        "title_gbre9E",
+        "quick_buy_qk4DGN"
       ],
+      "name": "t:sections.featured-collection.presets.name",
       "settings": {
         "heading": "",
-        "remove_margin": false
+        "subheading": "",
+        "show_view_all": false,
+        "section_heading_layout": "section-heading--left",
+        "style": "grid",
+        "layout_desktop": "three-columns",
+        "layout_mobile": "grid-palm-1",
+        "products_number": 3,
+        "collection": "featured-home",
+        "collection_1": "",
+        "collection_2": "",
+        "collection_3": "",
+        "color_background_main": "rgba(0,0,0,0)",
+        "color_text_main": "rgba(0,0,0,0)",
+        "color_button_main": "rgba(0,0,0,0)",
+        "color_borders_main": "rgba(0,0,0,0)",
+        "color_shadow_main": "rgba(0,0,0,0)",
+        "color_hide_borders": false,
+        "color_hide_shadow": false,
+        "section_background_color": "rgba(0,0,0,0)",
+        "section_background_gradient": "",
+        "section_heading_color": "rgba(0,0,0,0)",
+        "remove_margin": false,
+        "seo_h_tag": "h2"
       }
     },
     "story_promos": {
@@ -282,7 +292,7 @@
   "order": [
     "featured_hero",
     "collection_grid",
-    "feature_sock_grid",
+    "featured_collection_gKpf6j",
     "story_promos",
     "trade_banner"
   ]
