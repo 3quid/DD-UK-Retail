@@ -134,7 +134,7 @@
 }
 
 .collection-canvas__style-count--hero {
-  margin-top: var(--hero-strapline-gap, 1rem);
+  margin-top: var(--hero-style-count-gap, 0.25rem);
   font-size: clamp(0.95rem, 1.5vw + 0.35rem, 1.25rem);
   letter-spacing: 0.02em;
 }
