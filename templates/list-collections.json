@@ -16,7 +16,7 @@
         "strapline": "",
         "hero_background": "shopify://shop_images/hero-bg5.png",
         "show_title_prefix": false,
-        "hero_height_desktop": 10,
+        "hero_height_desktop": 20,
         "hero_height_mobile": 10,
         "hero_title_size": 5,
         "hero_title_size_mobile": 3.5,
