@@ -9,11 +9,21 @@
  */
 {
   "sections": {
+    "product-hero": {
+      "type": "product-page-hero",
+      "settings": {
+        "hero_height_desktop": 28,
+        "hero_height_mobile": 22,
+        "hero_title_size": 5,
+        "hero_title_size_mobile": 3.5
+      }
+    },
     "main": {
       "type": "main-product",
       "blocks": {
         "title": {
           "type": "title",
+          "disabled": true,
           "settings": {}
         },
         "variant_picker": {
@@ -174,6 +184,7 @@
     }
   },
   "order": [
+    "product-hero",
     "main",
     "product-recommendations"
   ]
