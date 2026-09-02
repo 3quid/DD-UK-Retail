@@ -1,0 +1,273 @@
+{{ 'component-jiggle-graphic.css' | asset_url | stylesheet_tag }}
+{{ 'component-collection-canvas.css' | asset_url | stylesheet_tag }}
+{{ 'section-collection-branded-hero.css' | asset_url | stylesheet_tag }}
+{{ 'section-homepage-redesign-header.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  capture title_font
+    render 'collection-title-font-family', section_font: section.settings.title_font_family
+  endcapture
+  assign title_font = title_font | strip
+  assign canvas_id = 'branded-hero-' | append: section.id
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .collection-branded-hero__inner {
+    --branded-hero-height: {{ section.settings.hero_height_desktop }}vh;
+    --branded-hero-height-mobile: {{ section.settings.hero_height_mobile }}vh;
+    --collection-title-font: {{ title_font | json }};
+  }
+  @media screen and (max-width: 767px) {
+    #{{ canvas_id }} .collection-canvas__text-block {
+      --layer-rotate: {{ section.settings.hero_text_rotation_mobile | default: section.settings.hero_text_rotation }}deg;
+    }
+    #{{ canvas_id }} .collection-canvas__title {
+      --title-rotate: {{ section.settings.hero_title_rotation_mobile | default: section.settings.hero_title_rotation }}deg;
+    }
+  }
+{%- endstyle -%}
+
+<div class="collection-branded-hero container--fullwidth remove-empty-space">
+  <div class="collection-branded-hero__inner">
+    {%- render 'collection-hero-canvas',
+      collection: collection,
+      variant: 'hero',
+      canvas_id: canvas_id,
+      title_font: title_font,
+      preload: true,
+      link_url: false,
+      wrap_link: false,
+      override_feature_image: section.settings.default_feature_image,
+      override_hero_background: section.settings.default_hero_background,
+      override_hero_title: section.settings.default_title,
+      override_hero_strapline: section.settings.default_strapline,
+      override_hero_text_offset_x: section.settings.hero_text_offset_x,
+      override_hero_text_offset_y: section.settings.hero_text_offset_y,
+      override_hero_text_rotation: section.settings.hero_text_rotation,
+      override_hero_text_rotation_mobile: section.settings.hero_text_rotation_mobile,
+      override_hero_title_offset_x: section.settings.hero_title_offset_x,
+      override_hero_title_offset_y: section.settings.hero_title_offset_y,
+      override_hero_title_rotation: section.settings.hero_title_rotation,
+      override_hero_title_rotation_mobile: section.settings.hero_title_rotation_mobile,
+      override_hero_feature_offset_x: section.settings.hero_feature_offset_x,
+      override_hero_feature_offset_y: section.settings.hero_feature_offset_y,
+      override_hero_feature_rotation: section.settings.hero_feature_rotation,
+      override_hero_feature_rotation_mobile: section.settings.hero_feature_rotation_mobile,
+      override_hero_feature_size: section.settings.hero_feature_size
+    -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "26 Branded coll hero",
+  "class": "can-be-fullwidth collection-branded-hero-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Collection graphics and text are read from collection metafields (custom.*). Defaults below apply when metafields are empty."
+    },
+    {
+      "type": "header",
+      "content": "Default fallbacks"
+    },
+    {
+      "type": "image_picker",
+      "id": "default_feature_image",
+      "label": "Default feature image"
+    },
+    {
+      "type": "image_picker",
+      "id": "default_hero_background",
+      "label": "Default hero background"
+    },
+    {
+      "type": "text",
+      "id": "default_title",
+      "label": "Default title (when metafield empty)"
+    },
+    {
+      "type": "text",
+      "id": "default_strapline",
+      "label": "Default strapline"
+    },
+    {
+      "type": "header",
+      "content": "Hero height"
+    },
+    {
+      "type": "range",
+      "id": "hero_height_desktop",
+      "label": "Height (desktop / iPad)",
+      "min": 20,
+      "max": 50,
+      "step": 1,
+      "unit": "vh",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "hero_height_mobile",
+      "label": "Height (mobile)",
+      "min": 40,
+      "max": 80,
+      "step": 1,
+      "unit": "vh",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "paragraph",
+      "content": "Collection titles use the brand font selected under Theme settings > Typography (Darumadrop One by default)."
+    },
+    {
+      "type": "text",
+      "id": "title_font_family",
+      "label": "Title font override",
+      "info": "Only used when no brand WOFF2 is configured in theme settings."
+    },
+    {
+      "type": "header",
+      "content": "Positioning defaults"
+    },
+    {
+      "type": "range",
+      "id": "hero_text_offset_x",
+      "label": "Text block horizontal offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_text_offset_y",
+      "label": "Text block vertical offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_text_rotation",
+      "label": "Text block rotation (desktop)",
+      "min": -180,
+      "max": 180,
+      "step": 4,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_text_rotation_mobile",
+      "label": "Text block rotation (mobile)",
+      "min": -180,
+      "max": 180,
+      "step": 4,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_title_offset_x",
+      "label": "Title horizontal offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_title_offset_y",
+      "label": "Title vertical offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_title_rotation",
+      "label": "Title rotation (desktop)",
+      "min": -180,
+      "max": 180,
+      "step": 4,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_title_rotation_mobile",
+      "label": "Title rotation (mobile)",
+      "min": -180,
+      "max": 180,
+      "step": 4,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_feature_offset_x",
+      "label": "Feature horizontal offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_feature_offset_y",
+      "label": "Feature vertical offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_feature_rotation",
+      "label": "Feature rotation (desktop)",
+      "min": -180,
+      "max": 180,
+      "step": 4,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_feature_rotation_mobile",
+      "label": "Feature rotation (mobile)",
+      "min": -180,
+      "max": 180,
+      "step": 4,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_feature_size",
+      "label": "Feature size",
+      "min": 40,
+      "max": 140,
+      "step": 1,
+      "unit": "%",
+      "default": 85
+    }
+  ],
+  "presets": [
+    {
+      "name": "26 Branded coll hero"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,77 @@
+{%- comment -%}
+  Product preview row for hero or grid contexts.
+  Accepts:
+  - collection (required)
+  - context: 'hero' or 'grid'
+  - count_desktop, count_mobile
+  - mode: 'fixed' or 'random'
+  - fixed_products: product list from metafield
+  - show_total_count: boolean
+  - show_images: boolean (default true)
+  - preload: boolean
+{%- endcomment -%}
+{%- liquid
+  assign ctx = context | default: 'hero'
+  assign show_preview_images = show_images
+  if show_preview_images == nil
+    assign show_preview_images = true
+  endif
+  if count_desktop == blank
+    if ctx == 'hero'
+      assign count_desktop = 5
+    else
+      assign count_desktop = 3
+    endif
+  endif
+  if count_mobile == blank
+    if ctx == 'hero'
+      assign count_mobile = 3
+    else
+      assign count_mobile = 1
+    endif
+  endif
+  assign pick_mode = mode | default: 'random'
+  assign total_count = collection.all_products_count | default: collection.products_count
+
+  if pick_mode == 'fixed' and fixed_products != blank and fixed_products.size > 0
+    assign preview_products = fixed_products
+  else
+    assign preview_products = collection.products | sort: 'title' | shuffle
+  endif
+-%}
+
+<div class="collection-previews collection-previews--{{ ctx }}" data-desktop-count="{{ count_desktop }}" data-mobile-count="{{ count_mobile }}">
+  <div class="collection-previews__row">
+    {%- if show_preview_images -%}
+      {%- for product in preview_products limit: count_desktop -%}
+        <div class="collection-previews__item collection-previews__item--desktop">
+          {%- if product.featured_image -%}
+            {%- render 'lazy-image',
+              image: product.featured_image,
+              sizes: 'sizes="64px"',
+              alt: product.title,
+              preload: preload,
+              class: 'collection-previews__image'
+            -%}
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+      {%- for product in preview_products limit: count_mobile -%}
+        <div class="collection-previews__item collection-previews__item--mobile">
+          {%- if product.featured_image -%}
+            {%- render 'lazy-image',
+              image: product.featured_image,
+              sizes: 'sizes="64px"',
+              alt: product.title,
+              preload: preload,
+              class: 'collection-previews__image'
+            -%}
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+    {%- if show_total_count and total_count > 0 -%}
+      <span class="collection-previews__total" aria-label="{{ total_count }} products in collection">({{ total_count }})</span>
+    {%- endif -%}
+  </div>
+</div>

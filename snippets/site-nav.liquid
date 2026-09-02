@@ -246,10 +246,7 @@
 							 echo routes.account_login_url
 							endif
 						-%}" title="{{ 'general.breadcrumb.account' | t }}">
-							<span style="display: inline-flex; align-items: center;">
-								<span aria-hidden="true" style="display:flex; margin-inline-end:6px;">{%- render 'theme-symbols', icon: 'account' -%}</span>
-								{{ 'general.breadcrumb.account' | t }}
-							</span>
+							<span><span>{{ 'general.breadcrumb.account' | t }}</span></span>
 						</a>
 					</li>
 				{%- endif -%}

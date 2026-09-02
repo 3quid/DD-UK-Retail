@@ -1,0 +1,606 @@
+{{ 'component-jiggle-graphic.css' | asset_url | stylesheet_tag }}
+{{ 'component-collection-canvas.css' | asset_url | stylesheet_tag }}
+{{ 'section-collection-page-hero.css' | asset_url | stylesheet_tag }}
+{{ 'section-homepage-redesign-header.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  capture title_font
+    render 'collection-title-font-family', section_font: section.settings.title_font_family
+  endcapture
+  assign title_font = title_font | strip
+
+  assign bg_seed = collection.id | plus: collection.handle.size
+  assign bg_slot = bg_seed | modulo: 6 | plus: 1
+  assign default_bg = blank
+  case bg_slot
+    when 1
+      assign default_bg = settings.collection_default_background_1
+    when 2
+      assign default_bg = settings.collection_default_background_2
+    when 3
+      assign default_bg = settings.collection_default_background_3
+    when 4
+      assign default_bg = settings.collection_default_background_4
+    when 5
+      assign default_bg = settings.collection_default_background_5
+    when 6
+      assign default_bg = settings.collection_default_background_6
+  endcase
+  if default_bg == blank
+    if settings.collection_default_background_1 != blank
+      assign default_bg = settings.collection_default_background_1
+    elsif settings.collection_default_background_2 != blank
+      assign default_bg = settings.collection_default_background_2
+    elsif settings.collection_default_background_3 != blank
+      assign default_bg = settings.collection_default_background_3
+    elsif settings.collection_default_background_4 != blank
+      assign default_bg = settings.collection_default_background_4
+    elsif settings.collection_default_background_5 != blank
+      assign default_bg = settings.collection_default_background_5
+    elsif settings.collection_default_background_6 != blank
+      assign default_bg = settings.collection_default_background_6
+    endif
+  endif
+
+  assign default_feature = settings.collection_default_feature_image
+  assign fallback_bg_color = settings.collection_default_background_color | default: '#e8e4dc'
+
+  assign hero_bg = blank
+  assign hero_bg_url = blank
+  assign hero_mf = collection.metafields.custom.hero_background
+  if hero_mf != blank and hero_mf.value != blank
+    assign hero_file = hero_mf.value
+    if hero_file.preview_image != blank
+      assign hero_bg = hero_file.preview_image
+    elsif hero_file.width != blank
+      assign hero_bg = hero_file
+    else
+      assign hero_bg_url = hero_file | file_url
+      if hero_bg_url == blank and hero_file.url != blank
+        assign hero_bg_url = hero_file.url
+      endif
+    endif
+  elsif hero_mf != blank
+    capture hero_mf_file_url
+      echo hero_mf | file_url
+    endcapture
+    assign hero_mf_file_url = hero_mf_file_url | strip
+    if hero_mf_file_url != blank
+      assign hero_bg_url = hero_mf_file_url
+    endif
+  endif
+  if hero_bg == blank and hero_bg_url == blank
+    assign hero_bg = default_bg
+  endif
+
+  assign hero_feature = blank
+  assign hero_feature_url = blank
+  assign feature_mf = collection.metafields.custom.feature_image
+  if feature_mf != blank and feature_mf.value != blank
+    assign feature_file = feature_mf.value
+    if feature_file.preview_image != blank
+      assign hero_feature = feature_file.preview_image
+    elsif feature_file.width != blank
+      assign hero_feature = feature_file
+    else
+      assign hero_feature_url = feature_file | file_url
+      if hero_feature_url == blank and feature_file.url != blank
+        assign hero_feature_url = feature_file.url
+      endif
+    endif
+  elsif feature_mf != blank
+    capture feature_mf_file_url
+      echo feature_mf | file_url
+    endcapture
+    assign feature_mf_file_url = feature_mf_file_url | strip
+    if feature_mf_file_url != blank
+      assign hero_feature_url = feature_mf_file_url
+    endif
+  endif
+
+  assign hero_title_override = collection.metafields.custom.hero_title.value
+  assign hero_strapline = collection.metafields.custom.hero_strapline.value
+
+  capture active_design_group
+    render 'collection-active-design-group', filter_key: section.settings.design_group_filter_key
+  endcapture
+  assign active_design_parts = active_design_group | split: '||'
+  assign active_design_name = active_design_parts[0] | strip
+  assign active_design_count = active_design_parts[1] | default: 0 | plus: 0
+
+  assign hero_show_title_prefix = section.settings.show_title_prefix
+  assign hero_style_count_override = blank
+
+  if active_design_name != blank
+    assign hero_title_override = active_design_name
+    assign hero_strapline = blank
+    assign hero_style_count_override = active_design_count
+    if hero_style_count_override == 0
+      assign hero_style_count_override = collection.products_count
+    endif
+  endif
+
+  assign canvas_id = 'collection-page-hero-' | append: section.id
+-%}
+
+<script>
+  (function () {
+    document.documentElement.classList.add('redesign-header-overlay');
+    document.body.classList.add('redesign-header-overlay');
+
+    function syncHeaderHeight() {
+      var header = document.getElementById('site-header');
+      if (!header) return;
+      var height = header.offsetHeight + 'px';
+      document.documentElement.style.setProperty('--site-header-height', height);
+      document.documentElement.style.setProperty('--header-height', height);
+    }
+
+    syncHeaderHeight();
+    window.addEventListener('resize', syncHeaderHeight);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(syncHeaderHeight);
+    }
+  })();
+</script>
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .collection-page-hero__inner {
+    --featured-hero-height: {{ section.settings.hero_height_desktop }}vh;
+    --featured-hero-height-mobile: {{ section.settings.hero_height_mobile }}vh;
+    --collection-title-font: {{ title_font | json }};
+    --collection-hero-fallback-bg: {{ fallback_bg_color }};
+    --hero-strapline-gap: {{ section.settings.hero_strapline_gap }}rem;
+    --hero-title-size: {{ section.settings.hero_title_size }}rem;
+    --hero-strapline-size: {{ section.settings.hero_strapline_size }}rem;
+  }
+  @media screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .collection-page-hero__inner {
+      --hero-title-size: {{ section.settings.hero_title_size_mobile }}rem;
+      --hero-strapline-size: {{ section.settings.hero_strapline_size_mobile }}rem;
+    }
+    #{{ canvas_id }} .collection-canvas__text-block {
+      --layer-rotate: {{ section.settings.hero_text_rotation_mobile | default: section.settings.hero_text_rotation }}deg;
+    }
+    #{{ canvas_id }} .collection-canvas__title {
+      --title-rotate: {{ section.settings.hero_title_rotation_mobile | default: section.settings.hero_title_rotation }}deg;
+    }
+    #{{ canvas_id }} .collection-canvas__strapline {
+      --strapline-rotate: {{ section.settings.hero_strapline_rotation_mobile | default: section.settings.hero_strapline_rotation }}deg;
+    }
+  }
+{%- endstyle -%}
+
+<div class="collection-page-hero container--fullwidth remove-empty-space">
+  <div class="collection-page-hero__inner">
+    {%- render 'collection-hero-canvas',
+      collection: collection,
+      variant: 'hero',
+      canvas_id: canvas_id,
+      title_font: title_font,
+      preload: true,
+      prefer_image_overrides: true,
+      prefer_collection_title: true,
+      link_url: false,
+      wrap_link: false,
+      show_title_prefix: hero_show_title_prefix,
+      override_style_count: hero_style_count_override,
+      overlay_columns_layout: true,
+      override_feature_image: hero_feature,
+      shared_overlay_image: hero_feature,
+      overlay_1_ox: section.settings.feature_1_offset_x,
+      overlay_1_oy: section.settings.feature_1_offset_y,
+      overlay_1_rot: section.settings.feature_1_rotation,
+      overlay_1_scale: section.settings.feature_1_scale,
+      overlay_1_flip: section.settings.feature_1_flip_horizontal,
+      overlay_2_ox: section.settings.feature_2_offset_x,
+      overlay_2_oy: section.settings.feature_2_offset_y,
+      overlay_2_rot: section.settings.feature_2_rotation,
+      overlay_2_scale: section.settings.feature_2_scale,
+      overlay_2_flip: section.settings.feature_2_flip_horizontal,
+      overlay_3_ox: section.settings.feature_3_offset_x,
+      overlay_3_oy: section.settings.feature_3_offset_y,
+      overlay_3_rot: section.settings.feature_3_rotation,
+      overlay_3_scale: section.settings.feature_3_scale,
+      overlay_3_flip: section.settings.feature_3_flip_horizontal,
+      override_hero_background: hero_bg,
+      override_hero_background_url: hero_bg_url,
+      override_feature_image_url: hero_feature_url,
+      override_hero_title: hero_title_override,
+      override_hero_strapline: hero_strapline,
+      override_hero_text_offset_x: section.settings.hero_text_offset_x,
+      override_hero_text_offset_y: section.settings.hero_text_offset_y,
+      override_hero_text_rotation: section.settings.hero_text_rotation,
+      override_hero_text_rotation_mobile: section.settings.hero_text_rotation_mobile,
+      override_hero_strapline_gap: section.settings.hero_strapline_gap,
+      override_hero_strapline_rotation: section.settings.hero_strapline_rotation,
+      override_hero_strapline_rotation_mobile: section.settings.hero_strapline_rotation_mobile,
+      override_hero_title_offset_x: section.settings.hero_title_offset_x,
+      override_hero_title_offset_y: section.settings.hero_title_offset_y,
+      override_hero_title_rotation: section.settings.hero_title_rotation,
+      override_hero_title_rotation_mobile: section.settings.hero_title_rotation_mobile
+    -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "26 Collection page hero",
+  "class": "can-be-fullwidth collection-page-hero-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Defaults: Theme settings → Collections (backgrounds rotate bg1–6). Optional overrides: Products → Collections → [collection] → Hero Background, Feature Image, Hero title, Hero strapline. Create missing definitions under Settings → Metafields and metaobjects → Collections."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_title_prefix",
+      "label": "Show ALL prefix before title",
+      "default": true,
+      "info": "Also shown before the design name when a design group filter is active."
+    },
+    {
+      "type": "text",
+      "id": "design_group_filter_key",
+      "label": "Design group filter key",
+      "default": "design_name",
+      "info": "When this filter is active, hero title and style count reflect the selected design."
+    },
+    {
+      "type": "header",
+      "content": "Text block"
+    },
+    {
+      "type": "range",
+      "id": "hero_text_offset_x",
+      "label": "H Offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_text_offset_y",
+      "label": "V Offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_text_rotation",
+      "label": "Rotation",
+      "min": -20,
+      "max": 20,
+      "step": 2,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_text_rotation_mobile",
+      "label": "Rotation (mobile)",
+      "min": -20,
+      "max": 20,
+      "step": 2,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Title"
+    },
+    {
+      "type": "range",
+      "id": "hero_title_size",
+      "label": "Size",
+      "min": 2,
+      "max": 12,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "hero_title_size_mobile",
+      "label": "Size (mobile)",
+      "min": 2,
+      "max": 12,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "hero_title_offset_x",
+      "label": "H Offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_title_offset_y",
+      "label": "V Offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_title_rotation",
+      "label": "Rotation",
+      "min": -20,
+      "max": 20,
+      "step": 2,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_title_rotation_mobile",
+      "label": "Rotation (mobile)",
+      "min": -20,
+      "max": 20,
+      "step": 2,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Strapline"
+    },
+    {
+      "type": "range",
+      "id": "hero_strapline_size",
+      "label": "Size",
+      "min": 1,
+      "max": 6,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "hero_strapline_size_mobile",
+      "label": "Size (mobile)",
+      "min": 1,
+      "max": 6,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 1.5
+    },
+    {
+      "type": "range",
+      "id": "hero_strapline_gap",
+      "label": "Gap",
+      "min": 0,
+      "max": 4,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_strapline_rotation",
+      "label": "Rotation",
+      "min": -20,
+      "max": 20,
+      "step": 2,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_strapline_rotation_mobile",
+      "label": "Rotation (mobile)",
+      "min": -20,
+      "max": 20,
+      "step": 2,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Feature positioning"
+    },
+    {
+      "type": "header",
+      "content": "Feature 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_1_flip_horizontal",
+      "label": "Flip",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "feature_1_rotation",
+      "label": "Rotation",
+      "min": -20,
+      "max": 20,
+      "step": 2,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "feature_1_scale",
+      "label": "Scale",
+      "min": 10,
+      "max": 250,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "feature_1_offset_x",
+      "label": "H Offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "feature_1_offset_y",
+      "label": "V Offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": -23
+    },
+    {
+      "type": "header",
+      "content": "Feature 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_2_flip_horizontal",
+      "label": "Flip",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "feature_2_rotation",
+      "label": "Rotation",
+      "min": -20,
+      "max": 20,
+      "step": 2,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "feature_2_scale",
+      "label": "Scale",
+      "min": 10,
+      "max": 250,
+      "step": 5,
+      "unit": "%",
+      "default": 200
+    },
+    {
+      "type": "range",
+      "id": "feature_2_offset_x",
+      "label": "H Offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "feature_2_offset_y",
+      "label": "V Offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Feature 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_3_flip_horizontal",
+      "label": "Flip",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "feature_3_rotation",
+      "label": "Rotation",
+      "min": -20,
+      "max": 20,
+      "step": 2,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "feature_3_scale",
+      "label": "Scale",
+      "min": 10,
+      "max": 250,
+      "step": 5,
+      "unit": "%",
+      "default": 65
+    },
+    {
+      "type": "range",
+      "id": "feature_3_offset_x",
+      "label": "H Offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "feature_3_offset_y",
+      "label": "V Offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": -34
+    },
+    {
+      "type": "header",
+      "content": "Hero height"
+    },
+    {
+      "type": "range",
+      "id": "hero_height_desktop",
+      "label": "Desktop",
+      "min": 20,
+      "max": 80,
+      "step": 1,
+      "unit": "vh",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "hero_height_mobile",
+      "label": "Mobile",
+      "min": 20,
+      "max": 80,
+      "step": 1,
+      "unit": "vh",
+      "default": 25
+    },
+    {
+      "type": "text",
+      "id": "title_font_family",
+      "label": "Title font override",
+      "info": "Only used when no brand WOFF2 is configured in theme settings."
+    }
+  ],
+  "presets": [
+    {
+      "name": "26 Collection page hero"
+    }
+  ]
+}
+{% endschema %}

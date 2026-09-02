@@ -1,0 +1,123 @@
+{{ 'section-homepage-feature-sock-grid.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'section-homepage-feature-sock-grid.js' | asset_url }}" defer></script>
+
+<div
+  id="section-{{ section.id }}"
+  class="container--large {% unless section.settings.remove_margin %} container--vertical-space {% endunless %} remove-empty-space"
+>
+  {%- if section.settings.heading != blank -%}
+    <div class="section-heading gutter-bottom--regular">
+      <h2 class="h3">{{ section.settings.heading | escape }}</h2>
+    </div>
+  {%- endif -%}
+
+  <feature-sock-grid class="feature-sock-grid" data-feature-sock-grid>
+    <div class="feature-sock-grid__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.image != blank -%}
+          {%- liquid
+            assign spin_delay = forloop.index0 | times: 0.15
+            assign sock_rotate = block.settings.rotation | default: 0
+          -%}
+          <div
+            class="feature-sock-grid__item"
+            data-feature-sock-item
+            style="--spin-delay: {{ spin_delay }}s; --sock-rotate: {{ sock_rotate }}deg;"
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.link != blank -%}
+              <a href="{{ block.settings.link }}" class="feature-sock-grid__link"{% if block.settings.open_in_new_tab %} target="_blank" rel="noopener noreferrer"{% endif %}>
+            {%- endif -%}
+
+            <div class="feature-sock-grid__stage">
+              <div class="feature-sock-grid__spin-target" data-feature-sock-spin aria-hidden="true">
+                {%- render 'lazy-image',
+                  image: block.settings.image,
+                  sizes: 'sizes="(max-width: 767px) 33vw, 20vw"',
+                  class: 'feature-sock-grid__image lazy-image--no-transition'
+                -%}
+              </div>
+            </div>
+
+            {%- if block.settings.title != blank -%}
+              <p class="feature-sock-grid__title">{{ block.settings.title | escape }}</p>
+            {%- endif -%}
+
+            {%- if block.settings.link != blank -%}
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </feature-sock-grid>
+</div>
+
+{% schema %}
+{
+  "name": "26 Feature sock grid",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_margin",
+      "label": "Remove section margin",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "sock",
+      "name": "26 Sock",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_in_new_tab",
+          "label": "Open link in new tab",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "rotation",
+          "label": "Rotation",
+          "min": -45,
+          "max": 45,
+          "step": 1,
+          "unit": "deg",
+          "default": 0
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "26 Feature sock grid",
+      "blocks": [
+        { "type": "sock" },
+        { "type": "sock" },
+        { "type": "sock" }
+      ]
+    }
+  ]
+}
+{% endschema %}

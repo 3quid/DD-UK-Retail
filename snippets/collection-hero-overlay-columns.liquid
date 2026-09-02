@@ -1,0 +1,50 @@
+{%- comment -%}
+  Three-column overlay row (shared image) for featured hero.
+  Accepts: image, preload, and overlay_1..3_* settings passed from parent.
+{%- endcomment -%}
+{%- if image != blank -%}
+  <div class="collection-canvas__overlay-columns" aria-hidden="true">
+    {%- render 'collection-canvas-overlay',
+      image: image,
+      slot: 1,
+      column_layout: true,
+      offset_x: overlay_1_ox,
+      offset_y: overlay_1_oy,
+      rotation: overlay_1_rot,
+      scale: overlay_1_scale,
+      flip_horizontal: overlay_1_flip,
+      delay_class: 'jiggle-graphic--delay-1',
+      size: 100,
+      preload: preload,
+      sizes: 'sizes="(max-width: 767px) 28vw, 16vw"'
+    -%}
+    {%- render 'collection-canvas-overlay',
+      image: image,
+      slot: 2,
+      column_layout: true,
+      offset_x: overlay_2_ox,
+      offset_y: overlay_2_oy,
+      rotation: overlay_2_rot,
+      scale: overlay_2_scale,
+      flip_horizontal: overlay_2_flip,
+      delay_class: 'jiggle-graphic--delay-2',
+      size: 100,
+      preload: preload,
+      sizes: 'sizes="(max-width: 767px) 28vw, 16vw"'
+    -%}
+    {%- render 'collection-canvas-overlay',
+      image: image,
+      slot: 3,
+      column_layout: true,
+      offset_x: overlay_3_ox,
+      offset_y: overlay_3_oy,
+      rotation: overlay_3_rot,
+      scale: overlay_3_scale,
+      flip_horizontal: overlay_3_flip,
+      delay_class: 'jiggle-graphic--delay-3',
+      size: 100,
+      preload: preload,
+      sizes: 'sizes="(max-width: 767px) 28vw, 16vw"'
+    -%}
+  </div>
+{%- endif -%}

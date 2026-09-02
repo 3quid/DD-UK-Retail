@@ -1,0 +1,131 @@
+{{ 'section-homepage-story-promos.css' | asset_url | stylesheet_tag }}
+
+{%- capture title_font -%}
+  {%- render 'collection-title-font-family' -%}
+{%- endcapture -%}
+{%- assign title_font_name = title_font | strip -%}
+{%- capture title_font_style -%}
+  font-family: '{{ title_font_name | escape }}', sans-serif;
+{%- endcapture -%}
+
+<div class="container--large {% unless section.settings.remove_margin %} container--vertical-space {% endunless %} remove-empty-space" style="--collection-title-font: {{ title_font_name | json }};">
+  <div class="homepage-story-promos__grid">
+    {%- if section.settings.mission_title != blank -%}
+      <a href="{{ section.settings.mission_link | default: '/pages/story-layout' }}" class="homepage-story-promos__card">
+        {%- if section.settings.mission_image != blank -%}
+          <div class="homepage-story-promos__image" aria-hidden="true">
+            {%- render 'lazy-image', image: section.settings.mission_image, sizes: 'sizes="(max-width: 767px) 100vw, 33vw"', type: 'background' -%}
+          </div>
+        {%- endif -%}
+        <div class="homepage-story-promos__text">
+          <h2 class="homepage-story-promos__title" style="{{ title_font_style | strip }}">{{ section.settings.mission_title | escape }}</h2>
+        </div>
+      </a>
+    {%- endif -%}
+
+    {%- if section.settings.story_title != blank -%}
+      <a href="{{ section.settings.story_link | default: '/pages/our-story' }}" class="homepage-story-promos__card">
+        {%- if section.settings.story_image != blank -%}
+          <div class="homepage-story-promos__image" aria-hidden="true">
+            {%- render 'lazy-image', image: section.settings.story_image, sizes: 'sizes="(max-width: 767px) 100vw, 33vw"', type: 'background' -%}
+          </div>
+        {%- endif -%}
+        <div class="homepage-story-promos__text">
+          <h2 class="homepage-story-promos__title" style="{{ title_font_style | strip }}">{{ section.settings.story_title | escape }}</h2>
+        </div>
+      </a>
+    {%- endif -%}
+
+    {%- if section.settings.care_title != blank -%}
+      <a href="{{ section.settings.care_link | default: '/pages/care-instructions' }}" class="homepage-story-promos__card">
+        {%- if section.settings.care_image != blank -%}
+          <div class="homepage-story-promos__image" aria-hidden="true">
+            {%- render 'lazy-image', image: section.settings.care_image, sizes: 'sizes="(max-width: 767px) 100vw, 33vw"', type: 'background' -%}
+          </div>
+        {%- endif -%}
+        <div class="homepage-story-promos__text">
+          <h2 class="homepage-story-promos__title" style="{{ title_font_style | strip }}">{{ section.settings.care_title | escape }}</h2>
+        </div>
+      </a>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "26 Story promos",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Mission"
+    },
+    {
+      "type": "text",
+      "id": "mission_title",
+      "label": "Title",
+      "default": "Our Mission"
+    },
+    {
+      "type": "url",
+      "id": "mission_link",
+      "label": "Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "mission_image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Our Story"
+    },
+    {
+      "type": "text",
+      "id": "story_title",
+      "label": "Title",
+      "default": "Our Story"
+    },
+    {
+      "type": "url",
+      "id": "story_link",
+      "label": "Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "story_image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Care instructions"
+    },
+    {
+      "type": "text",
+      "id": "care_title",
+      "label": "Title",
+      "default": "Care Instructions"
+    },
+    {
+      "type": "url",
+      "id": "care_link",
+      "label": "Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "care_image",
+      "label": "Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_margin",
+      "label": "Remove section margin",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "26 Story promos"
+    }
+  ]
+}
+{% endschema %}

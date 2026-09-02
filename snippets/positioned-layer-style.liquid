@@ -1,0 +1,15 @@
+{%- comment -%}
+  Outputs CSS custom properties for a positioned layer.
+  Accepts: offset_x, offset_y, rotation, size (all optional, default 0 or 85)
+{%- endcomment -%}
+{%- liquid
+  assign layer_ox = offset_x | default: 0
+  assign layer_oy = offset_y | default: 0
+  assign layer_rot = rotation | default: 0
+  assign layer_sz = size | default: 85
+  assign layer_scale_pct = scale | default: 100
+  assign flip_x = 1
+  if flip_horizontal == true
+    assign flip_x = -1
+  endif
+-%}--layer-offset-x: {{ layer_ox }}%; --layer-offset-y: {{ layer_oy }}%; --layer-rotate: {{ layer_rot }}deg; --layer-size: {{ layer_sz }}%; --layer-scale: calc({{ layer_scale_pct }} / 100); --layer-flip-x: {{ flip_x }};

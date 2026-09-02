@@ -1,4 +1,5 @@
 {{ 'section-homepage-overlap-hero.css' | asset_url | stylesheet_tag }}
+{{ 'component-jiggle-graphic.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
   assign overlap_title_font = section.settings.title_font_family | default: 'sketchnote-square' | strip
@@ -222,7 +223,7 @@
 
 {% schema %}
 {
-  "name": "Homepage overlap hero",
+  "name": "26 Homepage overlap hero",
   "class": "can-be-fullwidth",
   "max_blocks": 3,
   "settings": [
@@ -397,7 +398,7 @@
   "blocks": [
     {
       "type": "column",
-      "name": "Column",
+      "name": "26 Column",
       "settings": [
         {
           "type": "header",
@@ -568,7 +569,7 @@
   ],
   "presets": [
     {
-      "name": "Homepage overlap hero",
+      "name": "26 Homepage overlap hero",
       "blocks": [
         { "type": "column" },
         { "type": "column" },

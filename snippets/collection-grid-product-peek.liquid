@@ -1,0 +1,66 @@
+{%- comment -%}
+  Grid tile product peek — eye toggle opens a 3×3 in-tile product grid.
+  Accepts: collection, mode, fixed_products, preload
+{%- endcomment -%}
+{%- liquid
+  assign pick_mode = mode | default: collection.metafields.custom.grid_products_mode.value | default: 'random'
+  assign fixed_list = fixed_products | default: collection.metafields.custom.grid_products_fixed.value
+  assign total_count = collection.all_products_count | default: collection.products_count
+
+  if pick_mode == 'fixed' and fixed_list != blank and fixed_list.size > 0
+    assign preview_products = fixed_list
+  else
+    assign preview_products = collection.products | sort: 'title' | shuffle
+  endif
+-%}
+
+<collection-grid-peek class="collection-grid-peek" data-tile-peek>
+  <button
+    type="button"
+    class="collection-grid-peek__toggle"
+    aria-expanded="false"
+    aria-controls="collection-grid-peek-{{ collection.id }}-{{ canvas_id | default: 'panel' }}"
+    aria-label="Preview products in {{ collection.title | escape }}"
+  >
+    <svg class="collection-grid-peek__eye" width="20" height="20" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M11 4.5C6.5 4.5 2.73 7.61 1 11.75c1.73 4.14 5.5 7.25 10 7.25s8.27-3.11 10-7.25C19.27 7.61 15.5 4.5 11 4.5Z" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="11" cy="11.75" r="2.75" stroke="#000" stroke-width="2"/>
+    </svg>
+  </button>
+
+  <div
+    id="collection-grid-peek-{{ collection.id }}-{{ canvas_id | default: 'panel' }}"
+    class="collection-grid-peek__panel"
+    hidden
+  >
+    <div class="collection-grid-peek__grid" role="list">
+      {%- assign peek_shown = 0 -%}
+      {%- for product in preview_products limit: 8 -%}
+        {%- assign peek_shown = peek_shown | plus: 1 -%}
+        <a href="{{ product.url }}" class="collection-grid-peek__cell" role="listitem">
+          {%- if product.featured_image -%}
+            {%- render 'lazy-image',
+              image: product.featured_image,
+              sizes: 'sizes="(max-width: 767px) 20vw, 10vw"',
+              alt: product.title,
+              preload: preload,
+              class: 'collection-grid-peek__image'
+            -%}
+          {%- endif -%}
+        </a>
+      {%- endfor -%}
+
+      {%- assign pad = 8 | minus: peek_shown -%}
+      {%- if pad > 0 -%}
+        {%- for i in (1..pad) -%}
+          <span class="collection-grid-peek__cell collection-grid-peek__cell--empty" aria-hidden="true"></span>
+        {%- endfor -%}
+      {%- endif -%}
+
+      <a href="{{ collection.url }}" class="collection-grid-peek__cell collection-grid-peek__cell--view-all" role="listitem">
+        <span class="collection-grid-peek__view-all-count">x{{ total_count }}</span>
+        <span class="collection-grid-peek__view-all-label">View All</span>
+      </a>
+    </div>
+  </div>
+</collection-grid-peek>

@@ -1,0 +1,48 @@
+{%- comment -%}
+  Renders one catalog grid tile (featured or standard tier).
+  Grid background: collection Grid background metafield → theme Collection Grids defaults.
+  Accepts: collection, tier (featured|standard), title_font, canvas_id
+{%- endcomment -%}
+{%- liquid
+  assign catalog_tier = tier | default: 'standard'
+-%}
+
+{%- if catalog_tier == 'featured' -%}
+  {%- render 'collection-hero-canvas',
+    collection: collection,
+    variant: 'grid',
+    canvas_id: canvas_id,
+    title_font: title_font,
+    show_title_prefix: true,
+    override_grid_align: 'left'
+  -%}
+{%- else -%}
+  {%- liquid
+    assign rotation_index = collection.id | modulo: 5
+    case rotation_index
+      when 0
+        assign catalog_title_rotation = 4
+      when 1
+        assign catalog_title_rotation = 2
+      when 2
+        assign catalog_title_rotation = 0
+      when 3
+        assign catalog_title_rotation = -2
+      when 4
+        assign catalog_title_rotation = -4
+    endcase
+  -%}
+  {%- render 'collection-hero-canvas',
+    collection: collection,
+    variant: 'grid',
+    canvas_id: canvas_id,
+    title_font: title_font,
+    show_title_prefix: true,
+    override_feature_image: blank,
+    override_grid_align: 'center',
+    override_grid_text_rotation: catalog_title_rotation,
+    override_grid_text_rotation_mobile: catalog_title_rotation,
+    override_grid_title_rotation: catalog_title_rotation,
+    override_grid_title_rotation_mobile: catalog_title_rotation
+  -%}
+{%- endif -%}

@@ -1,0 +1,26 @@
+{%- comment -%}
+  Resolves the active design group from collection.filters (Search & Discovery).
+
+  Accepts:
+  - filter_key: {String} matches filter param or label (default: design_name)
+
+  Capture output and split on "||" → [0] name, [1] count
+{%- endcomment -%}
+{%- liquid
+  assign filter_key = filter_key | default: 'design_name' | downcase
+  assign resolved_name = ''
+  assign resolved_count = 0
+
+  for filter in collection.filters
+    assign param_downcase = filter.param_name | downcase
+    assign label_downcase = filter.label | downcase
+    if param_downcase contains filter_key or label_downcase contains filter_key
+      for value in filter.active_values
+        assign resolved_name = value.label | strip
+        assign resolved_count = value.count | plus: 0
+        break
+      endfor
+      break
+    endif
+  endfor
+-%}{{- resolved_name -}}||{{- resolved_count -}}

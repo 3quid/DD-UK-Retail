@@ -1,0 +1,375 @@
+{%- comment -%}
+  Renders a collection hero or grid canvas from branding data.
+  Accepts:
+  - collection (required)
+  - variant: 'hero' or 'grid'
+  - link_url (optional, wraps entire canvas)
+  - overrides: pass override_* settings from block/section
+  - title_font, preload, canvas_id, shopify_attributes
+{%- endcomment -%}
+{%- liquid
+  assign canvas_variant = variant | default: 'hero'
+  assign mf = collection.metafields.custom
+  assign use_section_images = prefer_image_overrides | default: false
+  assign bg_image_url = blank
+
+  if mf.feature_image.value != blank
+    assign feat_image = mf.feature_image.value
+  elsif use_section_images and override_feature_image != blank
+    assign feat_image = override_feature_image
+  elsif settings.collection_default_feature_image != blank
+    assign feat_image = settings.collection_default_feature_image
+  else
+    assign feat_image = blank
+  endif
+
+  if use_section_images and override_hero_background != blank
+    assign bg_image = override_hero_background
+  elsif override_hero_background_url != blank
+    assign bg_image = blank
+    assign bg_image_url = override_hero_background_url
+  elsif mf.hero_background.value != blank
+    assign bg_image = mf.hero_background.value
+  else
+    assign bg_image = override_hero_background
+  endif
+  if bg_image_url == blank
+    assign bg_image_url = override_hero_background_url
+  endif
+
+  assign grid_bg = blank
+  assign grid_mf = mf.grid_background
+  if grid_mf != blank and grid_mf.value != blank
+    assign grid_file = grid_mf.value
+    if grid_file.preview_image != blank
+      assign grid_bg = grid_file.preview_image
+    elsif grid_file.width != blank
+      assign grid_bg = grid_file
+    endif
+  endif
+  if grid_bg == blank and use_section_images and override_grid_background != blank
+    assign grid_bg = override_grid_background
+  endif
+  if grid_bg == blank
+    assign grid_bg_seed = collection.id | plus: collection.handle.size
+    assign grid_bg_slot = grid_bg_seed | modulo: 6 | plus: 1
+    case grid_bg_slot
+      when 1
+        assign grid_bg = settings.grid_default_background_1
+      when 2
+        assign grid_bg = settings.grid_default_background_2
+      when 3
+        assign grid_bg = settings.grid_default_background_3
+      when 4
+        assign grid_bg = settings.grid_default_background_4
+      when 5
+        assign grid_bg = settings.grid_default_background_5
+      when 6
+        assign grid_bg = settings.grid_default_background_6
+    endcase
+    if grid_bg == blank
+      if settings.grid_default_background_1 != blank
+        assign grid_bg = settings.grid_default_background_1
+      elsif settings.grid_default_background_2 != blank
+        assign grid_bg = settings.grid_default_background_2
+      elsif settings.grid_default_background_3 != blank
+        assign grid_bg = settings.grid_default_background_3
+      elsif settings.grid_default_background_4 != blank
+        assign grid_bg = settings.grid_default_background_4
+      elsif settings.grid_default_background_5 != blank
+        assign grid_bg = settings.grid_default_background_5
+      elsif settings.grid_default_background_6 != blank
+        assign grid_bg = settings.grid_default_background_6
+      endif
+    endif
+  endif
+  if canvas_variant == 'grid'
+    assign bg_image = grid_bg
+  endif
+
+  assign hero_title = mf.hero_title.value
+  assign prefer_collection_title = prefer_collection_title | default: false, allow_false: true
+
+  if prefer_collection_title
+    assign hero_title = collection.title
+    if override_hero_title != blank
+      assign hero_title = override_hero_title
+    endif
+  elsif canvas_variant == 'grid' and override_grid_title != blank
+    assign hero_title = override_grid_title
+  elsif hero_title == blank
+    if override_hero_title != blank
+      assign hero_title = override_hero_title
+    else
+      assign hero_title = collection.title
+    endif
+  endif
+
+  assign hero_strapline = blank
+  if canvas_variant == 'hero'
+    assign hero_strapline = mf.hero_strapline.value
+    if prefer_collection_title
+      if override_hero_strapline != blank
+        assign hero_strapline = override_hero_strapline
+      else
+        assign hero_strapline = blank
+      endif
+    elsif hero_strapline == blank and override_hero_strapline != blank
+      assign hero_strapline = override_hero_strapline
+    endif
+  endif
+
+  if canvas_variant == 'hero'
+    assign text_ox = override_hero_text_offset_x | default: mf.hero_text_offset_x.value | default: 0
+    assign text_oy = override_hero_text_offset_y | default: mf.hero_text_offset_y.value | default: 0
+    assign text_rot = override_hero_text_rotation | default: mf.hero_text_rotation.value | default: 0
+    assign text_rot_m = override_hero_text_rotation_mobile | default: mf.hero_text_rotation_mobile.value | default: text_rot
+    assign title_ox = override_hero_title_offset_x | default: mf.hero_title_offset_x.value | default: 0
+    assign title_oy = override_hero_title_offset_y | default: mf.hero_title_offset_y.value | default: 0
+    assign title_rot = override_hero_title_rotation | default: mf.hero_title_rotation.value | default: 0
+    assign title_rot_m = override_hero_title_rotation_mobile | default: mf.hero_title_rotation_mobile.value | default: title_rot
+    assign strap_rot = override_hero_strapline_rotation | default: mf.hero_strapline_rotation.value | default: 0
+    assign strap_rot_m = override_hero_strapline_rotation_mobile | default: mf.hero_strapline_rotation_mobile.value | default: strap_rot
+    assign feat_ox = override_hero_feature_offset_x | default: mf.hero_feature_offset_x.value | default: 0
+    assign feat_oy = override_hero_feature_offset_y | default: mf.hero_feature_offset_y.value | default: 0
+    assign feat_rot = override_hero_feature_rotation | default: mf.hero_feature_rotation.value | default: 0
+    assign feat_rot_m = override_hero_feature_rotation_mobile | default: mf.hero_feature_rotation_mobile.value | default: feat_rot
+    assign feat_size = override_hero_feature_size | default: mf.hero_feature_size.value | default: 85
+    assign products_mode = override_hero_products_mode | default: mf.hero_products_mode.value | default: 'random'
+    assign products_fixed = override_hero_products_fixed | default: mf.hero_products_fixed.value
+    if override_show_total_count_hero == false or mf.show_total_count_hero.value == false
+      assign show_total = false
+    else
+      assign show_total = true
+    endif
+    assign preview_desktop = 5
+    assign preview_mobile = 3
+  else
+    assign text_ox = override_grid_text_offset_x | default: mf.grid_text_offset_x.value | default: 0
+    assign text_oy = override_grid_text_offset_y | default: mf.grid_text_offset_y.value | default: 0
+    assign text_rot = override_grid_text_rotation | default: mf.grid_text_rotation.value | default: 0
+    assign text_rot_m = override_grid_text_rotation_mobile | default: mf.grid_text_rotation_mobile.value | default: text_rot
+    assign title_ox = override_grid_title_offset_x | default: mf.grid_title_offset_x.value | default: 0
+    assign title_oy = override_grid_title_offset_y | default: mf.grid_title_offset_y.value | default: 0
+    assign title_rot = override_grid_title_rotation | default: mf.grid_title_rotation.value | default: 0
+    assign title_rot_m = override_grid_title_rotation_mobile | default: mf.grid_title_rotation_mobile.value | default: title_rot
+    assign feat_ox = override_grid_feature_offset_x | default: mf.grid_feature_offset_x.value | default: 0
+    assign feat_oy = override_grid_feature_offset_y | default: mf.grid_feature_offset_y.value | default: 0
+    assign feat_rot = override_grid_feature_rotation | default: mf.grid_feature_rotation.value | default: 0
+    assign feat_rot_m = override_grid_feature_rotation_mobile | default: mf.grid_feature_rotation_mobile.value | default: feat_rot
+    assign feat_size = override_grid_feature_size | default: mf.grid_feature_size.value | default: 100
+    assign products_mode = override_grid_products_mode | default: mf.grid_products_mode.value | default: 'random'
+    assign products_fixed = override_grid_products_fixed | default: mf.grid_products_fixed.value
+    if override_show_total_count_grid == false or mf.show_total_count_grid.value == false
+      assign show_total = false
+    else
+      assign show_total = true
+    endif
+    assign preview_desktop = 3
+    assign preview_mobile = 1
+  endif
+
+  assign canvas_link = link_url | default: collection.url
+  assign title_font_family = title_font | default: 'sketchnote-square'
+  assign should_wrap_link = true
+  if wrap_link == false or link_url == false
+    assign should_wrap_link = false
+  endif
+  assign grid_align_side = override_grid_align | default: 'left'
+  if grid_align_side == 'right'
+    assign grid_align_side = 'right'
+  elsif grid_align_side == 'center'
+    assign grid_align_side = 'center'
+  else
+    assign grid_align_side = 'left'
+  endif
+  assign show_title_prefix = show_title_prefix | default: true, allow_false: true
+-%}
+
+{%- liquid
+  assign grid_align_class = ''
+  if canvas_variant == 'grid'
+    if grid_align_side == 'right'
+      assign grid_align_class = 'collection-canvas--align-right'
+    elsif grid_align_side == 'center'
+      assign grid_align_class = 'collection-canvas--align-center'
+    endif
+  endif
+-%}
+
+{%- capture text_block_style -%}
+  {%- if canvas_variant == 'hero' -%}
+    --layer-offset-x: {{ text_ox }}%; --layer-offset-y: {{ text_oy }}%; --layer-rotate: {{ text_rot }}deg;
+    {%- if override_hero_strapline_gap != blank -%}
+      --hero-strapline-gap: {{ override_hero_strapline_gap }}rem;
+    {%- endif -%}
+  {%- else -%}
+    {%- render 'positioned-layer-style', offset_x: text_ox, offset_y: text_oy, rotation: text_rot -%}
+  {%- endif -%}
+{%- endcapture -%}
+{%- capture title_style -%}
+  {%- render 'positioned-layer-style', offset_x: title_ox, offset_y: title_oy, rotation: title_rot -%}
+{%- endcapture -%}
+{%- capture strapline_style -%}
+  --strapline-rotate: {{ strap_rot }}deg;
+{%- endcapture -%}
+{%- capture canvas_style -%}
+  {%- if canvas_variant == 'grid' -%}
+    --grid-feature-size: {{ feat_size }};
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- if should_wrap_link and canvas_link != blank -%}
+  <a
+    href="{{ canvas_link | escape }}"
+    class="collection-canvas collection-canvas--{{ canvas_variant }}{% if grid_align_class != blank %} {{ grid_align_class }}{% endif %}"
+    id="{{ canvas_id }}"
+    style="{{ canvas_style | strip }}"
+    {{ shopify_attributes }}
+  >
+{%- else -%}
+  <div
+    class="collection-canvas collection-canvas--{{ canvas_variant }}{% if grid_align_class != blank %} {{ grid_align_class }}{% endif %}"
+    id="{{ canvas_id }}"
+    style="{{ canvas_style | strip }}"
+    {{ shopify_attributes }}
+  >
+{%- endif -%}
+
+  {%- if canvas_variant == 'grid' and should_wrap_link == false and canvas_link != blank -%}
+    <a href="{{ canvas_link | escape }}" class="collection-canvas__stretch-link" tabindex="-1" aria-hidden="true"></a>
+  {%- endif -%}
+
+  <div class="collection-canvas__bg{% if bg_image == blank and bg_image_url == blank %} collection-canvas__bg--fallback{% endif %}" aria-hidden="true">
+    {%- if bg_image != blank and bg_image.width != blank -%}
+      {%- render 'lazy-image',
+        image: bg_image,
+        sizes: 'sizes="100vw"',
+        preload: preload,
+        type: 'background',
+        class: 'collection-canvas__bg-image'
+      -%}
+    {%- elsif bg_image_url != blank -%}
+      <img
+        src="{{ bg_image_url }}"
+        class="collection-canvas__bg-image img"
+        alt=""
+        loading="{% if preload %}eager{% else %}lazy{% endif %}"
+        width="2400"
+        height="1200"
+        sizes="100vw"
+        onload="this.parentNode.classList.add('lazyloaded')"
+      >
+    {%- elsif bg_image != blank -%}
+      {%- render 'lazy-image',
+        image: bg_image,
+        sizes: 'sizes="100vw"',
+        preload: preload,
+        type: 'background',
+        class: 'collection-canvas__bg-image'
+      -%}
+    {%- endif -%}
+  </div>
+
+  <div class="collection-canvas__layers">
+    <div
+      class="collection-canvas__text-block"
+      style="{{ text_block_style | strip }}"
+      data-rotation-mobile="{{ text_rot_m }}"
+    >
+      <div
+        class="collection-canvas__title"
+        style="{{ title_style | strip }} --title-rotate: {{ title_rot }}deg; font-family: '{{ title_font_family | escape }}', sans-serif;"
+        data-rotation-mobile="{{ title_rot_m }}"
+      >
+        {%- if show_title_prefix -%}
+          <span class="collection-canvas__title-prefix">ALL</span>
+        {%- endif -%}
+        <span class="collection-canvas__title-text">{{ hero_title | escape }}</span>
+      </div>
+      {%- if canvas_variant == 'hero' and hero_strapline != blank -%}
+        <p
+          class="collection-canvas__strapline"
+          {%- if canvas_variant == 'hero' -%}
+            style="{{ strapline_style | strip }}"
+            data-rotation-mobile="{{ strap_rot_m }}"
+          {%- endif -%}
+        >
+          {{ hero_strapline | escape }}
+        </p>
+      {%- endif -%}
+      {%- if canvas_variant == 'hero' -%}
+        {%- render 'collection-style-count', collection: collection, variant: 'hero', show: show_total, title_font: title_font_family, style_count: override_style_count -%}
+      {%- endif -%}
+    </div>
+
+    {%- if canvas_variant == 'grid' -%}
+      {%- render 'collection-style-count', collection: collection, variant: 'grid', show: show_total, title_font: title_font_family, style_count: override_style_count -%}
+    {%- endif -%}
+
+    <div class="collection-canvas__overlays">
+      {%- liquid
+        assign shared_overlay = shared_overlay_image
+        if shared_overlay == blank
+          assign shared_overlay = overlay_1_image
+        endif
+        if shared_overlay == blank
+          assign shared_overlay = feat_image
+        endif
+        assign use_manual_overlay_previews = false
+        if shared_overlay_image != blank
+          assign use_manual_overlay_previews = true
+        elsif overlay_columns_layout == false and overlay_1_image != blank
+          assign use_manual_overlay_previews = true
+        elsif use_section_images and feat_image != blank
+          assign use_manual_overlay_previews = true
+        endif
+      -%}
+      {%- if overlay_columns_layout -%}
+        {%- render 'collection-hero-overlay-columns',
+          image: shared_overlay,
+          preload: preload,
+          overlay_1_ox: overlay_1_ox,
+          overlay_1_oy: overlay_1_oy,
+          overlay_1_rot: overlay_1_rot,
+          overlay_1_scale: overlay_1_scale,
+          overlay_1_flip: overlay_1_flip,
+          overlay_2_ox: overlay_2_ox,
+          overlay_2_oy: overlay_2_oy,
+          overlay_2_rot: overlay_2_rot,
+          overlay_2_scale: overlay_2_scale,
+          overlay_2_flip: overlay_2_flip,
+          overlay_3_ox: overlay_3_ox,
+          overlay_3_oy: overlay_3_oy,
+          overlay_3_rot: overlay_3_rot,
+          overlay_3_scale: overlay_3_scale,
+          overlay_3_flip: overlay_3_flip
+        -%}
+      {%- else -%}
+        {%- liquid
+          assign feature_layer_size = feat_size
+          if canvas_variant == 'grid'
+            assign feature_layer_size = 100
+          endif
+        -%}
+        {%- render 'collection-canvas-overlay',
+          image: shared_overlay,
+          slot: 1,
+          offset_x: feat_ox,
+          offset_y: feat_oy,
+          rotation: feat_rot,
+          rotation_mobile: feat_rot_m,
+          size: feature_layer_size,
+          flip_horizontal: overlay_1_flip,
+          preload: preload,
+          sizes: 'sizes="(max-width: 767px) 50vw, 30vw"'
+        -%}
+      {%- endif -%}
+    </div>
+  </div>
+
+{%- if should_wrap_link and canvas_link != blank -%}
+  </a>
+{%- else -%}
+  </div>
+{%- endif -%}

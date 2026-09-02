@@ -45,6 +45,16 @@
       if qualifying_group_count > 6
         assign collapsible_desktop = true
       endif
+
+      assign has_toggle = false
+      if collapsible_mobile or collapsible_desktop
+        assign has_toggle = true
+      endif
+
+      assign show_title = false
+      if section.settings.show_heading and section.settings.heading != blank
+        assign show_title = true
+      endif
     -%}
     <div
       id="section-{{ section.id }}"
@@ -53,24 +63,26 @@
       <div
         class="collection-design-groups{% if collapsible_mobile %} is-collapsible-mobile{% endif %}{% if collapsible_desktop %} is-collapsible-desktop{% endif %}"
       >
-      <div class="collection-design-groups__header gutter-bottom--regular">
-        <div class="collection-design-groups__title-row">
-          {%- if section.settings.heading != blank -%}
-            <h2 class="h4 collection-design-groups__heading">{{ section.settings.heading | escape }}</h2>
-          {%- endif -%}
+      {%- if show_title or has_toggle -%}
+        <div class="collection-design-groups__header gutter-bottom--regular">
+          <div class="collection-design-groups__title-row">
+            {%- if show_title -%}
+              <h2 class="h4 collection-design-groups__heading">{{ section.settings.heading | escape }}</h2>
+            {%- endif -%}
 
-          {%- if collapsible_mobile or collapsible_desktop -%}
-            <button
-              type="button"
-              class="collection-design-groups__toggle link underlined-link"
-              aria-expanded="false"
-            >
-              <span class="collection-design-groups__toggle-label collection-design-groups__toggle-label--more">See all groups</span>
-              <span class="collection-design-groups__toggle-label collection-design-groups__toggle-label--less">Show fewer groups</span>
-            </button>
-          {%- endif -%}
+            {%- if has_toggle -%}
+              <button
+                type="button"
+                class="collection-design-groups__toggle link underlined-link"
+                aria-expanded="false"
+              >
+                <span class="collection-design-groups__toggle-label collection-design-groups__toggle-label--more">See all groups</span>
+                <span class="collection-design-groups__toggle-label collection-design-groups__toggle-label--less">Show fewer groups</span>
+              </button>
+            {%- endif -%}
+          </div>
         </div>
-      </div>
+      {%- endif -%}
 
       <div class="collection-design-groups__grid" role="list">
         {%- paginate collection.products by 250 -%}
@@ -161,7 +173,7 @@
       "type": "checkbox",
       "id": "enabled",
       "label": "Show design groups",
-      "default": false
+      "default": true
     },
     {
       "type": "text",
@@ -175,6 +187,12 @@
       "id": "heading",
       "label": "Heading",
       "default": "Browse by design"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show heading",
+      "default": false
     },
     {
       "type": "checkbox",

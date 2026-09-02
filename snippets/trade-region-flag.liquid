@@ -1,0 +1,27 @@
+{%- comment -%}
+  Renders a small UK or EU flag icon for trade banner links.
+  Accepts: region — 'uk' or 'eu'
+{%- endcomment -%}
+<span class="homepage-trade-banner__flag" aria-hidden="true">
+  {%- if region == 'eu' -%}
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40" role="img" aria-hidden="true">
+      <rect width="60" height="40" fill="#003399"/>
+      <g fill="#FFCC00" transform="translate(30,20)">
+        {%- for i in (0..11) -%}
+          <path transform="rotate({{ i | times: 30 }}) translate(0,-12)" d="M0,-2.2 L0.65,-0.68 L2.2,-0.68 L0.95,0.28 L1.45,1.78 L0,0.85 L-1.45,1.78 L-0.95,0.28 L-2.2,-0.68 L-0.65,-0.68 Z"/>
+        {%- endfor -%}
+      </g>
+    </svg>
+  {%- else -%}
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" role="img" aria-hidden="true">
+      <clipPath id="trade-uk-clip"><path d="M0,0 h60 v30 h-60 z"/></clipPath>
+      <g clip-path="url(#trade-uk-clip)">
+        <path fill="#012169" d="M0,0 h60 v30 h-60 z"/>
+        <path stroke="#fff" stroke-width="6" d="M0,0 60,30 M60,0 0,30"/>
+        <path stroke="#C8102E" stroke-width="4" d="M0,0 60,30 M60,0 0,30"/>
+        <path stroke="#fff" stroke-width="10" d="M30,0 v30 M0,15 h60"/>
+        <path stroke="#C8102E" stroke-width="6" d="M30,0 v30 M0,15 h60"/>
+      </g>
+    </svg>
+  {%- endif -%}
+</span>

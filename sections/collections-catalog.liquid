@@ -1,0 +1,212 @@
+{{ 'component-jiggle-graphic.css' | asset_url | stylesheet_tag }}
+{{ 'component-collection-canvas.css' | asset_url | stylesheet_tag }}
+{{ 'section-homepage-collection-grid.css' | asset_url | stylesheet_tag }}
+{{ 'section-collections-catalog.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign cols_desktop = section.settings.columns_desktop | default: 3
+  assign cols_mobile = section.settings.columns_mobile | default: 2
+  capture title_font
+    render 'collection-title-font-family', section_font: section.settings.title_font_family
+  endcapture
+  assign title_font = title_font | strip
+  assign fallback_bg_color = settings.grid_default_background_color | default: '#e8e4dc'
+  assign featured_rendered = ''
+  assign featured_count = 0
+  assign standard_count = 0
+-%}
+
+{%- comment -%}
+  Build standard tiles before featured loops — Shopify can stop yielding collections
+  after many iterations, and featured priority uses 50+ passes.
+{%- endcomment -%}
+{%- capture standard_tiles -%}
+  {%- for collection in collections -%}
+    {%- if collection.handle == 'frontpage' -%}{%- continue -%}{%- endif -%}
+    {%- assign catalog_hidden = collection.metafields.custom.hide_from_collections_page.value -%}
+    {%- if catalog_hidden -%}{%- continue -%}{%- endif -%}
+    {%- assign feature_file = collection.metafields.custom.feature_image.value -%}
+    {%- if feature_file != blank -%}{%- continue -%}{%- endif -%}
+    {%- assign catalog_style_count = collection.all_products_count | default: collection.products_count | plus: 0 -%}
+    {%- if catalog_style_count < 1 -%}{%- continue -%}{%- endif -%}
+    {%- assign standard_count = standard_count | plus: 1 -%}
+    {%- assign canvas_id = 'catalog-standard-' | append: section.id | append: '-' | append: collection.id -%}
+    <div class="homepage-collection-grid__tile collections-catalog__tile">
+                    {%- render 'collection-catalog-grid-tile',
+                      collection: collection,
+                      tier: 'standard',
+                      title_font: title_font,
+                      canvas_id: canvas_id
+                    -%}
+    </div>
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- capture featured_tiles -%}
+  {%- for priority in (1..50) -%}
+    {%- for collection in collections -%}
+      {%- if collection.handle == 'frontpage' -%}{%- continue -%}{%- endif -%}
+      {%- assign catalog_hidden = collection.metafields.custom.hide_from_collections_page.value -%}
+      {%- if catalog_hidden -%}{%- continue -%}{%- endif -%}
+      {%- assign feature_file = collection.metafields.custom.feature_image.value -%}
+      {%- if feature_file == blank -%}{%- continue -%}{%- endif -%}
+      {%- assign catalog_style_count = collection.all_products_count | default: collection.products_count | plus: 0 -%}
+      {%- if catalog_style_count < 1 -%}{%- continue -%}{%- endif -%}
+      {%- assign cat_priority = collection.metafields.custom.catalog_priority.value | plus: 0 -%}
+      {%- if cat_priority != priority -%}{%- continue -%}{%- endif -%}
+      {%- assign featured_key = collection.handle | append: ',' -%}
+      {%- unless featured_rendered contains featured_key -%}
+        {%- assign featured_rendered = featured_rendered | append: featured_key -%}
+        {%- assign featured_count = featured_count | plus: 1 -%}
+        {%- assign canvas_id = 'catalog-featured-' | append: section.id | append: '-' | append: collection.id -%}
+        <div class="homepage-collection-grid__tile collections-catalog__tile">
+          {%- render 'collection-catalog-grid-tile',
+            collection: collection,
+            tier: 'featured',
+            title_font: title_font,
+            canvas_id: canvas_id
+          -%}
+        </div>
+      {%- endunless -%}
+    {%- endfor -%}
+  {%- endfor -%}
+
+  {%- for collection in collections -%}
+    {%- if collection.handle == 'frontpage' -%}{%- continue -%}{%- endif -%}
+    {%- assign catalog_hidden = collection.metafields.custom.hide_from_collections_page.value -%}
+    {%- if catalog_hidden -%}{%- continue -%}{%- endif -%}
+    {%- assign feature_file = collection.metafields.custom.feature_image.value -%}
+    {%- if feature_file == blank -%}{%- continue -%}{%- endif -%}
+    {%- assign catalog_style_count = collection.all_products_count | default: collection.products_count | plus: 0 -%}
+    {%- if catalog_style_count < 1 -%}{%- continue -%}{%- endif -%}
+    {%- assign cat_priority = collection.metafields.custom.catalog_priority.value | plus: 0 -%}
+    {%- if cat_priority != 0 -%}{%- continue -%}{%- endif -%}
+    {%- assign featured_key = collection.handle | append: ',' -%}
+    {%- unless featured_rendered contains featured_key -%}
+      {%- assign featured_rendered = featured_rendered | append: featured_key -%}
+      {%- assign featured_count = featured_count | plus: 1 -%}
+      {%- assign canvas_id = 'catalog-featured-' | append: section.id | append: '-' | append: collection.id -%}
+      <div class="homepage-collection-grid__tile collections-catalog__tile">
+        {%- render 'collection-catalog-grid-tile',
+          collection: collection,
+          tier: 'featured',
+          title_font: title_font,
+          canvas_id: canvas_id
+        -%}
+      </div>
+    {%- endunless -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --hero-title-size: {{ section.settings.grid_title_size | default: 3 }}rem;
+    --collection-hero-fallback-bg: {{ fallback_bg_color }};
+    --grid-columns-desktop: {{ cols_desktop }};
+    --grid-columns-mobile: {{ cols_mobile }};
+    --collection-title-font: {{ title_font | json }};
+  }
+  @media screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} {
+      --hero-title-size: {{ section.settings.grid_title_size_mobile | default: 2 }}rem;
+    }
+  }
+{%- endstyle -%}
+
+<div
+  id="section-{{ section.id }}"
+  class="container--large {% unless section.settings.remove_margin %} container--vertical-space {% endunless %} remove-empty-space collections-catalog"
+  style="--grid-columns-desktop: {{ cols_desktop }}; --grid-columns-mobile: {{ cols_mobile }}; --collection-title-font: {{ title_font | json }};"
+>
+  {%- if featured_count > 0 -%}
+    <div class="homepage-collection-grid__grid collections-catalog__featured">
+      {{ featured_tiles }}
+    </div>
+  {%- elsif section.settings.featured_empty_message != blank -%}
+    <p class="collections-catalog__empty text-size--small">{{ section.settings.featured_empty_message | escape }}</p>
+  {%- endif -%}
+
+  {%- assign standard_tiles_stripped = standard_tiles | strip -%}
+  {%- if standard_tiles_stripped != blank -%}
+    <div class="homepage-collection-grid__grid collections-catalog__standard">
+      {{ standard_tiles }}
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "26 Collections catalog",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Featured grid: collections with a Feature image metafield and at least one product. More collections: other visible collections with at least one product. Hide anytime via Hide from collections page metafield."
+    },
+    {
+      "type": "text",
+      "id": "featured_empty_message",
+      "label": "Featured empty message",
+      "default": "Featured collections will appear here once feature graphics are uploaded in Admin."
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns (desktop)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "label": "Columns (mobile)",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Title"
+    },
+    {
+      "type": "range",
+      "id": "grid_title_size",
+      "label": "Size (desktop)",
+      "min": 1.5,
+      "max": 8,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "grid_title_size_mobile",
+      "label": "Size (mobile)",
+      "min": 1.5,
+      "max": 8,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 2
+    },
+    {
+      "type": "text",
+      "id": "title_font_family",
+      "label": "Title font override",
+      "info": "Only used when no brand font is configured in theme settings."
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_margin",
+      "label": "Remove section margin",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "26 Collections catalog"
+    }
+  ]
+}
+{% endschema %}

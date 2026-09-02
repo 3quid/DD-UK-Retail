@@ -1,0 +1,21 @@
+{%- comment -%}
+  Returns the collection title font-family name (echo only).
+  Accepts: section_font (optional section override when no theme asset)
+{%- endcomment -%}
+{%- liquid
+  assign title_source = settings.collection_title_font | default: 'font_2'
+
+  if title_source == 'font_2' and settings.custom_brand_font_2_asset != blank
+    echo settings.custom_brand_font_2_family | default: 'Darumadrop One'
+  elsif title_source == 'font_1' and settings.custom_brand_font_asset != blank
+    echo settings.custom_brand_font_family | default: 'Dawg'
+  elsif settings.custom_brand_font_2_asset != blank
+    echo settings.custom_brand_font_2_family | default: 'Darumadrop One'
+  elsif settings.custom_brand_font_asset != blank
+    echo settings.custom_brand_font_family | default: 'Dawg'
+  elsif section_font != blank
+    echo section_font
+  else
+    echo 'sketchnote-square'
+  endif
+-%}

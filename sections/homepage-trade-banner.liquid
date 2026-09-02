@@ -1,0 +1,75 @@
+{{ 'section-homepage-trade-banner.css' | asset_url | stylesheet_tag }}
+
+<div class="homepage-trade-banner">
+  <div class="container--large homepage-trade-banner__inner">
+    {%- if section.settings.label != blank -%}
+      <p class="homepage-trade-banner__label">{{ section.settings.label | escape }}</p>
+    {%- endif -%}
+    <div class="homepage-trade-banner__links">
+      {%- if section.settings.uk_trade_url != blank -%}
+        <a
+          href="{{ section.settings.uk_trade_url }}"
+          class="homepage-trade-banner__link homepage-trade-banner__link--uk"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {%- render 'trade-region-flag', region: 'uk' -%}
+          <span>{{ section.settings.uk_trade_label | default: 'UK' | escape }}</span>
+        </a>
+      {%- endif -%}
+      {%- if section.settings.eu_trade_url != blank -%}
+        <a
+          href="{{ section.settings.eu_trade_url }}"
+          class="homepage-trade-banner__link homepage-trade-banner__link--eu"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {%- render 'trade-region-flag', region: 'eu' -%}
+          <span>{{ section.settings.eu_trade_label | default: 'EU' | escape }}</span>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "26 Trade banner",
+  "class": "homepage-trade-banner-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "Trade customers"
+    },
+    {
+      "type": "text",
+      "id": "uk_trade_label",
+      "label": "UK link label",
+      "default": "UK"
+    },
+    {
+      "type": "url",
+      "id": "uk_trade_url",
+      "label": "UK trade URL"
+    },
+    {
+      "type": "text",
+      "id": "eu_trade_label",
+      "label": "EU link label",
+      "default": "EU"
+    },
+    {
+      "type": "url",
+      "id": "eu_trade_url",
+      "label": "EU trade URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "26 Trade banner"
+    }
+  ]
+}
+{% endschema %}

@@ -1,6 +1,8 @@
 <div class="container {% if section.settings.center %} container--medium {% else %} container--large {% endif %} container--vertical-space-small main-page gutter-bottom--page">
 
-  <h1 class="title h2">{{ page.title | escape }}</h1>
+  {%- unless section.settings.hide_title -%}
+    <h1 class="title h2">{{ page.title | escape }}</h1>
+  {%- endunless -%}
 
   <div class="rte">
     {{ page.content }}
@@ -13,6 +15,13 @@
     "name": "t:sections.main-page.name",
     "class": "section--remove-bottom-margin-after",
     "settings": [
+      {
+        "type": "checkbox",
+        "id": "hide_title",
+        "label": "Hide page title",
+        "info": "Use when a page hero section shows the title above.",
+        "default": false
+      },
       {
         "type": "checkbox",
         "id": "center",

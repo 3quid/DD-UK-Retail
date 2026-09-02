@@ -1,0 +1,12 @@
+{%- comment -%}
+  Outputs whether a collection is hidden from the /collections catalog.
+  Echoes: true | false
+{%- endcomment -%}
+{%- liquid
+  assign catalog_hidden = false
+  assign hide_mf = collection.metafields.custom.hide_from_collections_page
+  if hide_mf.value == true
+    assign catalog_hidden = true
+  endif
+  echo catalog_hidden
+-%}

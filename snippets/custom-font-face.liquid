@@ -1,0 +1,27 @@
+{%- comment -%}
+  Outputs @font-face + preload for one theme asset font.
+  Accepts: asset_filename, font_family
+{%- endcomment -%}
+{%- liquid
+  assign font_asset = asset_filename | strip
+  assign font_asset = font_asset | remove: '/assets/' | remove: 'assets/'
+  if font_asset contains '/'
+    assign font_asset = font_asset | split: '/' | last
+  endif
+  assign font_family = font_family | strip
+-%}
+
+{%- if font_asset != blank and font_family != blank -%}
+  {% # theme-check-disable AssetPreload %}
+  <link rel="preload" href="{{ font_asset | asset_url }}" as="font" type="font/woff2" crossorigin>
+  {% # theme-check-enable AssetPreload %}
+  <style>
+    @font-face {
+      font-family: {{ font_family | json }};
+      src: url("{{ font_asset | asset_url }}") format("woff2");
+      font-display: swap;
+      font-weight: 400;
+      font-style: normal;
+    }
+  </style>
+{%- endif -%}

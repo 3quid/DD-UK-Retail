@@ -1,0 +1,33 @@
+{%- comment -%}
+  Collection product/style count label.
+  Accepts: collection, variant: 'hero' | 'grid', show (optional boolean), title_font (optional), style_count (optional override)
+{%- endcomment -%}
+{%- liquid
+  if style_count != blank
+    assign style_count = style_count | plus: 0
+  else
+    assign style_count = collection.all_products_count | default: collection.products_count
+  endif
+  assign show_styles = show | default: true, allow_false: true
+  assign ctx = variant | default: 'hero'
+-%}
+{%- if show_styles and style_count > 0 -%}
+  <p
+    class="collection-canvas__style-count collection-canvas__style-count--{{ ctx }}"
+    {%- if ctx == 'grid' and title_font != blank -%}
+      style="font-family: '{{ title_font | escape }}', sans-serif;"
+    {%- endif -%}
+  >
+    {%- if ctx == 'hero' -%}
+      {%- if style_count == 1 -%}
+        1 style available
+      {%- else -%}
+        {{ style_count }} styles available
+      {%- endif -%}
+    {%- elsif style_count == 1 -%}
+      1 style
+    {%- else -%}
+      {{ style_count }} styles
+    {%- endif -%}
+  </p>
+{%- endif -%}

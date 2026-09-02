@@ -1,0 +1,40 @@
+{%- comment -%}
+  Renders a jiggle-enabled PNG overlay.
+  Accepts: image, link_url, label, offset_x, offset_y, rotation, size, scale, flip_horizontal, delay_class, preload, sizes
+{%- endcomment -%}
+{%- if image != blank -%}
+  {%- capture layer_style -%}
+    {%- render 'positioned-layer-style', offset_x: offset_x, offset_y: offset_y, rotation: rotation, size: size, scale: scale, flip_horizontal: flip_horizontal -%}
+  {%- endcapture -%}
+  {%- assign wrap_transform = 'transform: translate(var(--layer-offset-x, 0%), var(--layer-offset-y, 0%)) scaleX(var(--layer-flip-x, 1)) scale(var(--layer-scale, 1)); transform-origin: center center;' -%}
+  {%- assign wrap_class = 'jiggle-graphic-wrap' -%}
+  {%- if delay_class != blank -%}
+    {%- assign wrap_class = wrap_class | append: ' ' | append: delay_class -%}
+  {%- endif -%}
+  {%- if link_url != blank -%}
+    {%- assign wrap_class = wrap_class | append: ' jiggle-graphic-wrap--interactive' -%}
+    <a
+      href="{{ link_url }}"
+      class="{{ wrap_class }}"
+      style="{{ layer_style | strip }} {{ wrap_transform }}"
+      {% if link_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+      aria-label="{{ label | default: 'View' | escape }}"
+    >
+      {%- render 'lazy-image',
+        image: image,
+        sizes: sizes | default: 'sizes="(max-width: 767px) 40vw, 25vw"',
+        preload: preload,
+        class: 'jiggle-graphic lazy-image--no-transition'
+      -%}
+    </a>
+  {%- else -%}
+    <div class="{{ wrap_class }}" style="{{ layer_style | strip }} {{ wrap_transform }}" aria-hidden="true">
+      {%- render 'lazy-image',
+        image: image,
+        sizes: sizes | default: 'sizes="(max-width: 767px) 40vw, 25vw"',
+        preload: preload,
+        class: 'jiggle-graphic lazy-image--no-transition'
+      -%}
+    </div>
+  {%- endif -%}
+{%- endif -%}

@@ -1,0 +1,25 @@
+{%- comment -%}
+  Renders one positioned jiggle overlay on a collection canvas.
+  Accepts: image, slot, offset_x, offset_y, rotation, rotation_mobile, size, scale, flip_horizontal, preload, sizes, link_url, label
+{%- endcomment -%}
+{%- if image != blank -%}
+  <div
+    class="collection-canvas__overlay{% unless column_layout %} collection-canvas__overlay--{{ slot }}{% endunless %}{% if column_layout %} collection-canvas__overlay-column collection-canvas__overlay-column--{{ slot }}{% endif %}"
+    data-rotation-mobile="{{ rotation_mobile | default: rotation }}"
+  >
+    {%- render 'jiggle-graphic',
+      image: image,
+      link_url: link_url,
+      label: label,
+      offset_x: offset_x,
+      offset_y: offset_y,
+      rotation: rotation,
+      size: size,
+      scale: scale,
+      flip_horizontal: flip_horizontal,
+      delay_class: delay_class,
+      preload: preload,
+      sizes: sizes | default: 'sizes="(max-width: 767px) 40vw, 25vw"'
+    -%}
+  </div>
+{%- endif -%}

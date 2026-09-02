@@ -1,0 +1,501 @@
+{{ 'component-jiggle-graphic.css' | asset_url | stylesheet_tag }}
+{{ 'component-collection-canvas.css' | asset_url | stylesheet_tag }}
+{{ 'section-homepage-featured-hero.css' | asset_url | stylesheet_tag }}
+{{ 'section-homepage-redesign-header.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign featured_collection = section.settings.collection
+  capture title_font
+    render 'collection-title-font-family'
+  endcapture
+  assign title_font = title_font | strip
+  assign preload = false
+  if section.index == 1
+    assign preload = true
+  endif
+-%}
+
+<script>
+  (function () {
+    document.documentElement.classList.add('redesign-header-overlay');
+    document.body.classList.add('redesign-header-overlay');
+
+    function syncHeaderHeight() {
+      var header = document.getElementById('site-header');
+      if (!header) return;
+      var height = header.offsetHeight + 'px';
+      document.documentElement.style.setProperty('--site-header-height', height);
+      document.documentElement.style.setProperty('--header-height', height);
+    }
+
+    syncHeaderHeight();
+    window.addEventListener('resize', syncHeaderHeight);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(syncHeaderHeight);
+    }
+  })();
+</script>
+
+{%- if featured_collection != blank -%}
+  {%- style -%}
+    #shopify-section-{{ section.id }} .homepage-featured-hero__inner {
+      --featured-hero-height: {{ section.settings.hero_height_desktop }}vh;
+      --featured-hero-height-mobile: {{ section.settings.hero_height_mobile }}vh;
+      --collection-title-font: {{ title_font | json }};
+      --hero-strapline-gap: {{ section.settings.hero_strapline_gap }}rem;
+      --hero-title-size: {{ section.settings.hero_title_size }}rem;
+      --hero-strapline-size: {{ section.settings.hero_strapline_size }}rem;
+    }
+    @media screen and (max-width: 767px) {
+      #shopify-section-{{ section.id }} .homepage-featured-hero__inner {
+        --hero-title-size: {{ section.settings.hero_title_size_mobile }}rem;
+        --hero-strapline-size: {{ section.settings.hero_strapline_size_mobile }}rem;
+      }
+      #collection-canvas-{{ section.id }} .collection-canvas__text-block {
+        --layer-rotate: {{ section.settings.hero_text_rotation_mobile | default: section.settings.hero_text_rotation }}deg;
+      }
+      #collection-canvas-{{ section.id }} .collection-canvas__title {
+        --title-rotate: {{ section.settings.hero_title_rotation_mobile | default: section.settings.hero_title_rotation }}deg;
+      }
+      #collection-canvas-{{ section.id }} .collection-canvas__strapline {
+        --strapline-rotate: {{ section.settings.hero_strapline_rotation_mobile | default: section.settings.hero_strapline_rotation }}deg;
+      }
+    }
+  {%- endstyle -%}
+
+  {%- assign canvas_id = 'collection-canvas-' | append: section.id -%}
+  <div class="homepage-featured-hero container--fullwidth remove-empty-space">
+    <div class="homepage-featured-hero__inner">
+      {%- render 'collection-hero-canvas',
+        collection: featured_collection,
+        variant: 'hero',
+        canvas_id: canvas_id,
+        title_font: title_font,
+        preload: preload,
+        prefer_image_overrides: false,
+        overlay_columns_layout: true,
+        shared_overlay_image: section.settings.feature_image,
+        overlay_1_ox: section.settings.feature_1_offset_x,
+        overlay_1_oy: section.settings.feature_1_offset_y,
+        overlay_1_rot: section.settings.feature_1_rotation,
+        overlay_1_scale: section.settings.feature_1_scale,
+        overlay_1_flip: section.settings.feature_1_flip_horizontal,
+        overlay_2_ox: section.settings.feature_2_offset_x,
+        overlay_2_oy: section.settings.feature_2_offset_y,
+        overlay_2_rot: section.settings.feature_2_rotation,
+        overlay_2_scale: section.settings.feature_2_scale,
+        overlay_2_flip: section.settings.feature_2_flip_horizontal,
+        overlay_3_ox: section.settings.feature_3_offset_x,
+        overlay_3_oy: section.settings.feature_3_offset_y,
+        overlay_3_rot: section.settings.feature_3_rotation,
+        overlay_3_scale: section.settings.feature_3_scale,
+        overlay_3_flip: section.settings.feature_3_flip_horizontal,
+        override_hero_background: section.settings.hero_background,
+        override_hero_title: section.settings.override_title,
+        override_hero_strapline: section.settings.override_strapline,
+        override_hero_text_offset_x: section.settings.hero_text_offset_x,
+        override_hero_text_offset_y: section.settings.hero_text_offset_y,
+        override_hero_text_rotation: section.settings.hero_text_rotation,
+        override_hero_text_rotation_mobile: section.settings.hero_text_rotation_mobile,
+        override_hero_strapline_gap: section.settings.hero_strapline_gap,
+        override_hero_strapline_rotation: section.settings.hero_strapline_rotation,
+        override_hero_strapline_rotation_mobile: section.settings.hero_strapline_rotation_mobile,
+        override_hero_title_offset_x: section.settings.hero_title_offset_x,
+        override_hero_title_offset_y: section.settings.hero_title_offset_y,
+        override_hero_title_rotation: section.settings.hero_title_rotation,
+        override_hero_title_rotation_mobile: section.settings.hero_title_rotation_mobile
+      -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "26 Featured coll hero",
+  "class": "can-be-fullwidth homepage-featured-hero-section",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Featured collection"
+    },
+    {
+      "type": "header",
+      "content": "Hero images"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_background",
+      "label": "Background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_image",
+      "label": "Feature graphic"
+    },
+    {
+      "type": "paragraph",
+      "content": "Transparent PNG shown three times on the right half of the hero (e.g. a sheep). Use the same file on collection grid tiles — pair it with any background per tile."
+    },
+    {
+      "type": "header",
+      "content": "Text overrides"
+    },
+    {
+      "type": "text",
+      "id": "override_title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "override_strapline",
+      "label": "Strapline"
+    },
+    {
+      "type": "header",
+      "content": "Text block"
+    },
+    {
+      "type": "range",
+      "id": "hero_text_offset_x",
+      "label": "H Offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_text_offset_y",
+      "label": "V Offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_text_rotation",
+      "label": "Rotation",
+      "min": -20,
+      "max": 20,
+      "step": 2,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_text_rotation_mobile",
+      "label": "Rotation (mobile)",
+      "min": -20,
+      "max": 20,
+      "step": 2,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Title"
+    },
+    {
+      "type": "range",
+      "id": "hero_title_size",
+      "label": "Size",
+      "min": 2,
+      "max": 12,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "hero_title_size_mobile",
+      "label": "Size (mobile)",
+      "min": 2,
+      "max": 12,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "hero_title_offset_x",
+      "label": "H Offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_title_offset_y",
+      "label": "V Offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_title_rotation",
+      "label": "Rotation",
+      "min": -20,
+      "max": 20,
+      "step": 2,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_title_rotation_mobile",
+      "label": "Rotation (mobile)",
+      "min": -20,
+      "max": 20,
+      "step": 2,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Strapline"
+    },
+    {
+      "type": "range",
+      "id": "hero_strapline_size",
+      "label": "Size",
+      "min": 1,
+      "max": 6,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "hero_strapline_size_mobile",
+      "label": "Size (mobile)",
+      "min": 1,
+      "max": 6,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "hero_strapline_gap",
+      "label": "Gap",
+      "min": 0,
+      "max": 4,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "hero_strapline_rotation",
+      "label": "Rotation",
+      "min": -20,
+      "max": 20,
+      "step": 2,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hero_strapline_rotation_mobile",
+      "label": "Rotation (mobile)",
+      "min": -20,
+      "max": 20,
+      "step": 2,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Feature positioning"
+    },
+    {
+      "type": "header",
+      "content": "Feature 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_1_flip_horizontal",
+      "label": "Flip",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "feature_1_rotation",
+      "label": "Rotation",
+      "min": -20,
+      "max": 20,
+      "step": 2,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "feature_1_scale",
+      "label": "Scale",
+      "min": 10,
+      "max": 250,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "feature_1_offset_x",
+      "label": "H Offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "feature_1_offset_y",
+      "label": "V Offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Feature 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_2_flip_horizontal",
+      "label": "Flip",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "feature_2_rotation",
+      "label": "Rotation",
+      "min": -20,
+      "max": 20,
+      "step": 2,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "feature_2_scale",
+      "label": "Scale",
+      "min": 10,
+      "max": 250,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "feature_2_offset_x",
+      "label": "H Offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "feature_2_offset_y",
+      "label": "V Offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Feature 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_3_flip_horizontal",
+      "label": "Flip",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "feature_3_rotation",
+      "label": "Rotation",
+      "min": -20,
+      "max": 20,
+      "step": 2,
+      "unit": "°",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "feature_3_scale",
+      "label": "Scale",
+      "min": 10,
+      "max": 250,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "feature_3_offset_x",
+      "label": "H Offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "feature_3_offset_y",
+      "label": "V Offset",
+      "min": -40,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Hero height"
+    },
+    {
+      "type": "range",
+      "id": "hero_height_desktop",
+      "label": "Desktop",
+      "min": 20,
+      "max": 80,
+      "step": 1,
+      "unit": "vh",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "hero_height_mobile",
+      "label": "Mobile",
+      "min": 20,
+      "max": 80,
+      "step": 1,
+      "unit": "vh",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "26 Featured coll hero"
+    }
+  ]
+}
+{% endschema %}

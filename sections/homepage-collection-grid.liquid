@@ -1,0 +1,407 @@
+{{ 'component-jiggle-graphic.css' | asset_url | stylesheet_tag }}
+{{ 'component-collection-canvas.css' | asset_url | stylesheet_tag }}
+{{ 'section-homepage-collection-grid.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign tiles_desktop = section.settings.tiles_desktop | default: 6
+  assign tiles_mobile = section.settings.tiles_mobile | default: 4
+  assign cols_desktop = section.settings.columns_desktop | default: 3
+  assign cols_mobile = section.settings.columns_mobile | default: 2
+  capture title_font
+    render 'collection-title-font-family', section_font: section.settings.title_font_family
+  endcapture
+  assign title_font = title_font | strip
+-%}
+
+{%- style -%}
+  #section-{{ section.id }} {
+    --hero-title-size: {{ section.settings.grid_title_size | default: 3 }}rem;
+  }
+  @media screen and (max-width: 767px) {
+    #section-{{ section.id }} {
+      --hero-title-size: {{ section.settings.grid_title_size_mobile | default: 2 }}rem;
+    }
+  }
+{%- endstyle -%}
+
+<div
+  id="section-{{ section.id }}"
+  class="container--large {% unless section.settings.remove_margin %} container--vertical-space {% endunless %} remove-empty-space"
+  style="--grid-columns-desktop: {{ cols_desktop }}; --grid-columns-mobile: {{ cols_mobile }}; --collection-title-font: {{ title_font | json }};"
+>
+  {%- if section.settings.heading != blank -%}
+    <div class="section-heading gutter-bottom--regular">
+      <h2 class="h3">{{ section.settings.heading | escape }}</h2>
+    </div>
+  {%- endif -%}
+
+  <div class="homepage-collection-grid__grid">
+    {%- for block in section.blocks -%}
+      {%- assign tile_collection = block.settings.collection -%}
+      {%- if tile_collection != blank -%}
+        {%- liquid
+          assign hidden_class = ''
+          if forloop.index > tiles_desktop
+            assign hidden_class = hidden_class | append: ' homepage-collection-grid__tile--hidden-desktop'
+          endif
+          if forloop.index > tiles_mobile
+            assign hidden_class = hidden_class | append: ' homepage-collection-grid__tile--hidden-mobile'
+          endif
+          assign canvas_id = 'grid-canvas-' | append: block.id
+        -%}
+        <div class="homepage-collection-grid__tile{{ hidden_class }}" {{ block.shopify_attributes }}>
+          {%- style -%}
+            @media screen and (max-width: 767px) {
+              #{{ canvas_id }} .collection-canvas__text-block {
+                --layer-rotate: {{ block.settings.grid_text_rotation_mobile | default: block.settings.grid_text_rotation }}deg;
+              }
+              #{{ canvas_id }} .collection-canvas__title {
+                --title-rotate: {{ block.settings.grid_title_rotation_mobile | default: block.settings.grid_title_rotation }}deg;
+              }
+              #{{ canvas_id }} .collection-canvas__overlay--1 .jiggle-graphic-wrap,
+              #{{ canvas_id }} .collection-canvas__overlay--1 .jiggle-graphic,
+              #{{ canvas_id }} .collection-canvas__overlay--1 figure.jiggle-graphic {
+                --layer-rotate: {{ block.settings.grid_feature_rotation_mobile | default: block.settings.grid_feature_rotation }}deg;
+              }
+            }
+          {%- endstyle -%}
+        {%- liquid
+          assign tile_feature_image = block.settings.grid_feature_image
+          assign tile_grid_background = block.settings.grid_background
+        -%}
+          {%- render 'collection-hero-canvas',
+            collection: tile_collection,
+            variant: 'grid',
+            canvas_id: canvas_id,
+            title_font: title_font,
+            prefer_image_overrides: true,
+            override_grid_background: tile_grid_background,
+            override_feature_image: tile_feature_image,
+            override_grid_title: block.settings.override_title,
+            override_grid_text_offset_x: block.settings.grid_text_offset_x,
+            override_grid_text_offset_y: block.settings.grid_text_offset_y,
+            override_grid_text_rotation: block.settings.grid_text_rotation,
+            override_grid_text_rotation_mobile: block.settings.grid_text_rotation_mobile,
+            override_grid_title_offset_x: block.settings.grid_title_offset_x,
+            override_grid_title_offset_y: block.settings.grid_title_offset_y,
+            override_grid_title_rotation: block.settings.grid_title_rotation,
+            override_grid_title_rotation_mobile: block.settings.grid_title_rotation_mobile,
+            override_grid_feature_offset_x: block.settings.grid_feature_offset_x,
+            override_grid_feature_offset_y: block.settings.grid_feature_offset_y,
+            override_grid_feature_rotation: block.settings.grid_feature_rotation,
+            override_grid_feature_rotation_mobile: block.settings.grid_feature_rotation_mobile,
+            override_grid_feature_size: block.settings.grid_feature_size,
+            override_grid_align: block.settings.grid_align
+          -%}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "26 Collection grid",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "tiles_desktop",
+      "label": "Tiles to show (desktop)",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "tiles_mobile",
+      "label": "Tiles to show (mobile)",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns (desktop)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "label": "Columns (mobile)",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Title"
+    },
+    {
+      "type": "range",
+      "id": "grid_title_size",
+      "label": "Size (desktop)",
+      "min": 1.5,
+      "max": 8,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "grid_title_size_mobile",
+      "label": "Size (mobile)",
+      "min": 1.5,
+      "max": 8,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 2
+    },
+    {
+      "type": "text",
+      "id": "title_font_family",
+      "label": "Title font override",
+      "info": "Only used when no brand WOFF2 is configured in theme settings."
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_margin",
+      "label": "Remove section margin",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Default feature graphic"
+    },
+    {
+      "type": "paragraph",
+      "content": "Tile images come from each collection’s metafields (Grid background, Feature image) — same as collection heroes. Theme settings → Collection Grids supplies rotating defaults when a metafield is empty. Block settings below are optional overrides for this homepage section only."
+    },
+    {
+      "type": "image_picker",
+      "id": "default_feature_image",
+      "label": "Default feature graphic (legacy)",
+      "info": "Deprecated — use Products → Collections → metafields instead. Theme settings → Collections → Default feature graphic is the store-wide fallback."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_tile",
+      "name": "26 Collection tile",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "override_title",
+          "label": "Title",
+          "info": "Leave blank to use the collection name."
+        },
+        {
+          "type": "image_picker",
+          "id": "grid_background",
+          "label": "Background image override",
+          "info": "Optional. Leave blank to use the collection Grid background metafield, then Theme settings → Collection Grids defaults."
+        },
+        {
+          "type": "image_picker",
+          "id": "grid_feature_image",
+          "label": "Feature graphic override",
+          "info": "Optional. Leave blank to use the collection Feature image metafield, then Theme settings → Collections default."
+        },
+        {
+          "type": "header",
+          "content": "Layout"
+        },
+        {
+          "type": "select",
+          "id": "grid_align",
+          "label": "Align",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left",
+          "info": "Horizontal offsets are measured from the aligned edge."
+        },
+        {
+          "type": "header",
+          "content": "Text block"
+        },
+        {
+          "type": "range",
+          "id": "grid_text_offset_x",
+          "label": "H Offset",
+          "min": -40,
+          "max": 40,
+          "step": 1,
+          "unit": "%",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "grid_text_offset_y",
+          "label": "V Offset",
+          "min": -40,
+          "max": 40,
+          "step": 1,
+          "unit": "%",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "grid_text_rotation",
+          "label": "Rotation",
+          "min": -180,
+          "max": 180,
+          "step": 4,
+          "unit": "°",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "grid_text_rotation_mobile",
+          "label": "Rotation (mobile)",
+          "min": -180,
+          "max": 180,
+          "step": 4,
+          "unit": "°",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Title positioning"
+        },
+        {
+          "type": "range",
+          "id": "grid_title_offset_x",
+          "label": "H Offset",
+          "min": -40,
+          "max": 40,
+          "step": 1,
+          "unit": "%",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "grid_title_offset_y",
+          "label": "V Offset",
+          "min": -40,
+          "max": 40,
+          "step": 1,
+          "unit": "%",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "grid_title_rotation",
+          "label": "Rotation",
+          "min": -180,
+          "max": 180,
+          "step": 4,
+          "unit": "°",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "grid_title_rotation_mobile",
+          "label": "Rotation (mobile)",
+          "min": -180,
+          "max": 180,
+          "step": 4,
+          "unit": "°",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Feature positioning"
+        },
+        {
+          "type": "range",
+          "id": "grid_feature_offset_x",
+          "label": "H Offset",
+          "min": -40,
+          "max": 40,
+          "step": 1,
+          "unit": "%",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "grid_feature_offset_y",
+          "label": "V Offset",
+          "min": -40,
+          "max": 40,
+          "step": 1,
+          "unit": "%",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "grid_feature_rotation",
+          "label": "Rotation",
+          "min": -180,
+          "max": 180,
+          "step": 4,
+          "unit": "°",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "grid_feature_rotation_mobile",
+          "label": "Rotation (mobile)",
+          "min": -180,
+          "max": 180,
+          "step": 4,
+          "unit": "°",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "grid_feature_size",
+          "label": "Scale",
+          "min": 40,
+          "max": 140,
+          "step": 1,
+          "unit": "%",
+          "default": 100
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "26 Collection grid",
+      "blocks": [
+        { "type": "collection_tile" },
+        { "type": "collection_tile" },
+        { "type": "collection_tile" },
+        { "type": "collection_tile" },
+        { "type": "collection_tile" },
+        { "type": "collection_tile" }
+      ]
+    }
+  ]
+}
+{% endschema %}

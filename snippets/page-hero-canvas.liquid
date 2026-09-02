@@ -1,0 +1,86 @@
+{%- comment -%}
+  Simple page hero canvas (background + title, no feature overlays).
+  Accepts: page_title, strapline, bg_image, bg_image_url, title_font, canvas_id, show_title_prefix, text/ title offsets & rotations, preload
+{%- endcomment -%}
+{%- liquid
+  assign title_font_family = title_font | default: 'sketchnote-square'
+  assign show_prefix = show_title_prefix | default: false, allow_false: true
+  assign text_ox = text_offset_x | default: 0
+  assign text_oy = text_offset_y | default: 0
+  assign text_rot = text_rotation | default: 0
+  assign title_ox = title_offset_x | default: 0
+  assign title_oy = title_offset_y | default: 0
+  assign title_rot = title_rotation | default: 0
+  assign strap_rot = strapline_rotation | default: 0
+-%}
+
+{%- capture text_block_style -%}
+  --layer-offset-x: {{ text_ox }}%; --layer-offset-y: {{ text_oy }}%; --layer-rotate: {{ text_rot }}deg;
+  {%- if strapline_gap != blank -%}
+    --hero-strapline-gap: {{ strapline_gap }}rem;
+  {%- endif -%}
+{%- endcapture -%}
+
+<div
+  class="collection-canvas collection-canvas--hero"
+  id="{{ canvas_id }}"
+>
+  <div class="collection-canvas__bg{% if bg_image == blank and bg_image_url == blank %} collection-canvas__bg--fallback{% endif %}" aria-hidden="true">
+    {%- if bg_image != blank and bg_image.width != blank -%}
+      {%- render 'lazy-image',
+        image: bg_image,
+        sizes: 'sizes="100vw"',
+        preload: preload,
+        type: 'background',
+        class: 'collection-canvas__bg-image'
+      -%}
+    {%- elsif bg_image_url != blank -%}
+      <img
+        src="{{ bg_image_url }}"
+        class="collection-canvas__bg-image img"
+        alt=""
+        loading="{% if preload %}eager{% else %}lazy{% endif %}"
+        width="2400"
+        height="1200"
+        sizes="100vw"
+        onload="this.parentNode.classList.add('lazyloaded')"
+      >
+    {%- elsif bg_image != blank -%}
+      {%- render 'lazy-image',
+        image: bg_image,
+        sizes: 'sizes="100vw"',
+        preload: preload,
+        type: 'background',
+        class: 'collection-canvas__bg-image'
+      -%}
+    {%- endif -%}
+  </div>
+
+  <div class="collection-canvas__layers">
+    <div
+      class="collection-canvas__text-block"
+      style="{{ text_block_style | strip }}"
+      data-rotation-mobile="{{ text_rotation_mobile | default: text_rot }}"
+    >
+      <div
+        class="collection-canvas__title"
+        style="--layer-offset-x: {{ title_ox }}%; --layer-offset-y: {{ title_oy }}%; --layer-rotate: {{ title_rot }}deg; --title-rotate: {{ title_rot }}deg; font-family: '{{ title_font_family | escape }}', sans-serif;"
+        data-rotation-mobile="{{ title_rotation_mobile | default: title_rot }}"
+      >
+        {%- if show_prefix -%}
+          <span class="collection-canvas__title-prefix">ALL</span>
+        {%- endif -%}
+        <span class="collection-canvas__title-text">{{ page_title | escape }}</span>
+      </div>
+      {%- if strapline != blank -%}
+        <p
+          class="collection-canvas__strapline"
+          style="--strapline-rotate: {{ strap_rot }}deg;"
+          data-rotation-mobile="{{ strapline_rotation_mobile | default: strap_rot }}"
+        >
+          {{ strapline | escape }}
+        </p>
+      {%- endif -%}
+    </div>
+  </div>
+</div>

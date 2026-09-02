@@ -1,0 +1,11 @@
+{%- comment -%}
+  Loads all self-hosted brand fonts configured in theme settings.
+{%- endcomment -%}
+{%- render 'custom-font-face',
+  asset_filename: settings.custom_brand_font_asset,
+  font_family: settings.custom_brand_font_family | default: 'Dawg'
+-%}
+{%- render 'custom-font-face',
+  asset_filename: settings.custom_brand_font_2_asset,
+  font_family: settings.custom_brand_font_2_family | default: 'Darumadrop One'
+-%}

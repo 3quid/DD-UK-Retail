@@ -1,0 +1,12 @@
+{%- comment -%}
+  Outputs whether a collection belongs in the catalog featured tier (has feature image metafield).
+  Echoes: true | false
+{%- endcomment -%}
+{%- liquid
+  assign catalog_has_feature = false
+  assign feature_mf = collection.metafields.custom.feature_image
+  if feature_mf != blank and feature_mf.value != blank
+    assign catalog_has_feature = true
+  endif
+  echo catalog_has_feature
+-%}

@@ -1594,6 +1594,26 @@
 				"label": "Purple hero background"
 			},
 			{
+				"type": "image_picker",
+				"id": "product_hero_background_orange",
+				"label": "Orange hero background"
+			},
+			{
+				"type": "image_picker",
+				"id": "product_hero_background_brown",
+				"label": "Brown hero background"
+			},
+			{
+				"type": "image_picker",
+				"id": "product_hero_background_black",
+				"label": "Black hero background"
+			},
+			{
+				"type": "image_picker",
+				"id": "product_hero_background_white",
+				"label": "White hero background"
+			},
+			{
 				"type": "header",
 				"content": "Fallback backgrounds"
 			},
