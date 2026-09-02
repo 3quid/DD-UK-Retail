@@ -1,0 +1,120 @@
+{
+  "sections": {
+    "playful_hero": {
+      "type": "homepage-playful-layout",
+      "blocks": {
+        "bg": {
+          "type": "background",
+          "settings": {
+            "overlay_opacity": 0
+          }
+        },
+        "sock_left": {
+          "type": "floating_image",
+          "settings": {
+            "horizontal_offset": -28,
+            "vertical_offset": -8,
+            "size_desktop": 38,
+            "rotation_desktop": -12,
+            "horizontal_offset_mobile": -20,
+            "vertical_offset_mobile": -4,
+            "size_mobile": 50,
+            "rotation_mobile": -8,
+            "animation": "float",
+            "animation_duration": 5,
+            "animation_delay": 0
+          }
+        },
+        "sock_right": {
+          "type": "floating_image",
+          "settings": {
+            "horizontal_offset": 30,
+            "vertical_offset": 6,
+            "size_desktop": 42,
+            "rotation_desktop": 18,
+            "horizontal_offset_mobile": 22,
+            "vertical_offset_mobile": 8,
+            "size_mobile": 48,
+            "rotation_mobile": 14,
+            "animation": "wiggle",
+            "animation_duration": 3,
+            "animation_delay": 0.4
+          }
+        },
+        "hero_text": {
+          "type": "text_row",
+          "settings": {
+            "text": "<p><strong>Supersoft socks</strong> with personality.</p>",
+            "text_alignment": "center",
+            "show_scrim": true,
+            "font_size_desktop": 22,
+            "font_size_mobile": 18,
+            "rotation_desktop": -1,
+            "animation": "fade-up",
+            "animation_duration": 0.8,
+            "animation_delay": 0.3
+          }
+        }
+      },
+      "block_order": ["bg", "sock_left", "sock_right", "hero_text"],
+      "settings": {
+        "layout_mode": "canvas",
+        "aspect_ratio": "5 / 2",
+        "aspect_ratio_mobile": "3 / 2",
+        "remove_margin": true
+      }
+    },
+    "playful_values": {
+      "type": "homepage-playful-layout",
+      "blocks": {
+        "values_bg": {
+          "type": "background",
+          "settings": {
+            "background_color": "#f4f4f4",
+            "overlay_opacity": 0
+          }
+        },
+        "comfort_text": {
+          "type": "text_row",
+          "settings": {
+            "text": "<p><strong>Comfort</strong></p><p>Feet treated like kings, all day long.</p>",
+            "text_alignment": "center",
+            "show_scrim": false,
+            "overlap_enabled": false,
+            "rotation_desktop": 1.5,
+            "rotation_mobile": 0.5,
+            "animation": "fade-up"
+          }
+        },
+        "spacer_1": {
+          "type": "spacer",
+          "settings": {
+            "height": 24
+          }
+        },
+        "fun_text": {
+          "type": "text_row",
+          "settings": {
+            "text": "<p><strong>Fun</strong></p><p>Bright, bold designs that make you smile.</p>",
+            "text_alignment": "center",
+            "overlap_enabled": true,
+            "overlap_amount": 48,
+            "overlap_amount_mobile": 24,
+            "rotation_desktop": -1.5,
+            "animation": "fade-up",
+            "animation_delay": 0.2
+          }
+        }
+      },
+      "block_order": ["values_bg", "comfort_text", "spacer_1", "fun_text"],
+      "settings": {
+        "layout_mode": "stacked",
+        "aspect_ratio": "auto",
+        "aspect_ratio_mobile": "auto",
+        "remove_margin": false,
+        "section_padding_y": 56
+      }
+    }
+  },
+  "order": ["playful_hero", "playful_values"]
+}
