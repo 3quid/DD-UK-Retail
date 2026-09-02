@@ -7,12 +7,22 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
+/*
+ * Standard page with overlapping header hero.
+ * Assign in Admin: Online store → Pages → [page] → Theme template → standard-hero
+ */
 {
   "sections": {
+    "page_hero": {
+      "type": "page-hero",
+      "settings": {}
+    },
     "main": {
       "type": "main-page",
-      "settings": {}
+      "settings": {
+        "hide_title": true
+      }
     }
   },
-  "order": ["main"]
+  "order": ["page_hero", "main"]
 }

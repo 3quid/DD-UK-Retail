@@ -9,6 +9,17 @@
  */
 {
   "sections": {
+    "page_hero": {
+      "type": "page-hero",
+      "settings": {
+        "title_override": "The Story of Doris & Dude",
+        "hero_background": "shopify://shop_images/background.jpg",
+        "hero_height_desktop": 30,
+        "hero_height_mobile": 24,
+        "hero_title_size": 5,
+        "hero_title_size_mobile": 3.5
+      }
+    },
     "about_story": {
       "type": "about-story",
       "blocks": {
@@ -127,7 +138,7 @@
         "background_image": "shopify://shop_images/background.jpg",
         "background_fallback_color": "#f4f4f4",
         "background_repeat": false,
-        "show_title": true,
+        "show_title": false,
         "title": "The Story of Doris & Dude",
         "title_alignment": "center",
         "title_size_desktop": 56,
@@ -148,5 +159,5 @@
       }
     }
   },
-  "order": ["about_story"]
+  "order": ["page_hero", "about_story"]
 }

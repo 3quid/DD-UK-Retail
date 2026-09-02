@@ -1,1 +1,56 @@
-{"sections":{"main":{"type":"main-list-collections","settings":{}}},"order":["main"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "title_override": "Collections",
+        "strapline": "",
+        "hero_background": "shopify://shop_images/hero-bg5.png",
+        "show_title_prefix": false,
+        "hero_height_desktop": 10,
+        "hero_height_mobile": 10,
+        "hero_title_size": 5,
+        "hero_title_size_mobile": 3.5,
+        "hero_title_offset_x": 0,
+        "hero_title_offset_y": -40,
+        "hero_title_rotation": 0,
+        "hero_title_rotation_mobile": 0,
+        "hero_text_offset_x": 0,
+        "hero_text_offset_y": -40,
+        "hero_text_rotation": 0,
+        "hero_text_rotation_mobile": 0,
+        "hero_strapline_size": 1.5,
+        "hero_strapline_size_mobile": 1.5,
+        "hero_strapline_gap": 0.5,
+        "hero_strapline_rotation": 0,
+        "hero_strapline_rotation_mobile": 0,
+        "title_font_family": ""
+      }
+    },
+    "catalog": {
+      "type": "collections-catalog",
+      "settings": {
+        "featured_empty_message": "Featured collections will appear here once feature graphics are uploaded in Admin.",
+        "columns_desktop": 3,
+        "columns_mobile": 1,
+        "grid_title_size": 3,
+        "grid_title_size_mobile": 2.5,
+        "title_font_family": "",
+        "remove_margin": false
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "catalog"
+  ]
+}
